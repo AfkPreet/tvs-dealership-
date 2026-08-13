@@ -41,9 +41,15 @@ postinstall would otherwise download ~150MB of browsers that the build has no us
 command sets `PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1`; the audit and Lighthouse scripts still work
 locally, where the browser is already installed.
 
+**Keep Next.js current.** Vercel refuses to publish a build running a Next.js version with an open
+security advisory — the build itself succeeds and then the deployment is blocked, which reads
+confusingly in the dashboard. This project tracks the current major for that reason; `npm audit`
+should stay clean. Nothing here uses middleware or the image optimizer, so the advisories have not
+applied in practice, but the gate is on the version number, not on usage.
+
 **Watch the branch.** Vercel deploys the repository's default branch to production. If this work is
-still on a feature branch, either merge it to the default branch first, or set
-*Settings → Git → Production Branch* to the feature branch. Opening a pull request also produces a
+on a feature branch, either merge it to the default branch first, or set the production branch under
+*Settings → Environments → Production → Branch Tracking*. Opening a pull request also produces a
 preview deployment with its own URL, which is enough for testing.
 
 Before go-live, two values in `content/dealer.ts` must change: `formAccessKey` (a free

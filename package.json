@@ -15,9 +15,9 @@
     "preview": "npm run build && npm run build:hi && npm run build && node scripts/build-preview.mjs"
   },
   "dependencies": {
-    "next": "15.5.4",
-    "react": "19.1.1",
-    "react-dom": "19.1.1"
+    "next": "^16.3.1",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
   },
   "devDependencies": {
     "@types/node": "^22.15.3",
