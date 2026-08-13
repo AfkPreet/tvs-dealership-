@@ -108,7 +108,7 @@ const structuredData = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
-      lang="en-IN"
+      lang={process.env.NEXT_PUBLIC_DEFAULT_LOCALE === 'hi' ? 'hi-IN' : 'en-IN'}
       className={`${display.variable} ${body.variable} ${devanagari.variable}`}
       style={
         {

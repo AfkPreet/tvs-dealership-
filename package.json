@@ -10,7 +10,9 @@
     "gen:assets": "node scripts/generate-vehicle-frames.mjs",
     "audit": "node scripts/audit.mjs",
     "lighthouse": "node scripts/lighthouse.mjs",
-    "test:emi": "node lib/emi.test.mjs"
+    "test:emi": "node lib/emi.test.mjs",
+    "build:hi": "NEXT_PUBLIC_DEFAULT_LOCALE=hi next build && rm -rf out-hi && mv out out-hi",
+    "preview": "npm run build && npm run build:hi && npm run build && node scripts/build-preview.mjs"
   },
   "dependencies": {
     "next": "15.5.4",

@@ -8,6 +8,14 @@ import type { Locale } from '@/lib/whatsapp';
 const DICTIONARIES: Record<Locale, Copy> = { en, hi };
 const STORAGE_KEY = 'shakti.locale';
 
+/**
+ * Which language the statically exported HTML is rendered in. Defaults to
+ * English; set NEXT_PUBLIC_DEFAULT_LOCALE=hi at build time for a Hindi-first
+ * export. A visitor's stored preference still wins as soon as the page hydrates.
+ */
+const DEFAULT_LOCALE: Locale =
+  process.env.NEXT_PUBLIC_DEFAULT_LOCALE === 'hi' ? 'hi' : 'en';
+
 type LocaleContextValue = {
   locale: Locale;
   copy: Copy;
@@ -21,10 +29,11 @@ const LocaleContext = createContext<LocaleContextValue>({
 });
 
 export function LocaleProvider({ children }: { children: React.ReactNode }) {
-  // Always start at 'en' so the statically exported HTML and the first client
-  // render agree. The stored preference is applied immediately after mount, and
-  // then survives client-side navigation because this provider never unmounts.
-  const [locale, setLocaleState] = useState<Locale>('en');
+  // Always start at the build's default locale so the statically exported HTML
+  // and the first client render agree. The stored preference is applied
+  // immediately after mount, and then survives client-side navigation because
+  // this provider never unmounts.
+  const [locale, setLocaleState] = useState<Locale>(DEFAULT_LOCALE);
 
   useEffect(() => {
     let stored: string | null = null;
