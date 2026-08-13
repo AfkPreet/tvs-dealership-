@@ -26,14 +26,25 @@ npm run build        # static export into ./out
 | `npm run test:emi` | Checks the EMI maths against a hand-worked reducing-balance calculation |
 | `npm run audit` | Drives the export in Chromium: 4 breakpoints, iPhone, no-JS, reduced-motion, spinner, forms, i18n |
 | `npm run lighthouse` | Lighthouse mobile + desktop against the export, served with Brotli |
+| `npm run preview` | Bundles both language builds into one self-contained `.audit/preview.html` |
 
 `npm run audit` and `npm run lighthouse` both need a built `./out`.
 
 ## Deploying
 
-Vercel, free tier. Framework preset **Next.js**, build command `npm run build`, output directory
-`out`. Nothing else to configure — there is no server, no database and no environment variable
-the site needs to boot.
+Vercel, free tier. Import the repo and take the detected **Next.js** preset — `vercel.json` covers
+the only override needed, and there is no server, no database and no environment variable the site
+needs to boot.
+
+That override exists because Vercel installs devDependencies to run the build, and Playwright's
+postinstall would otherwise download ~150MB of browsers that the build has no use for. The install
+command sets `PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1`; the audit and Lighthouse scripts still work
+locally, where the browser is already installed.
+
+**Watch the branch.** Vercel deploys the repository's default branch to production. If this work is
+still on a feature branch, either merge it to the default branch first, or set
+*Settings → Git → Production Branch* to the feature branch. Opening a pull request also produces a
+preview deployment with its own URL, which is enough for testing.
 
 Before go-live, two values in `content/dealer.ts` must change: `formAccessKey` (a free
 [Web3Forms](https://web3forms.com) key for the dealership's own inbox) and `siteUrl`.
