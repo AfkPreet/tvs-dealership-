@@ -1,0 +1,39 @@
+{
+  "name": "shakti-motors-tvs-bilaspur",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "gen:assets": "node scripts/generate-vehicle-frames.mjs",
+    "audit": "node scripts/audit.mjs",
+    "lighthouse": "node scripts/lighthouse.mjs",
+    "test:emi": "node lib/emi.test.mjs"
+  },
+  "dependencies": {
+    "next": "15.5.4",
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "autoprefixer": "^10.4.21",
+    "lighthouse": "^13.4.1",
+    "playwright": "^1.62.1",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.8.3"
+  },
+  "browserslist": [
+    "chrome >= 100",
+    "edge >= 100",
+    "firefox >= 100",
+    "safari >= 15.4",
+    "ios_saf >= 15.4",
+    "and_chr >= 100"
+  ]
+}

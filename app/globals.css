@@ -1,0 +1,338 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /*
+     * Red is rationed. Black carries the weight.
+     *
+     * #EC1B2E is the brand red from the CI palette and it is what you see on
+     * every non-text surface: the scroll rail, hairlines, the active-nav
+     * underline, focus rings, swatch borders. As *text* or behind white text it
+     * lands at 4.4:1 — just under the 4.5:1 floor — so two tuned siblings carry
+     * those jobs. To the eye they are the same red; to a contrast checker they
+     * are not, and the floor is non-negotiable.
+     */
+    --tvs-red: #ec1b2e; /* brand accent — non-text surfaces only */
+    --tvs-red-cta: #d2172a; /* filled buttons: white on this is 5.3:1 */
+    --tvs-red-deep: #a81020; /* CTA hover */
+    --tvs-red-on-ink: #ff4155; /* red text on --ink / --graphite: 5.6:1 */
+    --tvs-red-on-light: #c4132a; /* red text on white / --mist: 6.0:1 */
+    --ink: #0e0e10;
+    --graphite: #1c1c21;
+    --mist: #f2f3f5;
+    --rule: #d9dbe0;
+    --verified: #0f7a46;
+
+    /* Text tones that clear 4.5:1 on their intended grounds. */
+    --ink-muted: #6b6f77;
+    --on-ink: #ffffff;
+    --on-ink-muted: #a9adb6;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: #ffffff;
+    color: var(--ink);
+    font-family: var(--font-body), system-ui, sans-serif;
+    font-feature-settings: 'cv05' 1;
+    /* Custom :active states are defined per component; the grey flash is not one. */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Tabular figures everywhere a price or a spec number appears. Price columns
+     must align — that is what makes the price tables read as authoritative. */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display), var(--font-body), system-ui, sans-serif;
+    letter-spacing: -0.02em;
+    line-height: 1.04;
+    text-wrap: balance;
+  }
+
+  /* iOS Safari zooms the whole page when a focused input is under 16px. */
+  input,
+  select,
+  textarea,
+  button {
+    font-size: 16px;
+    font-family: inherit;
+  }
+
+  /* A focus ring that is visible on both the light and the dark sections. */
+  :focus-visible {
+    outline: 3px solid var(--tvs-red);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: var(--tvs-red);
+    color: #fff;
+  }
+}
+
+@layer components {
+  .shell {
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
+
+  @media (min-width: 768px) {
+    .shell {
+      padding-inline: 40px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .shell {
+      padding-inline: 64px;
+    }
+  }
+
+  /* Every interactive target clears 44px. */
+  .tap {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 52px;
+    padding: 0 1.5rem;
+    border-radius: 2px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    transition:
+      transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 200ms ease,
+      color 200ms ease,
+      border-color 200ms ease;
+    will-change: transform;
+  }
+
+  .btn:active {
+    transform: scale(0.975);
+  }
+
+  .btn-primary {
+    background: var(--tvs-red-cta);
+    color: #fff;
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--rule);
+  }
+
+  .btn-on-ink {
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+  }
+
+  @media (hover: hover) {
+    .btn-primary:hover {
+      background: var(--tvs-red-deep);
+    }
+    .btn-secondary:hover {
+      border-color: var(--ink);
+    }
+    .btn-on-ink:hover {
+      border-color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+  }
+
+  .field {
+    width: 100%;
+    min-height: 52px;
+    padding: 0 14px;
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    color: var(--ink);
+  }
+
+  .field::placeholder {
+    color: var(--ink-muted);
+  }
+
+  .field:focus {
+    border-color: var(--ink);
+  }
+
+  /* The signature object: a receipt-like panel of hairline rules and tabular
+     numerals, stacking to a bolded red total. */
+  .sheet-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /*
+   * The Hindi half of the language toggle is three Devanagari characters, and
+   * rendering them in the web font pulled 206KB of Noto Sans Devanagari onto
+   * every English page — nearly half the page weight, for one label. Setting
+   * them in the platform's own Devanagari face costs nothing: both Android and
+   * iOS ship one, and the web font still loads the moment the visitor actually
+   * switches to Hindi.
+   */
+  .glyph-devanagari {
+    font-family: 'Noto Sans Devanagari', 'Nirmala UI', 'Kohinoor Devanagari', sans-serif;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+}
+
+@layer utilities {
+  .section-ink {
+    background: var(--ink);
+    color: var(--on-ink);
+  }
+
+  .section-light {
+    background: #fff;
+    color: var(--ink);
+  }
+
+  .section-mist {
+    background: var(--mist);
+    color: var(--ink);
+  }
+
+  /* Desktop motion primitives. Every one of these is transform/opacity only —
+     nothing here can trigger layout. */
+  /*
+   * Section entrance is a rise, not a fade.
+   *
+   * Fading in from `opacity: 0` means every not-yet-revealed section below the
+   * fold is transparent text sitting on the page — which an automated contrast
+   * check reads, correctly, as text that fails contrast. A transform-only
+   * reveal keeps the copy at full opacity the whole time, reads just as well,
+   * and is cheaper to composite.
+   */
+  .reveal {
+    transform: translate3d(0, 22px, 0);
+    transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .reveal-in {
+    transform: translate3d(0, 0, 0);
+  }
+
+  /* The static state: what the server renders, what a reduced-motion or mobile
+     visitor gets, and what shows if JavaScript never arrives. */
+  .reveal-static {
+    transform: none;
+    transition: none;
+  }
+
+  /* Route transition: a single red panel crossing the viewport. */
+  .page-wipe {
+    animation: page-wipe 360ms cubic-bezier(0.76, 0, 0.24, 1) both;
+  }
+
+  @keyframes page-wipe {
+    0% {
+      transform: translate3d(-100%, 0, 0);
+    }
+    48% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(100%, 0, 0);
+    }
+  }
+
+  /*
+   * Hero arrival, on every device: one rise on load, never bound to scroll.
+   *
+   * Text rises without fading, for the same reason the section reveals do — copy
+   * held at `opacity: 0` is copy that fails a contrast check for as long as the
+   * animation lasts. The fade is kept for the vehicle stage, which is artwork
+   * rather than text and has nothing to read.
+   */
+  .hero-rise {
+    animation: hero-rise 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--rise-delay, 0ms);
+  }
+
+  .hero-fade-rise {
+    animation: hero-fade-rise 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--rise-delay, 0ms);
+  }
+
+  @keyframes hero-rise {
+    from {
+      transform: translate3d(0, 16px, 0);
+    }
+    to {
+      transform: none;
+    }
+  }
+
+  @keyframes hero-fade-rise {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 20px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .safe-right {
+    padding-right: env(safe-area-inset-right, 0px);
+  }
+}
+
+/* Non-negotiable: the reduced-motion preference disables the entire layer. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal,
+  .hero-rise,
+  .hero-fade-rise {
+    transform: none !important;
+    animation: none !important;
+  }
+}
