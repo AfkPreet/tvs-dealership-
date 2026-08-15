@@ -32,14 +32,24 @@ npm run build        # static export into ./out
 
 ## Deploying
 
-Vercel, free tier. Import the repo and take the detected **Next.js** preset — `vercel.json` covers
-the only override needed, and there is no server, no database and no environment variable the site
-needs to boot.
+Vercel, free tier. Import the repo — `vercel.json` pins everything, so whatever the import wizard
+guesses is overridden and there is no server, no database and no environment variable to set.
 
-That override exists because Vercel installs devDependencies to run the build, and Playwright's
-postinstall would otherwise download ~150MB of browsers that the build has no use for. The install
-command sets `PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1`; the audit and Lighthouse scripts still work
-locally, where the browser is already installed.
+`vercel.json` does three things:
+
+- **`framework: null` + `outputDirectory: out`.** This is a static export, not a served Next.js app.
+  Left to detect the framework, Vercel routes through its Next.js builder and can end up serving
+  nothing at `/` — a platform `NOT_FOUND` at the edge, even though the build succeeded. Pinning the
+  output directory makes it a plain static site, which is what `output: 'export'` produces. Combined
+  with `trailingSlash: true` — matching `next.config.mjs` — every route resolves to its own
+  `index.html`, and `404.html` is picked up automatically.
+- **`installCommand` sets `PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1`.** Vercel installs devDependencies to
+  run the build, and Playwright's postinstall would otherwise pull ~150MB of browsers the build has
+  no use for. The audit and Lighthouse scripts still work locally, where the browser is present.
+- **A far-future cache header for `/_next/static`.** Those filenames are content-hashed, so they are
+  safe to cache forever; without the framework preset Vercel no longer sets this itself. Vehicle
+  artwork is deliberately *not* pinned this way — those files get replaced when the real renders
+  arrive, and they need to be re-fetchable.
 
 **Keep Next.js current.** Vercel refuses to publish a build running a Next.js version with an open
 security advisory — the build itself succeeds and then the deployment is blocked, which reads
