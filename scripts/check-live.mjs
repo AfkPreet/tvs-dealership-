@@ -100,6 +100,28 @@ for (const asset of ASSETS) {
   }
 }
 
+say('\n### Is the newest build live?\n');
+
+/*
+ * A route returning 200 only proves something is deployed. These are strings and
+ * shapes that exist only in the current build, so a stale deployment shows up
+ * here rather than being mistaken for a healthy one.
+ */
+const FINGERPRINTS = [
+  { path: '/', find: 'models on the floor', what: 'hero proof row' },
+  { path: '/', find: 'The whole TVS range', what: 'range rail section' },
+  { path: '/about/', find: 'Opening day', what: 'opening day strip' },
+  { path: '/service/', find: 'please call before you come', what: 'honest opening hours' },
+];
+
+for (const mark of FINGERPRINTS) {
+  await page.goto(SITE + mark.path, { waitUntil: 'domcontentloaded', timeout: 45_000 });
+  const body = await page.locator('body').innerText();
+  const ok = body.toLowerCase().includes(mark.find.toLowerCase());
+  say(`- ${mark.what} on \`${mark.path}\`: **${ok ? 'yes' : 'NO — stale deployment'}**`);
+  if (!ok) fail.push(`${mark.path}: missing "${mark.find}" (${mark.what})`);
+}
+
 say('\n### Behaviour on a phone\n');
 await page.goto(SITE + '/vehicles/raider-125/', { waitUntil: 'networkidle', timeout: 45_000 });
 await page.waitForTimeout(1500);
@@ -135,6 +157,26 @@ say(`- message carries this origin: **${carriesOrigin ? 'yes' : 'NO'}**`);
 if (!carriesOrigin) fail.push('WhatsApp message does not carry the live origin');
 
 await page.screenshot({ path: 'live-model-mobile.png', fullPage: false });
+
+// The whole-range rail, on a laptop, where it used to be a five-row grid.
+const wide = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+const widePage = await wide.newPage();
+await widePage.goto(SITE + '/', { waitUntil: 'networkidle', timeout: 45_000 });
+await widePage.waitForTimeout(1500);
+
+const rail = widePage.locator('.model-rail').first();
+if ((await rail.count()) === 0) {
+  fail.push('the range rail is missing on a laptop');
+  say('- range rail on a laptop: **missing**');
+} else {
+  const scrolls = await rail.evaluate((el) => el.scrollWidth > el.clientWidth + 8);
+  const models = await rail.locator('a[href^="/vehicles/"]').count();
+  say(`- range rail on a laptop: **${models} models**, scrolls: **${scrolls ? 'yes' : 'NO'}**`);
+  if (!scrolls) fail.push('the range rail does not scroll on a laptop');
+  if (models < 19) fail.push(`the range rail shows ${models} models, expected 19`);
+}
+await widePage.screenshot({ path: 'live-home-desktop.png' });
+await wide.close();
 await page.goto(SITE + '/', { waitUntil: 'networkidle', timeout: 45_000 });
 await page.waitForTimeout(2000);
 await page.screenshot({ path: 'live-home-mobile.png', fullPage: false });
