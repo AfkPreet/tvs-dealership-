@@ -5,8 +5,9 @@ import { LocaleProvider } from '@/lib/locale';
 import { Header } from '@/components/site/Header';
 import { Footer } from '@/components/site/Footer';
 import { FloatingActions } from '@/components/site/FloatingActions';
+import { Intro } from '@/components/site/Intro';
 import { DesktopMotionLayer } from '@/components/site/DesktopMotionLayer';
-import { dealer, addressOneLine, dealerFullName } from '@/content/dealer';
+import { dealer, addressOneLine, dealerFullName, placeLine } from '@/content/dealer';
 
 /**
  * Fonts are self-hosted through next/font — no request ever leaves for a font
@@ -55,9 +56,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(dealer.siteUrl),
   title: {
     default: `${dealerFullName} — TVS scooters, bikes, finance and service`,
-    template: `%s — ${dealer.name}, Bilaspur`,
+    template: `%s — ${dealer.name}, ${dealer.city}`,
   },
-  description: `Authorised TVS dealer in Bilaspur. Full on-road prices, a working EMI calculator, test rides and 3S service on Vyapar Vihar Road. Call ${dealer.phoneDisplay}.`,
+  description: `Authorised TVS dealer in ${placeLine}. Full on-road prices, a working EMI calculator, test rides and 3S service on ${dealer.address.line2}. Call ${dealer.phoneDisplay}.`,
   openGraph: {
     type: 'website',
     locale: 'en_IN',
@@ -88,7 +89,7 @@ const structuredData = {
   telephone: `+${dealer.phone}`,
   address: {
     '@type': 'PostalAddress',
-    streetAddress: `${dealer.address.line1}, ${dealer.address.line2}`,
+    streetAddress: [dealer.address.line1, dealer.address.line2].filter(Boolean).join(', '),
     addressLocality: dealer.address.city,
     addressRegion: dealer.address.state,
     postalCode: dealer.address.pincode,
@@ -124,6 +125,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
         <LocaleProvider>
+          <Intro />
           <DesktopMotionLayer />
           <Header />
           <main id="main">{children}</main>

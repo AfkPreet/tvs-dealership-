@@ -20,6 +20,7 @@ export function Header() {
     { href: '/vehicles', label: copy.nav.vehicles },
     { href: '/finance', label: copy.nav.finance },
     { href: '/service', label: copy.nav.service },
+    { href: '/about', label: copy.nav.about },
   ];
 
   const isActive = (href: string) =>

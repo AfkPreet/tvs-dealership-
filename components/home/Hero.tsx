@@ -1,75 +1,66 @@
 'use client';
 
 import Link from 'next/link';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useLocale } from '@/lib/locale';
 import { useFullMotion, useOnLoadMotion } from '@/lib/useMotionTier';
 import { dealer } from '@/content/dealer';
 import { telLink } from '@/lib/whatsapp';
 import { Magnetic } from '@/components/motion/Magnetic';
-import { HeroVehicle, type HeroLayer } from './HeroVehicle';
+import { HeroStage } from './HeroStage';
+
+/** How far the photograph drifts against the page, in pixels, at full scroll. */
+const PARALLAX_RANGE = 56;
 
 /**
- * Showpiece B — the scroll-driven hero reveal.
+ * The first screen: the showroom itself, and the two things a visitor came for.
  *
- * Desktop: the vehicle assembles as the first viewport scrolls, with a subtle
- * parallax between layers and a soft radial highlight that tracks the pointer,
- * so the machine reads as a lit object in a dark showroom.
+ * Hard requirement, honoured: the headline and both CTAs are in the DOM and
+ * visible before any animation runs. `useOnLoadMotion()` and `useFullMotion()`
+ * both return false on the server and on first paint, so the exported HTML is
+ * the finished hero. If JavaScript never arrives, the hero is complete and every
+ * button works.
  *
- * Mobile: a single fade-and-rise on load. No scroll binding at all —
- * scroll-jacking on a phone is a conversion killer and does not ship here.
+ * Motion, by tier:
+ *   every device — the headline, sub and buttons rise into place once, on load
+ *   desktop only — the photograph drifts slowly against the scroll, and a soft
+ *                  radial highlight follows the pointer across it
  *
- * Hard requirement, honoured: the headline and the primary CTA are in the DOM
- * and visible before any animation runs. `useFullMotion()` returns false
- * on the server and on first paint, so the exported HTML is the finished hero.
- * If JavaScript never arrives, the hero is complete and every button works.
+ * The parallax is a transform on a single element, written from a rAF callback
+ * that is scheduled at most once per frame and unbound when the hero leaves the
+ * viewport. Nothing here can trigger layout.
  */
 export function Hero() {
   const { copy } = useLocale();
-  const reduced = !useFullMotion();
+  const full = useFullMotion();
   const arrive = useOnLoadMotion();
+
   const sectionRef = useRef<HTMLElement>(null);
-  const [progress, setProgress] = useState(reduced ? 1 : 0);
+  const stageRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<number | null>(null);
 
-  // The assembly also runs on load, so a visitor who lands and does not scroll
-  // still sees the vehicle come together — and sees a complete machine within a
-  // second. Scrolling simply drives it to the same finished state faster.
-  const loadProgress = useRef(0);
-  const scrollProgress = useRef(0);
-
-  // Scroll binding — desktop only, and only while the hero is on screen.
+  // Scroll parallax on the photograph. Desktop tier only.
   useEffect(() => {
-    if (reduced) {
-      setProgress(1);
-      return;
-    }
-    const node = sectionRef.current;
-    if (!node) return;
+    if (!full) return;
+    const section = sectionRef.current;
+    const stage = stageRef.current;
+    if (!section || !stage) return;
 
     let bound = false;
 
     const measure = () => {
       frameRef.current = null;
-      const height = node.offsetHeight || 1;
-      const scrolled = Math.min(height, Math.max(0, window.scrollY));
-      scrollProgress.current = (scrolled / height) * 1.8;
-      setProgress(Math.min(1, Math.max(loadProgress.current, scrollProgress.current)));
+      const height = section.offsetHeight || 1;
+      const t = Math.min(1, Math.max(0, window.scrollY / height));
+      stage.style.transform = `translate3d(0, ${(-t * PARALLAX_RANGE).toFixed(2)}px, 0)`;
     };
-
-    // A short self-running ramp, cancelled as soon as it reaches the end.
-    const started = performance.now();
-    let ramp: number | null = requestAnimationFrame(function step(now) {
-      loadProgress.current = Math.min(1, (now - started) / 1100);
-      setProgress(Math.min(1, Math.max(loadProgress.current, scrollProgress.current)));
-      ramp = loadProgress.current < 1 ? requestAnimationFrame(step) : null;
-    });
 
     const onScroll = () => {
-      if (frameRef.current === null) frameRef.current = requestAnimationFrame(measure);
+      if (frameRef.current !== null) return;
+      frameRef.current = window.requestAnimationFrame(measure);
     };
 
-    // Nothing stays bound to the scroller once the hero has left the viewport.
+    // Bound to the scroller only while the hero is actually on screen.
     const observer = new IntersectionObserver((entries) => {
       const visible = entries.some((entry) => entry.isIntersecting);
       if (visible && !bound) {
@@ -81,80 +72,40 @@ export function Hero() {
         bound = false;
       }
     });
-
-    observer.observe(node);
-    measure();
+    observer.observe(section);
 
     return () => {
       observer.disconnect();
       if (bound) window.removeEventListener('scroll', onScroll);
-      if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
-      if (ramp !== null) cancelAnimationFrame(ramp);
+      if (frameRef.current !== null) window.cancelAnimationFrame(frameRef.current);
+      stage.style.transform = '';
     };
-  }, [reduced]);
+  }, [full]);
 
-  /* Cursor-reactive lighting: a radial-gradient position, nothing more. */
-  const stageRef = useRef<HTMLDivElement>(null);
+  // The pointer highlight, written to a custom property so the paint stays on
+  // the compositor and React never re-renders on mouse move.
   useEffect(() => {
-    if (reduced) return;
-    const node = stageRef.current;
-    if (!node) return;
-    if (!window.matchMedia('(hover: hover)').matches) return;
-
-    let queued: number | null = null;
-    let x = 50;
-    let y = 40;
-
-    const apply = () => {
-      queued = null;
-      node.style.setProperty('--light-x', `${x}%`);
-      node.style.setProperty('--light-y', `${y}%`);
-    };
+    if (!full) return;
+    const stage = stageRef.current;
+    if (!stage) return;
 
     const onMove = (event: PointerEvent) => {
-      const rect = node.getBoundingClientRect();
-      x = ((event.clientX - rect.left) / rect.width) * 100;
-      y = ((event.clientY - rect.top) / rect.height) * 100;
-      if (queued === null) queued = requestAnimationFrame(apply);
+      const rect = stage.getBoundingClientRect();
+      stage.style.setProperty('--light-x', `${((event.clientX - rect.left) / rect.width) * 100}%`);
+      stage.style.setProperty('--light-y', `${((event.clientY - rect.top) / rect.height) * 100}%`);
+    };
+    const onLeave = () => {
+      stage.style.setProperty('--light-x', '50%');
+      stage.style.setProperty('--light-y', '38%');
     };
 
-    node.addEventListener('pointermove', onMove);
+    stage.addEventListener('pointermove', onMove);
+    stage.addEventListener('pointerleave', onLeave);
     return () => {
-      node.removeEventListener('pointermove', onMove);
-      if (queued !== null) cancelAnimationFrame(queued);
+      stage.removeEventListener('pointermove', onMove);
+      stage.removeEventListener('pointerleave', onLeave);
     };
-  }, [reduced]);
-
-  /**
-   * Each layer settles from its own offset, in one consistent direction, at a
-   * slightly different rate — that difference is the parallax.
-   */
-  const layerStyle = useCallback(
-    (layer: HeroLayer): React.CSSProperties => {
-      if (reduced) return {};
-
-      const config: Record<HeroLayer, { delay: number; x: number; y: number }> = {
-        wheels: { delay: 0, x: 0, y: 46 },
-        under: { delay: 0.08, x: -40, y: 22 },
-        rear: { delay: 0.16, x: -64, y: 14 },
-        apron: { delay: 0.24, x: 72, y: 14 },
-        seat: { delay: 0.34, x: -28, y: -34 },
-        accent: { delay: 0.44, x: 40, y: -12 },
-      };
-
-      const { delay, x, y } = config[layer];
-      const t = Math.min(1, Math.max(0, (progress - delay) / 0.4));
-      const eased = 1 - Math.pow(1 - t, 3);
-
-      return {
-        opacity: eased,
-        transform: `translate3d(${(1 - eased) * x}px, ${(1 - eased) * y}px, 0)`,
-        transition: 'opacity 120ms linear',
-        willChange: 'transform, opacity',
-      };
-    },
-    [progress, reduced],
-  );
+  }, [full]);
 
   const riseDelay = (ms: number): React.CSSProperties =>
     arrive ? ({ '--rise-delay': `${ms}ms` } as React.CSSProperties) : {};
@@ -191,10 +142,7 @@ export function Hero() {
             {copy.hero.sub}
           </p>
 
-          <div
-            className={`mt-8 flex flex-col gap-3 sm:flex-row ${rise}`}
-            style={riseDelay(180)}
-          >
+          <div className={`mt-8 flex flex-col gap-3 sm:flex-row ${rise}`} style={riseDelay(180)}>
             <Magnetic>
               <Link href="#enquiry" className="btn btn-primary w-full sm:w-auto">
                 {copy.actions.bookTestRide}
@@ -209,24 +157,17 @@ export function Hero() {
         <div
           ref={stageRef}
           className="relative"
-          style={
-            {
-              '--light-x': '50%',
-              '--light-y': '38%',
-            } as React.CSSProperties
-          }
+          style={{ '--light-x': '50%', '--light-y': '38%' } as React.CSSProperties}
         >
+          <HeroStage />
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 -z-0"
+            className="pointer-events-none absolute inset-0 mix-blend-soft-light"
             style={{
               background:
-                'radial-gradient(46% 46% at var(--light-x) var(--light-y), rgba(255,255,255,0.14), rgba(255,255,255,0) 70%)',
+                'radial-gradient(46% 46% at var(--light-x) var(--light-y), rgba(255,255,255,0.24), rgba(255,255,255,0) 70%)',
             }}
           />
-          <div className={arrive ? 'hero-fade-rise' : ''} style={riseDelay(120)}>
-            <HeroVehicle layerStyle={layerStyle} />
-          </div>
         </div>
       </div>
     </section>

@@ -48,6 +48,12 @@ export const en = {
     scrollHint: 'Scroll',
   },
 
+  range: {
+    heading: 'The whole TVS range, on one floor',
+    sub: 'Scroll through everything we sell. Tap a model for its full on-road price.',
+    countLabel: (n: number) => `${n} models`,
+  },
+
   models: {
     heading: 'Start with these',
     sub: `The models ${dealer.city} actually rides. Prices shown are ex-showroom, from.`,

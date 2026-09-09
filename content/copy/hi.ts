@@ -54,6 +54,12 @@ export const hi: Copy = {
     scrollHint: 'नीचे देखें',
   },
 
+  range: {
+    heading: 'पूरी TVS रेंज, एक ही फ़्लोर पर',
+    sub: 'जो कुछ हम बेचते हैं, सब यहाँ है। किसी भी मॉडल पर टैप कीजिए, पूरा on-road दाम खुल जाएगा।',
+    countLabel: (n: number) => `${n} मॉडल`,
+  },
+
   models: {
     heading: 'यहाँ से शुरू करें',
     sub: `वही मॉडल जो ${dealer.city} में सबसे ज़्यादा चलते हैं। नीचे दिए दाम ex-showroom, शुरुआती हैं।`,
