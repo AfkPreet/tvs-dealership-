@@ -1037,7 +1037,13 @@ export const categories: VehicleCategory[] = ['scooter', 'motorcycle', 'moped', 
 
 export const byRank = [...vehicles].sort((a, b) => a.rank - b.rank);
 
-export const featuredVehicles = byRank.filter((v) => v.featured).slice(0, 6);
+/**
+ * The shortlist on the home page. Three, because six is not a shortlist — it is
+ * a catalogue, and on a phone it was five thousand pixels of one before the
+ * visitor reached anything else. The whole range is one section further down,
+ * and /vehicles has all nineteen with their full cards.
+ */
+export const featuredVehicles = byRank.filter((v) => v.featured).slice(0, 3);
 
 export function getVehicle(slug: string): Vehicle | undefined {
   return vehicles.find((v) => v.slug === slug);
