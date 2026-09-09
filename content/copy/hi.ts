@@ -52,6 +52,11 @@ export const hi: Copy = {
     headline: 'एक ही जगह, आपकी TVS तैयार।',
     sub: `${dealer.address.line2} पर sales, service और spares — तीनों एक ही छत के नीचे। पूरा on-road price खुलकर बताया जाता है, finance शोरूम में ही मंज़ूर होता है, और हर पूछताछ का जवाब WhatsApp पर मिलता है।`,
     scrollHint: 'नीचे देखें',
+    proof: [
+      { value: (n: number) => String(n), label: 'मॉडल फ़्लोर पर' },
+      { value: () => 'पूरा', label: 'on-road दाम, खुलकर' },
+      { value: () => 'WhatsApp', label: 'हर पूछताछ का जवाब' },
+    ],
   },
 
   range: {

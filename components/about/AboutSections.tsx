@@ -46,7 +46,7 @@ export function AboutIntro() {
 
   return (
     <section id="about" data-section={copy.about.title} className="section-ink">
-      <div className="shell grid gap-10 py-14 xl:grid-cols-[1fr_1.05fr] xl:items-center xl:gap-16 xl:py-24">
+      <div className="shell grid gap-10 py-14 xl:grid-cols-[1fr_1.05fr] xl:items-center xl:gap-16 xl:py-20">
         <div className="max-w-xl">
           <p className="eyebrow text-tvsred-onink">{placeLine}</p>
           <h1 className="mt-4 text-4xl font-extrabold leading-[1.05] md:text-5xl xl:text-6xl">
@@ -79,7 +79,7 @@ export function AboutStory() {
 
   return (
     <section data-section={copy.about.storyHeading} className="section-light">
-      <div className="shell grid gap-10 py-16 xl:grid-cols-[minmax(0,34rem)_minmax(0,1fr)] xl:gap-16 xl:py-24">
+      <div className="shell grid gap-10 py-16 xl:grid-cols-[minmax(0,34rem)_minmax(0,1fr)] xl:gap-16 xl:py-20">
         <Reveal>
           <h2 className="rail-heading-light text-3xl font-extrabold md:text-4xl">
             {copy.about.storyHeading}
@@ -121,7 +121,7 @@ export function AboutOpening() {
 
   return (
     <section data-section={copy.about.galleryHeading} className="section-ink">
-      <div className="shell py-16 xl:py-24">
+      <div className="shell py-14 xl:py-20">
         <Reveal>
           <h2 className="rail-heading text-3xl font-extrabold md:text-4xl">
             {copy.about.galleryHeading}
@@ -153,7 +153,7 @@ export function AboutTeam() {
 
   return (
     <section data-section={copy.about.teamHeading} className="section-mist">
-      <div className="shell py-16 xl:py-24">
+      <div className="shell py-14 xl:py-20">
         <Reveal>
           <h2 className="rail-heading-light text-3xl font-extrabold md:text-4xl">
             {copy.about.teamHeading}
@@ -179,7 +179,7 @@ export function AboutVisit() {
 
   return (
     <section id="visit" data-section={copy.about.visitHeading} className="section-ink scroll-mt-20">
-      <div className="shell grid gap-10 py-16 xl:grid-cols-2 xl:gap-16 xl:py-24">
+      <div className="shell grid gap-10 py-16 xl:grid-cols-2 xl:gap-16 xl:py-20">
         <div className="max-w-xl">
           <h2 className="text-3xl font-extrabold md:text-4xl xl:text-5xl">{copy.about.visitHeading}</h2>
           <p className="mt-4 text-[color:var(--on-ink-muted)]">{copy.about.visitBody}</p>

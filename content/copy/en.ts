@@ -46,6 +46,12 @@ export const en = {
     headline: 'Your TVS, sorted in one visit.',
     sub: `Sales, service and spares under one roof on ${dealer.address.line2}. On-road prices quoted in full, finance approved in the showroom, and every enquiry answered on WhatsApp.`,
     scrollHint: 'Scroll',
+    /** Three things that are true, under the buttons, instead of empty space. */
+    proof: [
+      { value: (n: number) => String(n), label: 'models on the floor' },
+      { value: () => 'Full', label: 'on-road price, written out' },
+      { value: () => 'WhatsApp', label: 'every enquiry, answered' },
+    ],
   },
 
   range: {

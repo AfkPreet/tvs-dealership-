@@ -58,7 +58,7 @@ export function ModelStrip() {
 
   return (
     <section id="range" data-section={copy.range.heading} className="section-ink">
-      <div className="py-16 xl:py-24">
+      <div className="py-14 xl:py-20">
         <div className="shell">
           <Reveal>
             <div className="flex flex-wrap items-end justify-between gap-6">

@@ -1,125 +1,47 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useRef } from 'react';
 import { useLocale } from '@/lib/locale';
-import { useFullMotion, useOnLoadMotion } from '@/lib/useMotionTier';
+import { useOnLoadMotion } from '@/lib/useMotionTier';
 import { dealer } from '@/content/dealer';
+import { byRank } from '@/content/vehicles';
 import { telLink } from '@/lib/whatsapp';
 import { Magnetic } from '@/components/motion/Magnetic';
 import { HeroStage } from './HeroStage';
 
-/** How far the photograph drifts against the page, in pixels, at full scroll. */
-const PARALLAX_RANGE = 56;
-
 /**
- * The first screen: the showroom itself, and the two things a visitor came for.
+ * The first screen.
  *
- * Hard requirement, honoured: the headline and both CTAs are in the DOM and
- * visible before any animation runs. `useOnLoadMotion()` and `useFullMotion()`
- * both return false on the server and on first paint, so the exported HTML is
- * the finished hero. If JavaScript never arrives, the hero is complete and every
- * button works.
+ * The photograph is not in a box any more. On a wide screen it fills the full
+ * height of the section and bleeds off the right edge, which is what removes
+ * the dead space the old layout left underneath it and what makes the showroom
+ * feel like the subject rather than an illustration beside the text. On a phone
+ * the order is unchanged — headline, buttons, then the photograph — because the
+ * two things a visitor came to do are call and message.
  *
- * Motion, by tier:
- *   every device — the headline, sub and buttons rise into place once, on load
- *   desktop only — the photograph drifts slowly against the scroll, and a soft
- *                  radial highlight follows the pointer across it
+ * There is no scroll-driven motion here. The hero used to drift against the
+ * scroll on desktop; a hero should be strong when it is still, and a parallax
+ * is a way of avoiding that rather than achieving it. What remains is one
+ * entrance on load, which costs a single composited animation and never
+ * re-runs.
  *
- * The parallax is a transform on a single element, written from a rAF callback
- * that is scheduled at most once per frame and unbound when the hero leaves the
- * viewport. Nothing here can trigger layout.
+ * Hard requirement, honoured: the headline and both buttons are in the DOM and
+ * visible before anything animates. `useOnLoadMotion()` is false on the server
+ * and on first paint, so the exported HTML is the finished hero and the page
+ * works with JavaScript switched off.
  */
 export function Hero() {
   const { copy } = useLocale();
-  const full = useFullMotion();
   const arrive = useOnLoadMotion();
-
-  const sectionRef = useRef<HTMLElement>(null);
-  const stageRef = useRef<HTMLDivElement>(null);
-  const frameRef = useRef<number | null>(null);
-
-  // Scroll parallax on the photograph. Desktop tier only.
-  useEffect(() => {
-    if (!full) return;
-    const section = sectionRef.current;
-    const stage = stageRef.current;
-    if (!section || !stage) return;
-
-    let bound = false;
-
-    const measure = () => {
-      frameRef.current = null;
-      const height = section.offsetHeight || 1;
-      const t = Math.min(1, Math.max(0, window.scrollY / height));
-      stage.style.transform = `translate3d(0, ${(-t * PARALLAX_RANGE).toFixed(2)}px, 0)`;
-    };
-
-    const onScroll = () => {
-      if (frameRef.current !== null) return;
-      frameRef.current = window.requestAnimationFrame(measure);
-    };
-
-    // Bound to the scroller only while the hero is actually on screen.
-    const observer = new IntersectionObserver((entries) => {
-      const visible = entries.some((entry) => entry.isIntersecting);
-      if (visible && !bound) {
-        window.addEventListener('scroll', onScroll, { passive: true });
-        bound = true;
-        measure();
-      } else if (!visible && bound) {
-        window.removeEventListener('scroll', onScroll);
-        bound = false;
-      }
-    });
-    observer.observe(section);
-
-    return () => {
-      observer.disconnect();
-      if (bound) window.removeEventListener('scroll', onScroll);
-      if (frameRef.current !== null) window.cancelAnimationFrame(frameRef.current);
-      stage.style.transform = '';
-    };
-  }, [full]);
-
-  // The pointer highlight, written to a custom property so the paint stays on
-  // the compositor and React never re-renders on mouse move.
-  useEffect(() => {
-    if (!full) return;
-    const stage = stageRef.current;
-    if (!stage) return;
-
-    const onMove = (event: PointerEvent) => {
-      const rect = stage.getBoundingClientRect();
-      stage.style.setProperty('--light-x', `${((event.clientX - rect.left) / rect.width) * 100}%`);
-      stage.style.setProperty('--light-y', `${((event.clientY - rect.top) / rect.height) * 100}%`);
-    };
-    const onLeave = () => {
-      stage.style.setProperty('--light-x', '50%');
-      stage.style.setProperty('--light-y', '38%');
-    };
-
-    stage.addEventListener('pointermove', onMove);
-    stage.addEventListener('pointerleave', onLeave);
-    return () => {
-      stage.removeEventListener('pointermove', onMove);
-      stage.removeEventListener('pointerleave', onLeave);
-    };
-  }, [full]);
 
   const riseDelay = (ms: number): React.CSSProperties =>
     arrive ? ({ '--rise-delay': `${ms}ms` } as React.CSSProperties) : {};
   const rise = arrive ? 'hero-rise' : '';
 
   return (
-    <section
-      ref={sectionRef}
-      id="hero"
-      data-section={copy.nav.home}
-      className="section-ink relative overflow-hidden"
-    >
-      <div className="shell grid gap-10 py-14 md:py-20 xl:grid-cols-[1.05fr_1fr] xl:items-center xl:gap-16 xl:py-28">
-        <div className="max-w-2xl">
+    <section id="hero" data-section={copy.nav.home} className="section-ink relative overflow-hidden">
+      <div className="shell relative py-14 md:py-16 xl:min-h-[min(84vh,720px)] xl:py-20">
+        <div className="flex h-full flex-col justify-center xl:max-w-[52%]">
           <p
             className={`eyebrow inline-flex items-center gap-2 text-tvsred-onink ${rise}`}
             style={riseDelay(0)}
@@ -128,15 +50,17 @@ export function Hero() {
             {copy.hero.eyebrow}
           </p>
 
+          {/* Set tighter and larger than the body scale allows on its own: this
+              is the only place on the site where type is the loudest element. */}
           <h1
-            className={`mt-4 text-[2.5rem] font-extrabold leading-[1.02] md:text-6xl xl:text-7xl ${rise}`}
+            className={`mt-5 text-[clamp(2.6rem,8.4vw,4rem)] font-extrabold leading-[0.94] tracking-[-0.035em] xl:text-[clamp(3.5rem,4.6vw,4.75rem)] ${rise}`}
             style={riseDelay(60)}
           >
             {copy.hero.headline}
           </h1>
 
           <p
-            className={`mt-5 max-w-xl text-base leading-relaxed text-[color:var(--on-ink-muted)] md:text-lg ${rise}`}
+            className={`mt-6 max-w-[34ch] text-[17px] leading-relaxed text-[color:var(--on-ink-muted)] md:text-lg ${rise}`}
             style={riseDelay(120)}
           >
             {copy.hero.sub}
@@ -152,23 +76,47 @@ export function Hero() {
               {copy.actions.callNow} — <span className="tnum">{dealer.phoneDisplay}</span>
             </a>
           </div>
+
+          {/* Three true things, where the layout used to leave a hole. */}
+          <dl
+            className={`mt-10 grid max-w-lg grid-cols-3 gap-x-4 border-t border-white/12 pt-6 sm:gap-x-5 ${rise}`}
+            style={riseDelay(240)}
+          >
+            {copy.hero.proof.map((item) => (
+              <div key={item.label}>
+                <dt className="sr-only">{item.label}</dt>
+                <dd>
+                  <span className="tnum block font-display text-lg font-bold leading-none tracking-tightest text-white sm:text-2xl md:text-[1.75rem]">
+                    {item.value(byRank.length)}
+                  </span>
+                  <span
+                    aria-hidden
+                    className="mt-2 block text-[12px] leading-snug text-[color:var(--on-ink-muted)] sm:text-[13px]"
+                  >
+                    {item.label}
+                  </span>
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
 
+      </div>
+
+      {/*
+        After the copy in the DOM, so a phone reads headline, buttons, then the
+        showroom — and a screen reader does the same. From xl it lifts out of the
+        flow into a full-height panel down the right edge, which is what removes
+        the dead space the old boxed layout left underneath it.
+      */}
+      <div className="xl:pointer-events-none xl:absolute xl:inset-y-0 xl:right-0 xl:w-[46%]">
+        <HeroStage />
+        {/* A gradient back into the section so the photograph has no hard edge
+            against the copy. Left to right, so it never darkens the subject. */}
         <div
-          ref={stageRef}
-          className="relative"
-          style={{ '--light-x': '50%', '--light-y': '38%' } as React.CSSProperties}
-        >
-          <HeroStage />
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 mix-blend-soft-light"
-            style={{
-              background:
-                'radial-gradient(46% 46% at var(--light-x) var(--light-y), rgba(255,255,255,0.24), rgba(255,255,255,0) 70%)',
-            }}
-          />
-        </div>
+          aria-hidden
+          className="absolute inset-y-0 left-0 hidden w-40 bg-gradient-to-r from-[color:var(--ink)] to-transparent xl:block"
+        />
       </div>
     </section>
   );

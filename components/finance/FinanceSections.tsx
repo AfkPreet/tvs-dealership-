@@ -37,7 +37,7 @@ export function FinanceEnquiry() {
 
   return (
     <section id="finance-enquiry" className="section-ink scroll-mt-20">
-      <div className="shell grid gap-10 py-16 xl:grid-cols-2 xl:gap-16 xl:py-24">
+      <div className="shell grid gap-10 py-16 xl:grid-cols-2 xl:gap-16 xl:py-20">
         <div className="max-w-xl">
           <h2 className="text-3xl font-extrabold md:text-4xl">{copy.finance.formHeading}</h2>
           <p className="mt-4 text-[color:var(--on-ink-muted)]">{copy.finance.formSub}</p>

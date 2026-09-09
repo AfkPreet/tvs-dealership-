@@ -109,6 +109,16 @@ async function main() {
       viewport: { width: bp.width, height: bp.height },
       deviceScaleFactor: 1,
     });
+    // Mark the opening card as already seen, so these screenshots show the page
+    // rather than the card mid-fade over it. Section 5c tests the card itself.
+    await context.addInitScript(() => {
+      try {
+        sessionStorage.setItem('skm-intro-shown', '1');
+      } catch {
+        /* storage disabled; the card is harmless in a screenshot */
+      }
+    });
+
     const page = await context.newPage();
     page.on('pageerror', (error) => note(`[${bp.name}] page error: ${error.message}`));
 

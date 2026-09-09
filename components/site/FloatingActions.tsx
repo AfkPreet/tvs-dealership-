@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useLocale } from '@/lib/locale';
 import { dealer } from '@/content/dealer';
@@ -12,17 +13,64 @@ import { telLink, whatsappLink } from '@/lib/whatsapp';
  * collapses to a single floating WhatsApp button on desktop. `env(safe-area-
  * inset-*)` keeps it clear of the iPhone home indicator instead of sitting under
  * it.
+ *
+ * It slides away while you read down the page and comes back the moment you
+ * scroll up, which is when someone is looking for a way to act. 56px is a lot
+ * of a phone screen to spend permanently, and the hero already carries both
+ * buttons, so it stays hidden until you have scrolled past that.
+ *
+ * The spacer below it does not move with it: if it collapsed too, the page
+ * would shorten every time the bar hid and the content under your thumb would
+ * jump.
  */
 export function FloatingActions() {
   const { copy, locale } = useLocale();
   const pathname = usePathname();
+
+  // Visible by default, including in the exported HTML and with JavaScript off,
+  // so the bar is never missing for someone who cannot run the script.
+  const [shown, setShown] = useState(true);
+  const lastY = useRef(0);
+
+  useEffect(() => {
+    lastY.current = window.scrollY;
+    let frame = 0;
+
+    const measure = () => {
+      frame = 0;
+      const y = window.scrollY;
+      const delta = y - lastY.current;
+      // A small threshold, so a jittery thumb does not flap the bar.
+      if (Math.abs(delta) > 6) {
+        setShown(y < 240 || delta < 0);
+        lastY.current = y;
+      }
+    };
+
+    const onScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(measure);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
 
   const wa = whatsappLink({ kind: 'general', sourcePath: pathname, locale });
 
   return (
     <>
       {/* Phone: a two-up action bar docked to the bottom edge. */}
-      <div className="safe-bottom fixed inset-x-0 bottom-0 z-30 border-t border-white/10 bg-ink/95 backdrop-blur xl:hidden">
+      <div
+        data-action-bar
+        aria-hidden={!shown}
+        className={`safe-bottom fixed inset-x-0 bottom-0 z-30 border-t border-white/10 bg-ink/95 backdrop-blur transition-transform duration-300 xl:hidden ${
+          shown ? 'translate-y-0' : 'translate-y-full'
+        }`}
+      >
         <div className="grid grid-cols-2 gap-px">
           <a
             href={telLink}

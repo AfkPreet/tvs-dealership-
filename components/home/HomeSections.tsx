@@ -21,7 +21,7 @@ export function ModelShortlist() {
 
   return (
     <section id="models" data-section={copy.models.heading} className="section-light">
-      <div className="shell py-16 xl:py-24">
+      <div className="shell py-14 xl:py-20">
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div className="max-w-2xl">
@@ -63,7 +63,7 @@ export function EmiTeaser() {
 
   return (
     <section id="emi" data-section={copy.emiTeaser.heading} className="section-ink">
-      <div className="shell grid gap-10 py-16 xl:grid-cols-2 xl:items-center xl:py-24">
+      <div className="shell grid gap-10 py-16 xl:grid-cols-2 xl:items-center xl:py-20">
         <Reveal>
           <p className="eyebrow text-tvsred-onink">
             {copy.emiTeaser.chipLabel} {formatINR(cheapest)}
@@ -116,7 +116,7 @@ export function WhyBuyHere() {
 
   return (
     <section id="why" data-section={copy.why.heading} className="section-mist">
-      <div className="shell py-16 xl:py-24">
+      <div className="shell py-14 xl:py-20">
         <Reveal>
           <h2 className="max-w-3xl text-3xl font-extrabold md:text-4xl xl:text-5xl">{copy.why.heading}</h2>
           <p className="mt-3 max-w-xl text-[color:var(--ink-muted)]">{copy.why.sub}</p>
@@ -165,7 +165,7 @@ export function LocationSection() {
 
   return (
     <section id="location" data-section={copy.location.heading} className="section-light">
-      <div className="shell py-16 xl:py-24">
+      <div className="shell py-14 xl:py-20">
         <Reveal>
           <h2 className="max-w-2xl text-3xl font-extrabold md:text-4xl xl:text-5xl">{copy.location.heading}</h2>
           <p className="mt-3 max-w-xl text-[color:var(--ink-muted)]">{copy.location.sub}</p>
@@ -243,7 +243,7 @@ export function EnquirySection() {
   return (
     // Motion is absent here. Where the visitor is doing work, the interface holds still.
     <section id="enquiry" data-section={copy.form.heading} className="section-ink scroll-mt-20">
-      <div className="shell grid gap-10 py-16 xl:grid-cols-2 xl:gap-16 xl:py-24">
+      <div className="shell grid gap-10 py-16 xl:grid-cols-2 xl:gap-16 xl:py-20">
         <div className="max-w-xl">
           <h2 className="text-3xl font-extrabold md:text-4xl xl:text-5xl">{copy.form.heading}</h2>
           <p className="mt-4 text-[color:var(--on-ink-muted)]">{copy.form.sub}</p>

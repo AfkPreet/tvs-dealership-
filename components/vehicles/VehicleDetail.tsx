@@ -99,7 +99,7 @@ export function VehicleDetail({ vehicle }: { vehicle: Vehicle }) {
 
       {/* Price sheet and specs sit side by side on desktop, stacked on a phone. */}
       <section id="price" data-section={copy.model.onRoadHeading} className="section-mist">
-        <div className="shell grid gap-8 py-16 xl:grid-cols-[minmax(0,1fr)_minmax(0,480px)] xl:items-start xl:py-24">
+        <div className="shell grid gap-8 py-16 xl:grid-cols-[minmax(0,1fr)_minmax(0,480px)] xl:items-start xl:py-20">
           <Reveal>
             <h2 className="text-3xl font-extrabold md:text-4xl">{copy.model.specsHeading}</h2>
             <table className="rounded-doc mt-6 w-full border-collapse bg-white text-left text-[15px]">
@@ -154,7 +154,7 @@ export function VehicleDetail({ vehicle }: { vehicle: Vehicle }) {
 
       {/* Motion is absent from the CTA block — the visitor is doing work here. */}
       <section id="enquiry" data-section={copy.model.ctaHeading} className="section-ink scroll-mt-20">
-        <div className="shell grid gap-10 py-16 xl:grid-cols-2 xl:gap-16 xl:py-24">
+        <div className="shell grid gap-10 py-16 xl:grid-cols-2 xl:gap-16 xl:py-20">
           <div className="max-w-xl">
             <h2 className="text-3xl font-extrabold md:text-4xl xl:text-5xl">{copy.model.ctaHeading}</h2>
             <p className="mt-4 text-[color:var(--on-ink-muted)]">{copy.model.ctaSub}</p>
