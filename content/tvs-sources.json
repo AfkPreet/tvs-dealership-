@@ -1,0 +1,198 @@
+{
+  "$comment": "Scooty Pep+ is omitted: TVS ended production in late 2024. Seed pages on tvsmotor.com for scripts/fetch-tvs.mjs. The script also reads the site's sitemap and prefers a discovered URL whose path contains one of `match`, so these are starting points rather than a dependency. `category` and `rank` carry into content/vehicles.ts.",
+  "origin": "https://www.tvsmotor.com",
+  "models": [
+    {
+      "slug": "jupiter-110",
+      "name": "TVS Jupiter",
+      "category": "scooter",
+      "rank": 1,
+      "seed": "/tvs-jupiter",
+      "match": [
+        "/tvs-jupiter"
+      ]
+    },
+    {
+      "slug": "jupiter-125",
+      "name": "TVS Jupiter 125",
+      "category": "scooter",
+      "rank": 2,
+      "seed": "/tvs-jupiter-125",
+      "match": [
+        "/tvs-jupiter-125"
+      ]
+    },
+    {
+      "slug": "ntorq-125",
+      "name": "TVS NTORQ 125",
+      "category": "scooter",
+      "rank": 3,
+      "seed": "/tvs-ntorq",
+      "match": [
+        "/tvs-ntorq"
+      ]
+    },
+    {
+      "slug": "zest-110",
+      "name": "TVS Zest 110",
+      "category": "scooter",
+      "rank": 4,
+      "seed": "/tvs-zest",
+      "match": [
+        "/tvs-zest",
+        "zest-110"
+      ]
+    },
+    {
+      "slug": "raider-125",
+      "name": "TVS Raider 125",
+      "category": "motorcycle",
+      "rank": 5,
+      "seed": "/tvs-raider",
+      "match": [
+        "/tvs-raider"
+      ]
+    },
+    {
+      "slug": "sport",
+      "name": "TVS Sport",
+      "category": "motorcycle",
+      "rank": 6,
+      "seed": "/tvs-sport",
+      "match": [
+        "/tvs-sport"
+      ]
+    },
+    {
+      "slug": "star-city-plus",
+      "name": "TVS Star City Plus",
+      "category": "motorcycle",
+      "rank": 7,
+      "seed": "/tvs-star-city-plus",
+      "match": [
+        "star-city"
+      ]
+    },
+    {
+      "slug": "radeon",
+      "name": "TVS Radeon",
+      "category": "motorcycle",
+      "rank": 8,
+      "seed": "/tvs-radeon",
+      "match": [
+        "/tvs-radeon"
+      ]
+    },
+    {
+      "slug": "xl100",
+      "name": "TVS XL100 Heavy Duty",
+      "category": "moped",
+      "rank": 9,
+      "seed": "/tvs-xl100/tvs-xl100-heavy-duty",
+      "match": [
+        "xl100"
+      ]
+    },
+    {
+      "slug": "iqube",
+      "name": "TVS iQube",
+      "category": "electric",
+      "rank": 10,
+      "seed": "/electric-scooters/tvs-iqube",
+      "match": [
+        "tvs-iqube"
+      ]
+    },
+    {
+      "slug": "orbiter",
+      "name": "TVS Orbiter",
+      "category": "electric",
+      "rank": 11,
+      "seed": "/electric-scooters/tvs-orbiter",
+      "match": [
+        "tvs-orbiter"
+      ]
+    },
+    {
+      "slug": "tvs-x",
+      "name": "TVS X",
+      "category": "electric",
+      "rank": 12,
+      "seed": "/electric-scooters/tvs-x",
+      "match": [
+        "electric-scooters/tvs-x"
+      ]
+    },
+    {
+      "slug": "apache-rtr-160",
+      "name": "TVS Apache RTR 160",
+      "category": "motorcycle",
+      "rank": 13,
+      "seed": "/tvs-apache/apache-rtr-160-2v",
+      "match": [
+        "apache-rtr-160-2v"
+      ]
+    },
+    {
+      "slug": "apache-rtr-160-4v",
+      "name": "TVS Apache RTR 160 4V",
+      "category": "motorcycle",
+      "rank": 14,
+      "seed": "/tvs-apache/apache-rtr-160-4v",
+      "match": [
+        "apache-rtr-160-4v"
+      ]
+    },
+    {
+      "slug": "apache-rtr-180",
+      "name": "TVS Apache RTR 180",
+      "category": "motorcycle",
+      "rank": 15,
+      "seed": "/tvs-apache/apache-rtr-180",
+      "match": [
+        "apache-rtr-180"
+      ]
+    },
+    {
+      "slug": "apache-rtr-200-4v",
+      "name": "TVS Apache RTR 200 4V",
+      "category": "motorcycle",
+      "rank": 16,
+      "seed": "/tvs-apache/apache-rtr-200-4v",
+      "match": [
+        "apache-rtr-200"
+      ]
+    },
+    {
+      "slug": "apache-rtr-310",
+      "name": "TVS Apache RTR 310",
+      "category": "motorcycle",
+      "rank": 17,
+      "seed": "/tvs-apache/apache-rtr-310",
+      "match": [
+        "apache-rtr-310"
+      ]
+    },
+    {
+      "slug": "apache-rr-310",
+      "name": "TVS Apache RR 310",
+      "category": "motorcycle",
+      "rank": 18,
+      "seed": "/tvs-apache/apache-rr-310",
+      "match": [
+        "apache-rr-310",
+        "apache-rr310"
+      ]
+    },
+    {
+      "slug": "ronin",
+      "name": "TVS Ronin",
+      "category": "motorcycle",
+      "rank": 19,
+      "seed": "/tvs-ronin",
+      "match": [
+        "/tvs-ronin"
+      ]
+    }
+  ]
+}

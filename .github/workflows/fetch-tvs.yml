@@ -1,0 +1,66 @@
+# Fetches official model pages, images, colours, specs and prices from
+# tvsmotor.com and commits them to the `assets/tvs-fetch` branch for review.
+#
+# Runs on GitHub's runners because the development sandbox cannot reach
+# tvsmotor.com. Trigger it from the Actions tab or the API; nothing runs on
+# a schedule. The dealership has stated permission to use these assets.
+name: Fetch TVS assets
+
+on:
+  workflow_dispatch:
+    inputs:
+      only:
+        description: Comma-separated slugs to fetch (blank = all)
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm ci
+
+      - name: Browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Image tooling
+        run: npm i --no-save sharp
+
+      - name: Fetch
+        env:
+          FETCH_ONLY: ${{ github.event.inputs.only }}
+        run: node scripts/fetch-tvs.mjs
+
+      - name: Publish to assets/tvs-fetch
+        run: |
+          git config user.name "tvs-fetch[bot]"
+          git config user.email "tvs-fetch@users.noreply.github.com"
+          git checkout -B assets/tvs-fetch
+          git add -A public/vehicles content/tvs-raw.json media/tvs-pages
+          git commit -m "Fetch TVS assets ($(date -u +%Y-%m-%dT%H:%MZ))" || echo "nothing to commit"
+          git push -f origin assets/tvs-fetch
+
+      - name: Summary
+        if: always()
+        run: |
+          echo '## Fetch summary' >> "$GITHUB_STEP_SUMMARY"
+          if [ -f content/tvs-raw.json ]; then
+            node -e '
+              const r = require("./content/tvs-raw.json");
+              for (const m of r.models) console.log(`- ${m.slug}: ${m.status} — ${m.images?.length ?? 0} images, ${m.colours?.length ?? 0} colours, ${m.specs?.length ?? 0} spec rows, ${m.prices?.length ?? 0} prices${m.error ? " — " + m.error : ""}`);
+            ' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "content/tvs-raw.json was not produced." >> "$GITHUB_STEP_SUMMARY"
+          fi
