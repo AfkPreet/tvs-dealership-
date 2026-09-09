@@ -136,9 +136,15 @@ export function ColourStage({ vehicle }: { vehicle: Vehicle }) {
                     }
               }
             >
-              {/* Where there is a photograph, the swatch is the photograph —
-                  scaled up and centred on the tank, which is where the colour
-                  actually reads. A hand-picked hex can be wrong; this cannot. */}
+              {/* Where there is a photograph, the swatch is the photograph. A
+                  hand-picked hex can be wrong about a colour; a crop of the bike
+                  in that colour cannot.
+
+                  The crop has to land on the tank and side panel. Centred, it
+                  lands on the engine and front wheel, and every swatch comes out
+                  the same dark circle — which is exactly as useless as a wrong
+                  hex. `objectPosition` puts the window over the body work and
+                  the scale fills the circle with it. */}
               {option.image ? (
                 <img
                   src={option.image}
@@ -149,7 +155,8 @@ export function ColourStage({ vehicle }: { vehicle: Vehicle }) {
                   aria-hidden="true"
                   loading="lazy"
                   decoding="async"
-                  className="absolute left-1/2 top-1/2 h-[190%] w-[190%] max-w-none -translate-x-[46%] -translate-y-[58%] object-cover"
+                  className="absolute inset-0 h-full w-full scale-[1.9] object-cover"
+                  style={{ objectPosition: '58% 38%' }}
                 />
               ) : null}
               <span className="sr-only">{option.name}</span>
@@ -165,7 +172,7 @@ export function ColourStage({ vehicle }: { vehicle: Vehicle }) {
           <p className="eyebrow text-[color:var(--on-ink-muted)]">{copy.model.galleryHeading}</p>
           <ul className="mt-3 grid grid-cols-4 gap-2">
             {vehicle.images.gallery.map((image) => (
-              <li key={image} className="overflow-hidden rounded-sm bg-white">
+              <li key={image} className="photo-ground overflow-hidden rounded-sm">
                 <img
                   src={image}
                   srcSet={imageSrcSet(image)}

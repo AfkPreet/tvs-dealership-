@@ -11,6 +11,21 @@ const config: Config = {
       '2xl': '1600px',
     },
     extend: {
+      /**
+       * Two radii, and the difference between them is the point.
+       *
+       * `sm` (6px) is for things that are surfaces — cards, photo panels,
+       * buttons, fields. 2px on a photograph read as unfinished rather than as
+       * a decision.
+       *
+       * `doc` (2px) is for things that should read as a printed document: the
+       * price sheet and the specification tables. Keeping those square is what
+       * stops the site looking like every other template.
+       */
+      borderRadius: {
+        sm: '6px',
+        doc: '2px',
+      },
       colors: {
         tvsred: 'var(--tvs-red)',
         'tvsred-cta': 'var(--tvs-red-cta)',

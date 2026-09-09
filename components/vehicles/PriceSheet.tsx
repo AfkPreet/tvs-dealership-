@@ -77,7 +77,9 @@ export function PriceSheet({
   return (
     <div
       ref={ref}
-      className={`rounded-sm border border-rule bg-white ${isMini ? 'p-5' : 'p-6 xl:p-8'}`}
+      // Square on purpose: this is the signature element and it should read
+      // as a printed price list, not as another rounded card.
+      className={`rounded-doc border border-rule bg-white ${isMini ? 'p-5' : 'p-6 xl:p-8'}`}
     >
       <div className="flex items-baseline justify-between gap-4">
         <h3 className={`font-display font-bold tracking-tightest ${isMini ? 'text-lg' : 'text-2xl xl:text-3xl'}`}>
