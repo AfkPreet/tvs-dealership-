@@ -37,6 +37,13 @@ const PHOTOS = [
     id: 'hero-floor',
     src: 'WhatsApp Image 2026-09-09 at 2.42.04 AM (1).jpeg',
     alt: 'A row of new TVS Raider and Apache motorcycles lined up along the showroom floor.',
+    // The phone hero displays this at 4:5. Shipping the full 9:16 frame and
+    // letting CSS crop it wastes about a third of the pixels on the largest
+    // image on the page, which is also the one Largest Contentful Paint waits
+    // for. Cropped here instead, and slightly softer: it is a hand-held photo
+    // of a showroom floor, not a product shot with edges to hold.
+    crop: 4 / 5,
+    quality: 62,
   },
   {
     id: 'storefront',
@@ -87,29 +94,41 @@ async function photos() {
     }
     const input = sharp(file).rotate(); // honour EXIF orientation
     const meta = await input.metadata();
-    const widths = WIDTHS.filter((w) => w <= meta.width);
+    const quality = p.quality ?? 78;
+
+    // A cropped photo's usable width is bounded by what the crop can take from
+    // the original without upscaling.
+    const sourceWidth = p.crop
+      ? Math.min(meta.width, Math.round(meta.height * p.crop))
+      : meta.width;
+    const widths = WIDTHS.filter((w) => w <= sourceWidth);
     // Nothing is upscaled, so when the original falls between tiers the original
     // width itself becomes the top rendition rather than losing detail to 800.
-    if (widths[0] !== meta.width) widths.unshift(meta.width);
+    if (widths[0] !== sourceWidth) widths.unshift(sourceWidth);
 
     for (const w of widths) {
       const dest = path.join(OUT, `${p.id}-${w}.webp`);
-      await sharp(file)
-        .rotate()
-        .resize({ width: w, withoutEnlargement: true })
-        .webp({ quality: 78, effort: 6 })
-        .toFile(dest);
+      const resize = p.crop
+        ? { width: w, height: Math.round(w / p.crop), fit: 'cover', position: 'centre' }
+        : { width: w, withoutEnlargement: true };
+      await sharp(file).rotate().resize(resize).webp({ quality, effort: 6 }).toFile(dest);
     }
 
     // A 24px-wide blur used as the CSS background under the image while it loads.
     const lqip = await sharp(file)
       .rotate()
-      .resize({ width: 24 })
+      .resize(
+        p.crop
+          ? { width: 24, height: Math.round(24 / p.crop), fit: 'cover', position: 'centre' }
+          : { width: 24 },
+      )
       .webp({ quality: 40 })
       .toBuffer();
 
     const largest = Math.max(...widths);
-    const height = Math.round((meta.height / meta.width) * largest);
+    const height = p.crop
+      ? Math.round(largest / p.crop)
+      : Math.round((meta.height / meta.width) * largest);
     manifest.push({
       id: p.id,
       alt: p.alt,

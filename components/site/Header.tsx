@@ -163,7 +163,15 @@ function LocaleToggle({
             locale === code ? 'bg-white text-ink' : 'text-[color:var(--on-ink-muted)] hover:text-white'
           }`}
         >
-          {code === 'en' ? 'EN' : <span className="glyph-devanagari">हिं</span>}
+          {/*
+            The Hindi button is labelled in Devanagari only once Hindi is the
+            page's language. Setting it in Devanagari on an English page costs an
+            English visitor a 121KB webfont for a single glyph, because the CSS
+            family name matches the one next/font registers and the browser
+            fetches ours rather than the phone's. On the Hindi page that font is
+            already paid for, so the glyph is free.
+          */}
+          {code === 'en' ? 'EN' : locale === 'hi' ? <span className="glyph-devanagari">हिं</span> : 'HI'}
         </button>
       ))}
     </div>

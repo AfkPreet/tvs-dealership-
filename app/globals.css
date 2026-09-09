@@ -1,3 +1,31 @@
+/*
+ * The rupee sign, and nothing else.
+ *
+ * ₹ is U+20B9, which sits inside Google's latin-ext range. It is the only
+ * character on the whole site outside the base latin subset, and rendering it
+ * pulled Inter's latin-ext file (83KB) and Bricolage's (18KB) on every page:
+ * 101KB for one glyph. These two faces are those same files, subset down to
+ * that single codepoint by scripts/build-rupee-font.mjs.
+ *
+ * Declared first in the stack with a one-codepoint unicode-range, so ₹ comes
+ * from here and every other character falls straight through to Inter and
+ * Bricolage as before. Preloaded, because a price is above the fold on every
+ * page and a swap on the currency symbol is a visible jump in a price column.
+ */
+@font-face {
+  font-family: 'Rupee Body';
+  src: url('/fonts/rupee-inter.woff2') format('woff2');
+  unicode-range: U+20B9;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rupee Display';
+  src: url('/fonts/rupee-display.woff2') format('woff2');
+  unicode-range: U+20B9;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -198,8 +226,10 @@
    * iOS ship one, and the web font still loads the moment the visitor actually
    * switches to Hindi.
    */
+  /* Only ever applied on a Hindi page, where the Devanagari face has already
+     loaded for the body copy. */
   .glyph-devanagari {
-    font-family: 'Noto Sans Devanagari', 'Nirmala UI', 'Kohinoor Devanagari', sans-serif;
+    font-family: var(--font-devanagari), 'Nirmala UI', 'Kohinoor Devanagari', sans-serif;
   }
 
   .eyebrow {

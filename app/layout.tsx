@@ -26,7 +26,9 @@ import { dealer, addressOneLine, dealerFullName, placeLine } from '@/content/dea
  */
 const display = Bricolage_Grotesque({
   subsets: ['latin'],
-  weight: ['700', '800'],
+  // The variable file, not two static cuts. Asking for 700 and 800 separately
+  // shipped 48KB + 41KB; one variable face covers both for less, and headings
+  // are the only thing that uses it.
   variable: '--font-display-latin',
   display: 'swap',
 });
@@ -113,11 +115,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${display.variable} ${body.variable} ${devanagari.variable}`}
       style={
         {
-          '--font-display': `var(--font-display-latin), var(--font-devanagari)`,
-          '--font-body': `var(--font-body-latin), var(--font-devanagari)`,
+          // 'Rupee ...' comes first and covers exactly one codepoint, so ₹ is
+          // served from a 1KB file and everything else falls through untouched.
+          '--font-display': `'Rupee Display', var(--font-display-latin), var(--font-devanagari)`,
+          '--font-body': `'Rupee Body', var(--font-body-latin), var(--font-devanagari)`,
         } as React.CSSProperties
       }
     >
+      <head>
+        {/* Both are ~1KB and a price is above the fold on every page, so the
+            currency symbol should never swap in late in a price column. */}
+        <link rel="preload" href="/fonts/rupee-inter.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/rupee-display.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      </head>
       <body className="antialiased">
         <script
           type="application/ld+json"

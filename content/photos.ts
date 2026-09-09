@@ -33,13 +33,13 @@ export const photos = {
     "id": "hero-floor",
     "alt": "A row of new TVS Raider and Apache motorcycles lined up along the showroom floor.",
     "width": 900,
-    "height": 1600,
+    "height": 1125,
     "widths": [
       900,
       800,
       480
     ],
-    "blur": "data:image/webp;base64,UklGRoYBAABXRUJQVlA4IHoBAADQBwCdASoYACsAPu1kqE8ppSOiKqwBMB2JbACdM2nUir9eS4tHB8JrLbj3dcMNJ0YCz0fWIK4JiaBqIpQ9XH2EscJ5BwibwAD+Xt8XSaUJ+KnCxjrSJoe5WadFfk4DZ4AYjATdpsOo6XV72UquNSjHnSPVZlUDzA7MAJ8dm4gTW8kb4bdg+K1zMCAUhVBgVYf5tnhVM2SVCnUoM7yuQXi5ZOq7yciJk+RLU0tU760kNiXXlwEIcihTjvCUMmx8Y+TuFAFTsQekOwP9yiY9MAon5TYRTGavzgeGI4kKRGkLvPukNkE+WvKWfcLNWQRwljFNUiqWdCGssQbt8btDYLLuaFtuu2x6zPAE3oG/TRqMcGQWn8rrYb1ZmWfDFwrtLI652yMAL42U30Qfc4uVFrEyHq2cuNdc/2ibTU7yJPRVavz/+JRtujgrHkEO17l4J/tjwahKkDsfTZFInJldv2FRUmkr7bd9ENPnEvk38JDeL2/6HJn8D0eAAAA="
+    "blur": "data:image/webp;base64,UklGRjoBAABXRUJQVlA4IC4BAACwBgCdASoYAB4APu1qrVCppaQiqAqpMB2JbACdL9Vs1bIzK/Q3Jjea82Y8G4kwZWqM0gJARcqHWmBev71oIAD67TlsUPNh9a9EG+5RcpOND1U0mFRNoZrd5Cv4oVWJZnsOOCr3SVhR7jv9U3TLOTbuXM4pMNoacsw+mmje+p+wbGpYxqxBuwS/HISjVNADRd8wy+x/fjg+iVwVzVf9sjX8fPw5pNymjY9xDekUTbCz+8nKdk5ZsDxwa6Fl0Jq5J2w+3aRnvBzr8CsXX3NR47B7RLFf+iT4TDezc/bXAB3uDTysVJ3KVcue0lJUtcud4vdRJtSTznlVDvzOW9ufoDtrsi7GF4jS01ZxDsXBZ6Me2Rj5EYmYEV0BBOPBOftiPFaJ1uf3xojMLjz7tSfwAA=="
   },
   "storefront": {
     "id": "storefront",
