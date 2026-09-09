@@ -1,4 +1,4 @@
-import { cardImage, imageSize, type Vehicle } from '@/content/vehicles';
+import { cardImage, imageSize, imageSrcSet, type Vehicle } from '@/content/vehicles';
 
 /**
  * A model's photograph, or a deliberate stand-in when there isn't one.
@@ -52,6 +52,7 @@ export function VehiclePhoto({
   return (
     <img
       src={image}
+      srcSet={imageSrcSet(image)}
       alt=""
       width={width}
       height={height}

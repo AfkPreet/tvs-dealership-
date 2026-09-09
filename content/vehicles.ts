@@ -22,12 +22,14 @@
 
 import vehicleImages from './vehicle-images.json';
 
-/** The shape scripts/index-vehicle-images.mjs writes for each model. */
+/** The shape scripts/prepare-vehicle-images.mjs writes for each model. */
 type ModelImages = {
   card: string | null;
   colours: Record<string, string>;
   gallery: string[];
   sizes: Record<string, { width: number; height: number }>;
+  /** Rendition widths available for each image, widest first. */
+  widths: Record<string, number[]>;
 };
 
 export type VehicleCategory = 'scooter' | 'motorcycle' | 'moped' | 'electric';
@@ -1007,6 +1009,23 @@ for (const vehicle of vehicles) {
 export function imageSize(url: string): { width: number; height: number } {
   const slug = url.split('/')[2];
   return imagesBySlug[slug]?.sizes[url] ?? { width: 1400, height: 840 };
+}
+
+/**
+ * The `srcset` for a photograph, so a card at 300px does not download the 800px
+ * file. Returns an empty string when only one rendition exists, which is a valid
+ * `srcset` to omit rather than a broken one to emit.
+ */
+export function imageSrcSet(url: string): string | undefined {
+  const slug = url.split('/')[2];
+  const widths = imagesBySlug[slug]?.widths[url];
+  if (!widths || widths.length < 2) return undefined;
+
+  const base = url.replace(/\.webp$/, '');
+  const widest = Math.max(...widths);
+  return widths
+    .map((w) => `${w === widest ? url : `${base}-${w}.webp`} ${w}w`)
+    .join(', ');
 }
 
 export const categories: VehicleCategory[] = ['scooter', 'motorcycle', 'moped', 'electric'];

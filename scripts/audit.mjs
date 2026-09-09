@@ -381,7 +381,10 @@ async function main() {
     const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
     const page = await context.newPage();
     await page.goto(base + '/', { waitUntil: 'networkidle' });
-    await page.getByRole('button', { name: 'हिं' }).click();
+    // Found by data attribute, not by label: the Hindi button reads "HI" on an
+    // English page and "हिं" once Hindi is on, because setting a Devanagari
+    // glyph in English pulls a 121KB font for one character.
+    await page.locator('button[data-locale="hi"]').first().click();
     await page.waitForTimeout(200);
 
     const lang = await page.evaluate(() => document.documentElement.lang);

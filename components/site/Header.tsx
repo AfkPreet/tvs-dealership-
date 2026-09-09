@@ -159,6 +159,10 @@ function LocaleToggle({
           type="button"
           onClick={() => setLocale(code)}
           aria-pressed={locale === code}
+          // A stable hook for the audit: the visible label changes between
+          // "HI" and "हिं" depending on the page's language, and an aria-label
+          // that differs from visible text fails an axe check.
+          data-locale={code}
           className={`flex min-h-[44px] min-w-[44px] items-center justify-center rounded-[2px] px-2.5 font-medium transition-colors ${
             locale === code ? 'bg-white text-ink' : 'text-[color:var(--on-ink-muted)] hover:text-white'
           }`}

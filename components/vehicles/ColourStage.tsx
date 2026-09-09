@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useLocale } from '@/lib/locale';
 import { useAnyMotion } from '@/lib/useMotionTier';
 import type { Vehicle } from '@/content/vehicles';
-import { cardColour } from '@/content/vehicles';
+import { cardColour, imageSize, imageSrcSet } from '@/content/vehicles';
 import { VehiclePhoto } from './VehiclePhoto';
 
 /**
@@ -142,6 +142,9 @@ export function ColourStage({ vehicle }: { vehicle: Vehicle }) {
               {option.image ? (
                 <img
                   src={option.image}
+                  srcSet={imageSrcSet(option.image)}
+                  // 44px circle, so the narrowest rendition is more than enough.
+                  sizes="88px"
                   alt=""
                   aria-hidden="true"
                   loading="lazy"
@@ -162,16 +165,16 @@ export function ColourStage({ vehicle }: { vehicle: Vehicle }) {
           <p className="eyebrow text-[color:var(--on-ink-muted)]">{copy.model.galleryHeading}</p>
           <ul className="mt-3 grid grid-cols-4 gap-2">
             {vehicle.images.gallery.map((image) => (
-              <li key={image} className="overflow-hidden rounded-sm bg-graphite">
+              <li key={image} className="overflow-hidden rounded-sm bg-white">
                 <img
                   src={image}
+                  srcSet={imageSrcSet(image)}
                   alt=""
-                  width={1400}
-                  height={840}
+                  {...imageSize(image)}
                   loading="lazy"
                   decoding="async"
                   sizes="(min-width: 1280px) 10rem, 22vw"
-                  className="aspect-[5/3] w-full object-cover"
+                  className="aspect-[5/3] w-full object-contain"
                 />
               </li>
             ))}
