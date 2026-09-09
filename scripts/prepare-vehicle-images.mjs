@@ -23,8 +23,15 @@ import sharp from 'sharp';
 const ROOT = process.cwd();
 const DIR = path.join(ROOT, 'public', 'vehicles');
 
-/** Narrower cuts, emitted only when the original is genuinely wider. */
-const WIDTHS = [400, 720];
+/**
+ * Narrower cuts, emitted only when the original is genuinely wider.
+ *
+ * 960 exists because of the gap: a card on a phone at 2.6x device pixels wants
+ * around 900px, and without this tier it jumped straight from 720 to the full
+ * 1400, which cost two Lighthouse points on the range page for pixels nothing
+ * displayed.
+ */
+const WIDTHS = [400, 720, 960];
 const QUALITY = 78;
 
 /** `card.webp` -> `card`, `card-400.webp` -> null (it is a derived file). */
@@ -50,7 +57,7 @@ for (const slug of slugs) {
   const originals = all.filter((f) => !RENDITION.test(f)).sort();
   if (originals.length === 0) continue;
 
-  const entry = { card: null, colours: {}, gallery: [], sizes: {}, widths: {} };
+  const entry = { hero: null, card: null, colours: {}, gallery: [], sizes: {}, widths: {} };
 
   for (const file of originals) {
     const name = file.replace(/\.webp$/, '');
@@ -76,7 +83,10 @@ for (const slug of slugs) {
     }
     entry.widths[url] = [...cuts, width].sort((a, b) => b - a);
 
-    if (name === 'card') entry.card = url;
+    // `hero.webp` is a large studio shot found on a second pass; `card.webp` is
+    // the navigation's 372px thumbnail. The hero wins where one exists.
+    if (name === 'hero') entry.hero = url;
+    else if (name === 'card') entry.card = url;
     else if (/^view-\d+$/.test(name)) entry.gallery.push(url);
     else entry.colours[name] = url;
   }
@@ -105,8 +115,9 @@ await writeFile(
 
 const colours = Object.values(index).reduce((n, m) => n + Object.keys(m.colours).length, 0);
 const gallery = Object.values(index).reduce((n, m) => n + m.gallery.length, 0);
-const cards = Object.values(index).filter((m) => m.card).length;
+const cards = Object.values(index).filter((m) => m.card || m.hero).length;
+const heroes = Object.values(index).filter((m) => m.hero).length;
 console.log(
-  `${Object.keys(index).length} models — ${cards} cards, ${colours} colours, ${gallery} views` +
+  `${Object.keys(index).length} models — ${cards} cards (${heroes} large), ${colours} colours, ${gallery} views` +
     (made ? `; made ${made} rendition(s)` : ''),
 );
