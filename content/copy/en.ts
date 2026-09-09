@@ -70,9 +70,19 @@ export const en = {
     chipLabel: 'EMI from',
   },
 
+  /**
+   * ⚠ Three of these six describe facilities nobody has confirmed the showroom
+   * has: a workshop in the same building, TVS-certified technicians, and bank
+   * representatives sitting on site. They are what an authorised 3S dealership
+   * normally offers, but "normally" is not "this one". The Service page assumes
+   * the same workshop exists.
+   *
+   * Check with the owner. If she is a sales-only outlet, these come out and the
+   * Service page changes with them.
+   */
   why: {
-    heading: 'We opened last month. Here is what that gets you.',
-    sub: 'No reviews yet — so instead, the things that are true on day one.',
+    heading: 'A new showroom. Here is what that gets you.',
+    sub: 'No reviews yet, so instead: the things that are true from the first day.',
     items: [
       {
         title: 'Authorised TVS dealer',

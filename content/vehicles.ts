@@ -24,6 +24,9 @@ import vehicleImages from './vehicle-images.json';
 
 /** The shape scripts/prepare-vehicle-images.mjs writes for each model. */
 type ModelImages = {
+  /** A large studio shot, where a second pass found one. */
+  hero: string | null;
+  /** The navigation's 372px thumbnail. Every model has one. */
   card: string | null;
   colours: Record<string, string>;
   gallery: string[];
@@ -996,7 +999,9 @@ for (const vehicle of vehicles) {
   const found = imagesBySlug[vehicle.slug];
   if (!found) continue;
 
-  if (found.card) vehicle.images.hero = found.card;
+  // The large shot where there is one, the navigation thumbnail otherwise.
+  const best = found.hero ?? found.card;
+  if (best) vehicle.images.hero = best;
   vehicle.images.gallery = found.gallery;
 
   for (const colour of vehicle.colours) {
