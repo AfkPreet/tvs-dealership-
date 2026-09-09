@@ -325,6 +325,30 @@ async function main() {
     await context.close();
   }
 
+  /* --- 5e. The rail scrolls on a laptop too, and its arrows work --- */
+  {
+    const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    const page = await context.newPage();
+    await page.goto(base + '/', { waitUntil: 'networkidle' });
+    await page.waitForTimeout(600);
+
+    const rail = page.locator('.model-rail').first();
+    if ((await rail.count()) === 0) {
+      note('[range] the model rail is missing on a laptop');
+    } else {
+      const overflows = await rail.evaluate((el) => el.scrollWidth > el.clientWidth + 8);
+      if (!overflows) note('[range] the model rail does not scroll on a laptop');
+
+      const before = await rail.evaluate((el) => el.scrollLeft);
+      // The forward arrow is the second of the two.
+      await page.locator('button:has-text("→")').first().click();
+      await page.waitForTimeout(700);
+      const after = await rail.evaluate((el) => el.scrollLeft);
+      if (after <= before) note('[range] the rail arrow did not move it');
+    }
+    await context.close();
+  }
+
   /* --- 6. The EMI calculator updates live and matches the formula --- */
   {
     const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });

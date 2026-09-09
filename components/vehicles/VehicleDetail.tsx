@@ -102,7 +102,7 @@ export function VehicleDetail({ vehicle }: { vehicle: Vehicle }) {
         <div className="shell grid gap-8 py-16 xl:grid-cols-[minmax(0,1fr)_minmax(0,480px)] xl:items-start xl:py-24">
           <Reveal>
             <h2 className="text-3xl font-extrabold md:text-4xl">{copy.model.specsHeading}</h2>
-            <table className="mt-6 w-full border-collapse bg-white text-left text-[15px]">
+            <table className="rounded-doc mt-6 w-full border-collapse bg-white text-left text-[15px]">
               <caption className="sr-only">
                 {copy.model.specsHeading} — {vehicle.name}
               </caption>
@@ -119,7 +119,7 @@ export function VehicleDetail({ vehicle }: { vehicle: Vehicle }) {
             </table>
 
             <h2 className="mt-12 text-3xl font-extrabold md:text-4xl">{copy.model.variantsHeading}</h2>
-            <table className="mt-6 w-full border-collapse bg-white text-left text-[15px]">
+            <table className="rounded-doc mt-6 w-full border-collapse bg-white text-left text-[15px]">
               <thead>
                 <tr className="border-b-2 border-ink">
                   <th scope="col" className="px-4 py-3 text-sm font-semibold">

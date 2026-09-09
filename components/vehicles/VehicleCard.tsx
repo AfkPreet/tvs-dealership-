@@ -31,7 +31,7 @@ export function VehicleCard({
     <article className="group relative flex flex-col overflow-hidden rounded-sm border border-rule bg-white transition-[transform,box-shadow] duration-300 hover:xl:-translate-y-1">
       {/* Not a link: the title's full-bleed ::after overlay already makes the
           whole card clickable, and a second nameless link is a screen-reader tax. */}
-      <div className="block overflow-hidden bg-ink">
+      <div className="block overflow-hidden">
         <VehiclePhoto
           vehicle={vehicle}
           eager={eager}

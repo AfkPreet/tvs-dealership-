@@ -63,7 +63,7 @@ export function VehiclePhoto({
       sizes={sizes}
       // `contain`, not `cover`: these are studio shots of a whole vehicle and
       // cropping one to fill a box cuts a wheel off.
-      className={`${ratio} w-full bg-white object-contain ${className}`}
+      className={`${ratio} photo-ground w-full object-contain ${className}`}
     />
   );
 }
