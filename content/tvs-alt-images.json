@@ -1,0 +1,385 @@
+{
+  "ranAt": "2026-09-09T07:29:50.972Z",
+  "report": {
+    "apache-rr-310": [],
+    "apache-rtr-160-4v": [
+      {
+        "name": "alt-1",
+        "url": "https://www.tvsmotor.com/tvs-apache/-/media/Brand-Pages-Webp/RTR-160-4V/Desktop/apachebgprice-1-1.webp",
+        "width": 960,
+        "height": 383
+      },
+      {
+        "name": "alt-2",
+        "url": "https://www.tvsmotor.com/tvs-apache/-/media/Brand-Pages-Webp/RTR-160-4V/Desktop/color-bg-apache-rtr-1.webp",
+        "width": 1366,
+        "height": 665
+      },
+      {
+        "name": "alt-3",
+        "url": "https://www.tvsmotor.com/tvs-apache/-/media/Brand-Pages/Apache/common/webp-images/color-bg-apache-rtr.webp",
+        "width": 1366,
+        "height": 665
+      },
+      {
+        "name": "alt-4",
+        "url": "https://www.tvsmotor.com/tvs-apache/-/media/Feature/Our-Stories/fday.webp",
+        "width": 872,
+        "height": 1572
+      },
+      {
+        "name": "alt-5",
+        "url": "https://www.tvsmotor.com/tvs-apache/-/media/Feature/Our-Stories/optimized-image/20-Years-Website-Banners_872-x-1572.webp",
+        "width": 872,
+        "height": 1572
+      }
+    ],
+    "apache-rtr-160": [
+      {
+        "name": "alt-1",
+        "url": "https://www.tvsmotor.com/tvs-apache/-/media/Brand-Pages/Apache/Apache-RTR/Apache-RTR-160/webp/apache-bg-price_Image.webp",
+        "width": 1366,
+        "height": 545
+      },
+      {
+        "name": "alt-2",
+        "url": "https://www.tvsmotor.com/tvs-apache/-/media/Brand-Pages/Apache/common/color-bg-apache-rtr.jpg",
+        "width": 1366,
+        "height": 665
+      },
+      {
+        "name": "alt-3",
+        "url": "https://www.tvsmotor.com/tvs-apache/-/media/Brand-Pages/Apache/common/webp-images/color-bg-apache-rtr.webp",
+        "width": 1366,
+        "height": 665
+      },
+      {
+        "name": "alt-4",
+        "url": "https://www.tvsmotor.com/tvs-apache/-/media/U750/13062025/feature/2025-TVS-Apache-RTR-160_Cluster-Shot_678x581-02.webp",
+        "width": 1400,
+        "height": 1200
+      },
+      {
+        "name": "alt-5",
+        "url": "https://www.tvsmotor.com/tvs-apache/-/media/U750/13062025/feature/2025-TVS-Apache-RTR-160_Tail-light_678x581.webp",
+        "width": 1400,
+        "height": 1200
+      }
+    ],
+    "apache-rtr-180": [
+      {
+        "name": "alt-1",
+        "url": "https://www.tvsmotor.com/tvs-apache/-/media/Brand-Pages/Apache/common/webp-images/apache-bg-price.webp",
+        "width": 1366,
+        "height": 545
+      },
+      {
+        "name": "alt-2",
+        "url": "https://www.tvsmotor.com/tvs-apache/-/media/Brand-Pages/Apache/common/webp-images/color-bg-apache-rtr.webp",
+        "width": 1366,
+        "height": 665
+      },
+      {
+        "name": "alt-3",
+        "url": "https://www.tvsmotor.com/tvs-apache/-/media/Feature/Our-Stories/fday.webp",
+        "width": 872,
+        "height": 1572
+      },
+      {
+        "name": "alt-4",
+        "url": "https://www.tvsmotor.com/tvs-apache/-/media/Feature/Our-Stories/optimized-image/20-Years-Website-Banners_872-x-1572.webp",
+        "width": 872,
+        "height": 1572
+      },
+      {
+        "name": "alt-5",
+        "url": "https://www.tvsmotor.com/tvs-apache/-/media/premium-app/tvs-apache/RTXImages/rtx-final-color-images/1095_711/05-RTX-WEBSITE-ADAPTS-1095X711-GREEN-01.webp",
+        "width": 1095,
+        "height": 711
+      }
+    ],
+    "apache-rtr-200-4v": [
+      {
+        "name": "alt-1",
+        "url": "https://www.tvsmotor.com/tvs-apache/-/media/Brand-Pages-Webp/RTR-160-4V/Desktop/apachebgprice-1-1.webp",
+        "width": 960,
+        "height": 383
+      },
+      {
+        "name": "alt-2",
+        "url": "https://www.tvsmotor.com/tvs-apache/-/media/Brand-Pages/Apache/common/webp-images/color-bg-apache-rtr.webp",
+        "width": 1366,
+        "height": 665
+      },
+      {
+        "name": "alt-3",
+        "url": "https://www.tvsmotor.com/tvs-apache/-/media/Feature/Our-Stories/fday.webp",
+        "width": 872,
+        "height": 1572
+      },
+      {
+        "name": "alt-4",
+        "url": "https://www.tvsmotor.com/tvs-apache/-/media/Feature/Our-Stories/optimized-image/20-Years-Website-Banners_872-x-1572.webp",
+        "width": 872,
+        "height": 1572
+      },
+      {
+        "name": "alt-5",
+        "url": "https://www.tvsmotor.com/tvs-apache/-/media/premium-app/tvs-apache/RTXImages/rtx-final-color-images/1095_711/05-RTX-WEBSITE-ADAPTS-1095X711-GREEN-01.webp",
+        "width": 1095,
+        "height": 711
+      }
+    ],
+    "apache-rtr-310": [
+      {
+        "name": "alt-1",
+        "url": "https://www.tvsmotor.com/-/media/u400-launch-webp/mask-group",
+        "width": 1400,
+        "height": 725
+      },
+      {
+        "name": "alt-2",
+        "url": "https://www.tvsmotor.com/tvs-apache/-/media/u400-launch-webp/360/360_bg_web",
+        "width": 1400,
+        "height": 535
+      },
+      {
+        "name": "alt-3",
+        "url": "https://www.tvsmotor.com/-/media/u400-launch-webp/desktop-texture-bg",
+        "width": 1400,
+        "height": 725
+      },
+      {
+        "name": "alt-4",
+        "url": "https://www.tvsmotor.com/-/media/rtr-310-new-images/05-06-26/TVS_Apache_310_Series_Website_Adapts_RTR_Desktop-2048x1152_copy.webp",
+        "width": 1400,
+        "height": 788
+      },
+      {
+        "name": "alt-5",
+        "url": "https://www.tvsmotor.com/-/media/rtr-310-new-images/05-06-26/TVS_Apache_310_Series_Website_Adapts_RTR_Desktop-2048x1152.webp",
+        "width": 1400,
+        "height": 788
+      }
+    ],
+    "iqube": [
+      {
+        "name": "alt-1",
+        "url": "https://www.tvsmotor.com/electric-scooters/tvs-iqube/-/media/Vehicles/Feature/Iqube/Hero-Banners/home_baas_desktop.webp",
+        "width": 1400,
+        "height": 553
+      },
+      {
+        "name": "alt-2",
+        "url": "https://www.tvsmotor.com/electric-scooters/tvs-iqube/-/media/Vehicles/Feature/Iqube/Hero-Banners/14-05-25/4.webp",
+        "width": 1400,
+        "height": 553
+      },
+      {
+        "name": "alt-3",
+        "url": "https://www.tvsmotor.com/electric-scooters/tvs-iqube/-/media/Vehicles/Feature/Iqube/Hero-Banners/green_pro_web.webp",
+        "width": 1400,
+        "height": 553
+      },
+      {
+        "name": "alt-4",
+        "url": "https://www.tvsmotor.com/electric-scooters/tvs-iqube/-/media/Vehicles/Feature/Iqube/Hero-Banners/14-05-25/noise-home-desktop-v1.webp",
+        "width": 1400,
+        "height": 553
+      },
+      {
+        "name": "alt-5",
+        "url": "https://www.tvsmotor.com/electric-scooters/tvs-iqube/-/media/Vehicles/Feature/Iqube/Hero-Banners/14-05-25/3.webp",
+        "width": 1400,
+        "height": 553
+      }
+    ],
+    "jupiter-110": [
+      {
+        "name": "alt-1",
+        "url": "https://www.tvsmotor.com/tvs-jupiter/-/media/Jupitar110DualToneImages/EMI-image/700X600.webp",
+        "width": 1354,
+        "height": 1162
+      },
+      {
+        "name": "alt-2",
+        "url": "https://www.tvsmotor.com/tvs-jupiter/-/media/Feature/Our-Stories/fday.webp",
+        "width": 872,
+        "height": 1572
+      },
+      {
+        "name": "alt-3",
+        "url": "https://www.tvsmotor.com/tvs-jupiter/-/media/Feature/Our-Stories/optimized-image/20-Years-Website-Banners_872-x-1572.webp",
+        "width": 872,
+        "height": 1572
+      },
+      {
+        "name": "alt-4",
+        "url": "https://www.tvsmotor.com/tvs-jupiter/-/media/TVS-Jupiter-110/SXC-Disc/Variantsfeatures/Safety/Disc-Brake/576x950-copy_com.webp",
+        "width": 576,
+        "height": 950
+      },
+      {
+        "name": "alt-5",
+        "url": "https://www.tvsmotor.com/tvs-jupiter/-/media/Jupitar110DualToneImages/Dualtone_variantdropdown.webp",
+        "width": 800,
+        "height": 533
+      }
+    ],
+    "jupiter-125": [],
+    "ntorq-125": [
+      {
+        "name": "alt-1",
+        "url": "https://www.tvsmotor.com/dist/commuter-jss/static/media/tvs-horse.93698e9b0bcb14aee4d5.webp",
+        "width": 729,
+        "height": 400
+      },
+      {
+        "name": "alt-2",
+        "url": "https://www.tvsmotor.com/commuter/tvs-ntorq/-/media/commuter-app/Tvs-u577/Ntorq-Landing-Page/landing-desktop-images/The-Racing-desktop.webp?iar=0&hash=E39A92FC86A80BBFB732A0F9058C88A1",
+        "width": 1400,
+        "height": 789
+      },
+      {
+        "name": "alt-3",
+        "url": "https://www.tvsmotor.com/commuter/tvs-ntorq/-/media/commuter-app/Tvs-u577/Ntorq-Landing-Page/landing-desktop-images/360-desktop.webp?iar=0&hash=12404AD55D82C444CD831C2A26A2BC79",
+        "width": 1400,
+        "height": 1178
+      },
+      {
+        "name": "alt-4",
+        "url": "https://www.tvsmotor.com/commuter/tvs-ntorq/-/media/commuter-app/Tvs-Ntorq/Super-squad/BGImages/trusted-riders-bg.webp?iar=0&hash=60131B82F93653657927B5DEF3A4C52E",
+        "width": 1400,
+        "height": 789
+      },
+      {
+        "name": "alt-5",
+        "url": "https://www.tvsmotor.com/commuter/tvs-ntorq/-/media/commuter-app/Tvs-u577/Ntorq-Landing-Page/landing-desktop-images/Ntorq-Chronicles-desktop.webp?iar=0&hash=DA7CB8BE36EB0EDB43F0FACF110E3174",
+        "width": 1400,
+        "height": 809
+      }
+    ],
+    "orbiter": [
+      {
+        "name": "alt-1",
+        "url": "https://www.tvsmotor.com/electric-scooters/tvs-orbiter/-/media/Vehicles/Feature/TVSOrbiter/Home/Review/web3.webp",
+        "width": 1400,
+        "height": 820
+      },
+      {
+        "name": "alt-2",
+        "url": "https://www.tvsmotor.com/electric-scooters/tvs-orbiter/-/media/Vehicles/Feature/TVSOrbiter/Home/Review/web4.webp",
+        "width": 1400,
+        "height": 820
+      },
+      {
+        "name": "alt-3",
+        "url": "https://www.tvsmotor.com/electric-scooters/tvs-orbiter/-/media/Vehicles/Feature/TVSOrbiter/Home/Review/web5.webp",
+        "width": 1400,
+        "height": 820
+      },
+      {
+        "name": "alt-4",
+        "url": "https://www.tvsmotor.com/electric-scooters/tvs-orbiter/-/media/Vehicles/Feature/TVSOrbiter/Home/Review/web1.webp",
+        "width": 1400,
+        "height": 820
+      },
+      {
+        "name": "alt-5",
+        "url": "https://www.tvsmotor.com/electric-scooters/tvs-orbiter/-/media/Vehicles/Feature/TVSOrbiter/Home/Review/web2.webp",
+        "width": 1400,
+        "height": 820
+      }
+    ],
+    "ronin": [
+      {
+        "name": "alt-1",
+        "url": "https://www.tvsmotor.com/tvs-ronin/-/media/U368Media/Images/LandingPage/background-Image/landing-bgrd.jpg",
+        "width": 1400,
+        "height": 683
+      },
+      {
+        "name": "alt-2",
+        "url": "https://www.tvsmotor.com/tvs-ronin/-/media/ronin-new-images/02-12-25/TVS-Ronin-Website-banners_Corporate-Website_Hero-Banner-2732x1200.webp",
+        "width": 1400,
+        "height": 615
+      },
+      {
+        "name": "alt-3",
+        "url": "https://www.tvsmotor.com/tvs-ronin/-/media/ronin-new-variant/Agonda-White/Banner/TVS-Ronin-Agonda-Website-Adapts_Banner-1920-X-843-copy.webp",
+        "width": 1400,
+        "height": 615
+      },
+      {
+        "name": "alt-4",
+        "url": "https://www.tvsmotor.com/tvs-ronin/-/media/Feature/Our-Stories/fday.webp",
+        "width": 872,
+        "height": 1572
+      },
+      {
+        "name": "alt-5",
+        "url": "https://www.tvsmotor.com/tvs-ronin/-/media/Feature/Our-Stories/optimized-image/20-Years-Website-Banners_872-x-1572.webp",
+        "width": 872,
+        "height": 1572
+      }
+    ],
+    "sport": [
+      {
+        "name": "alt-1",
+        "url": "https://www.tvsmotor.com/commuter/tvs-sport/-/media/Brand-Pages-Webp/TVS-Sport/Desktop/Colours-background-desktop.webp?iar=0&hash=A8FAF8DE8E01C30BB591ECFB4915DE65",
+        "width": 1366,
+        "height": 730
+      },
+      {
+        "name": "alt-2",
+        "url": "https://www.tvsmotor.com/commuter/tvs-sport/-/media/Brand-Pages-Webp/TVS-Sport/NewVariantChange21May25/specs_bg_desktop.webp?iar=0&hash=B72945993EF2F030552DEE917296C066",
+        "width": 1400,
+        "height": 598
+      },
+      {
+        "name": "alt-3",
+        "url": "https://www.tvsmotor.com/commuter/tvs-sport/-/media/Brand-Pages-Webp/TVS-Sport/TVS-Sports-assets/desktop_bg.webp?iar=0&hash=4F9D1BD41DEE7E95FBFF6E442F2A6965",
+        "width": 1366,
+        "height": 676
+      },
+      {
+        "name": "alt-4",
+        "url": "https://www.tvsmotor.com/commuter/tvs-sport/-/media/Brand-Pages-Webp/TVS-Sport/Desktop/Features-background-desktop.webp?iar=0&hash=86984322663C2E582134B893A9BEDE74",
+        "width": 1366,
+        "height": 662
+      },
+      {
+        "name": "alt-5",
+        "url": "https://www.tvsmotor.com/-/media/BlogsFolder2026/10-06-2026/TVSTheBestFuelEconomyBikeinitsSegment.png",
+        "width": 1143,
+        "height": 743
+      }
+    ],
+    "tvs-x": [
+      {
+        "name": "alt-2",
+        "url": "https://www.tvsmotor.com/U388_Assets/images/1.webp",
+        "width": 1400,
+        "height": 665
+      },
+      {
+        "name": "alt-3",
+        "url": "https://www.tvsmotor.com/U388_Assets/images/360bg.webp",
+        "width": 1366,
+        "height": 631
+      },
+      {
+        "name": "alt-4",
+        "url": "https://www.tvsmotor.com/U388_Assets/images/cluster.webp",
+        "width": 1400,
+        "height": 665
+      },
+      {
+        "name": "alt-5",
+        "url": "https://www.tvsmotor.com/U388_Assets/images/bike.webp",
+        "width": 1400,
+        "height": 992
+      }
+    ]
+  }
+}
