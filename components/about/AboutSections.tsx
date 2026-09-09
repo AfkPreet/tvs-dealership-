@@ -10,13 +10,16 @@ import { Magnetic } from '@/components/motion/Magnetic';
 /** The showroom photographs, in the order they tell the story. */
 const STORY_PHOTOS = ['storefront', 'opening-floor', 'first-delivery', 'scooters'] as const;
 
+/** Opening day, as a strip of its own. */
+const OPENING_PHOTOS = ['opening-guests', 'opening-hall', 'opening-crowd'] as const;
+
 function Photo({
   id,
   className = '',
   sizes,
   eager = false,
 }: {
-  id: (typeof STORY_PHOTOS)[number] | 'opening-day';
+  id: (typeof STORY_PHOTOS)[number] | (typeof OPENING_PHOTOS)[number] | 'opening-day';
   className?: string;
   sizes?: string;
   eager?: boolean;
@@ -108,6 +111,35 @@ export function AboutStory() {
           </div>
           <p className="mt-3 text-xs text-[color:var(--ink-muted)]">{copy.about.photoCredit}</p>
         </Reveal>
+      </div>
+    </section>
+  );
+}
+
+export function AboutOpening() {
+  const { copy } = useLocale();
+
+  return (
+    <section data-section={copy.about.galleryHeading} className="section-ink">
+      <div className="shell py-16 xl:py-24">
+        <Reveal>
+          <h2 className="rail-heading text-3xl font-extrabold md:text-4xl">
+            {copy.about.galleryHeading}
+          </h2>
+          <p className="mt-3 max-w-xl text-[color:var(--on-ink-muted)]">{copy.about.galleryBody}</p>
+        </Reveal>
+
+        <ul className="mt-8 grid gap-4 md:grid-cols-3">
+          {OPENING_PHOTOS.map((id, index) => (
+            <Reveal as="li" key={id} delay={index * 70}>
+              <Photo
+                id={id}
+                sizes="(min-width: 1280px) 26rem, (min-width: 768px) 30vw, 92vw"
+                className="aspect-[4/3]"
+              />
+            </Reveal>
+          ))}
+        </ul>
       </div>
     </section>
   );

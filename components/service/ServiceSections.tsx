@@ -5,6 +5,7 @@ import { OpeningHours } from '@/components/site/OpeningHours';
 import { dealer } from '@/content/dealer';
 import { formatTime } from '@/lib/format';
 import { EnquiryForm } from '@/components/forms/EnquiryForm';
+import { photos, src, srcSet } from '@/content/photos';
 
 /**
  * Service is built and working, but it is deliberately not in prime real estate
@@ -39,6 +40,27 @@ export function ServiceBooking() {
           </div>
           <p className="mt-4 text-sm leading-relaxed text-[color:var(--ink-muted)]">{copy.service.slotNote}</p>
         </div>
+
+        {/* The page was text from top to bottom. One picture of the building the
+            visitor is being asked to bring a vehicle to earns its place. */}
+        <figure className="relative mt-6 m-0 overflow-hidden rounded-sm">
+          <img
+            src={src('storefront')}
+            srcSet={srcSet('storefront')}
+            sizes="(min-width: 1280px) 34rem, 92vw"
+            alt={photos.storefront.alt}
+            width={photos.storefront.width}
+            height={photos.storefront.height}
+            loading="lazy"
+            decoding="async"
+            className="aspect-[16/9] w-full object-cover"
+            style={{ backgroundImage: `url("${photos.storefront.blur}")`, backgroundSize: 'cover' }}
+          />
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-[3px] bg-[color:var(--tvs-red)]"
+          />
+        </figure>
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import { dealer, dealerFullName, placeLine } from '@/content/dealer';
 import {
   AboutIntro,
   AboutStory,
+  AboutOpening,
   AboutTeam,
   AboutVisit,
 } from '@/components/about/AboutSections';
@@ -18,6 +19,7 @@ export default function AboutPage() {
     <>
       <AboutIntro />
       <AboutStory />
+      <AboutOpening />
       <AboutTeam />
       <AboutVisit />
     </>

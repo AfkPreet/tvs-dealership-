@@ -285,7 +285,7 @@ export const en = {
       paid: 'Paid periodic service',
       repair: 'Repair or breakdown',
     },
-    slotNote: 'We are closed on no day of the week — but Sunday runs shorter hours. Same-day slots depend on load.',
+    slotNote: 'Send the booking and we will confirm a time by WhatsApp. Same-day slots depend on how busy the workshop is.',
   },
 
   about: {
@@ -293,6 +293,7 @@ export const en = {
     lede: 'Who we are, and what you can expect when you walk in.',
     storyHeading: 'How it started',
     galleryHeading: 'Opening day',
+    galleryBody: 'The showroom opened with the floor already full and most of Kota in the doorway.',
     teamHeading: 'The people here',
     visitHeading: 'Come and see',
     visitBody:
