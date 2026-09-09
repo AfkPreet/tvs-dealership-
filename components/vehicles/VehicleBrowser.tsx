@@ -73,7 +73,7 @@ export function VehicleBrowser() {
       {shown.length === 0 ? (
         <p className="mt-10 rounded-sm border border-rule bg-mist p-8 text-center">{copy.vehiclesPage.empty}</p>
       ) : (
-        <ul className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <ul className="mt-6 grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-2 xl:grid-cols-3">
           {shown.map((vehicle, index) => (
             <li key={vehicle.slug}>
               <VehicleCard vehicle={vehicle} eager={index < 3} headingLevel={2} />

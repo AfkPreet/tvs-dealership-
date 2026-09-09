@@ -40,10 +40,18 @@ export function VehicleCard({
         />
       </div>
 
-      <div className="flex flex-1 flex-col p-5">
+      {/*
+        Two columns on a phone, so nineteen models is a page you can scan rather
+        than eleven thousand pixels of scrolling. The tagline and the per-card
+        WhatsApp button are the two things that do not survive a 175px column,
+        so they appear from `sm` up; the whole card is still a link to the model
+        page, where both live, and the action bar at the bottom of the screen
+        carries WhatsApp on every page anyway.
+      */}
+      <div className="flex flex-1 flex-col p-3.5 sm:p-5">
         <p className="eyebrow text-[color:var(--ink-muted)]">{copy.categories[vehicle.category]}</p>
 
-        <Heading className="mt-1.5 font-display text-xl font-bold tracking-tightest">
+        <Heading className="mt-1.5 font-display text-base font-bold tracking-tightest sm:text-xl">
           {/* The ::after overlay makes the whole card the hit area. */}
           <Link
             href={`/vehicles/${vehicle.slug}`}
@@ -54,16 +62,20 @@ export function VehicleCard({
           </Link>
         </Heading>
 
-        <p className="mt-1.5 text-sm leading-snug text-[color:var(--ink-muted)]">{t(vehicle.tagline)}</p>
+        <p className="mt-1.5 hidden text-sm leading-snug text-[color:var(--ink-muted)] sm:block">
+          {t(vehicle.tagline)}
+        </p>
 
-        <dl className="mt-4 border-t border-rule pt-4">
-          <div className="flex items-baseline justify-between gap-3">
+        <dl className="mt-4 border-t border-rule pt-3 sm:mt-5 sm:pt-4">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-3">
             <dt className="text-xs text-[color:var(--ink-muted)]">
               {copy.models.priceFrom} · {copy.models.exShowroom}
             </dt>
-            <dd className="tnum font-display text-lg font-bold tracking-tightest">{formatINR(from)}</dd>
+            <dd className="tnum font-display text-base font-bold tracking-tightest sm:text-lg">
+              {formatINR(from)}
+            </dd>
           </div>
-          <div className="mt-1 flex items-baseline justify-between gap-3">
+          <div className="mt-1 flex flex-wrap items-baseline justify-between gap-x-3">
             <dt className="text-xs text-[color:var(--ink-muted)]">{copy.models.onRoadFrom}</dt>
             <dd className="tnum text-sm font-semibold text-tvsred-onlight">{formatINR(vehicle.onRoad.total)}</dd>
           </div>
@@ -74,7 +86,7 @@ export function VehicleCard({
           href={whatsappLink({ kind: 'price', model: vehicle.name, sourcePath: pathname, locale })}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn btn-secondary relative z-10 mt-5 w-full"
+          className="btn btn-secondary relative z-10 mt-5 hidden w-full sm:inline-flex"
         >
           {copy.actions.getOnRoadPrice}
         </a>

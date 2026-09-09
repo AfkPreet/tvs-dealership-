@@ -21,7 +21,7 @@ export function ModelShortlist() {
 
   return (
     <section id="models" data-section={copy.models.heading} className="section-light">
-      <div className="shell py-14 xl:py-20">
+      <div className="shell py-12 md:py-14 xl:py-20">
         <div>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div className="max-w-2xl">
@@ -34,7 +34,7 @@ export function ModelShortlist() {
           </div>
         </div>
 
-        <ul className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <ul className="mt-8 grid grid-cols-2 gap-3 sm:gap-5 md:mt-10 md:grid-cols-3">
           {featuredVehicles.map((vehicle, index) => (
             <li key={vehicle.slug}>
               <VehicleCard vehicle={vehicle} />
@@ -116,7 +116,7 @@ export function WhyBuyHere() {
 
   return (
     <section id="why" data-section={copy.why.heading} className="section-mist">
-      <div className="shell py-14 xl:py-20">
+      <div className="shell py-12 md:py-14 xl:py-20">
         <div>
           <h2 className="max-w-3xl text-3xl font-extrabold md:text-4xl xl:text-5xl">{copy.why.heading}</h2>
           <p className="mt-3 max-w-xl text-[color:var(--ink-muted)]">{copy.why.sub}</p>
@@ -180,7 +180,7 @@ export function LocationSection() {
 
   return (
     <section id="location" data-section={copy.location.heading} className="section-light">
-      <div className="shell py-14 xl:py-20">
+      <div className="shell py-12 md:py-14 xl:py-20">
         <div>
           <h2 className="max-w-2xl text-3xl font-extrabold md:text-4xl xl:text-5xl">{copy.location.heading}</h2>
           <p className="mt-3 max-w-xl text-[color:var(--ink-muted)]">{copy.location.sub}</p>

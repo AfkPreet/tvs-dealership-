@@ -125,7 +125,7 @@ export function AboutOpening() {
 
   return (
     <section data-section={copy.about.galleryHeading} className="section-ink">
-      <div className="shell py-14 xl:py-20">
+      <div className="shell py-12 md:py-14 xl:py-20">
         <div>
           <h2 className="rail-heading text-3xl font-extrabold md:text-4xl">
             {copy.about.galleryHeading}
@@ -157,7 +157,7 @@ export function AboutTeam() {
 
   return (
     <section data-section={copy.about.teamHeading} className="section-mist">
-      <div className="shell py-14 xl:py-20">
+      <div className="shell py-12 md:py-14 xl:py-20">
         <div>
           <h2 className="rail-heading-light text-3xl font-extrabold md:text-4xl">
             {copy.about.teamHeading}

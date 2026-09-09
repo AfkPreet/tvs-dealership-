@@ -31,7 +31,7 @@ export function Hero() {
 
   return (
     <section id="hero" data-section={copy.nav.home} className="section-ink relative overflow-hidden">
-      <div className="shell relative py-14 md:py-16 xl:min-h-[min(84vh,720px)] xl:py-20">
+      <div className="shell relative py-12 md:py-16 xl:min-h-[min(84vh,720px)] xl:py-20">
         <div className="flex h-full flex-col justify-center xl:max-w-[52%]">
           <p
             className="eyebrow inline-flex items-center gap-2 text-tvsred-onink"
