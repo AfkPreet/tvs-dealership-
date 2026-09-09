@@ -65,10 +65,7 @@ export const dealer = {
   phoneAlt: '918770639754',
   phoneAltDisplay: '+91 87706 39754',
 
-  /**
-   * UNVERIFIED — assumed to be the first number. Every enquiry on the site opens
-   * a WhatsApp chat with this, so it is the single most important thing to check.
-   */
+  /** CONFIRMED — every enquiry on the site opens a WhatsApp chat with this. */
   whatsapp: '917987378919',
 
   /**

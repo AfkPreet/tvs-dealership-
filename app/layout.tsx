@@ -57,8 +57,10 @@ const devanagari = Noto_Sans_Devanagari({
 export const metadata: Metadata = {
   metadataBase: new URL(dealer.siteUrl),
   title: {
-    default: `${dealerFullName} — TVS scooters, bikes, finance and service`,
-    template: `%s — ${dealer.name}, ${dealer.city}`,
+    default: `${dealer.name} — Authorised TVS Dealer in ${placeLine}`,
+    // The page titles already name the place where it helps, so the template
+    // does not repeat it: "…in Kota, Bilaspur — Shiv Kripa Motors, Kota" reads badly.
+    template: `%s — ${dealer.name}`,
   },
   description: `Authorised TVS dealer in ${placeLine}. Full on-road prices, a working EMI calculator, test rides and 3S service on ${dealer.address.line2}. Call ${dealer.phoneDisplay}.`,
   openGraph: {

@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
+import { placeLine } from '@/content/dealer';
 import { PageIntro } from '@/components/vehicles/PageIntro';
 import { EmiCalculator } from '@/components/finance/EmiCalculator';
 import { TradeoffExplainer, FinanceEnquiry } from '@/components/finance/FinanceSections';
 
 export const metadata: Metadata = {
-  title: 'TVS two-wheeler finance and EMI calculator, Bilaspur',
+  title: `TVS two-wheeler finance and EMI calculator, ${placeLine}`,
   description:
     'Work out your monthly EMI on any TVS model with a proper reducing-balance calculator. Documents checklist, down payment guidance and an on-site finance desk. All figures indicative.',
 };
