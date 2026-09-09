@@ -214,6 +214,11 @@ export function EnquiryForm({ variant = 'lead', defaultModel, kind, onInk = fals
               id={`${uid}-date`}
               name="date"
               type="date"
+              // Firefox formats a date field by the document's language, so this
+              // shows 05/09/2026 rather than 09/05/2026 there. Chrome goes by
+              // the browser's own locale and ignores it, which is correct for a
+              // native control and is why this is a hint rather than a fix.
+              lang="en-IN"
               value={date}
               min={new Date().toISOString().slice(0, 10)}
               onChange={(e) => setDate(e.target.value)}
