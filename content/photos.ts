@@ -104,6 +104,44 @@ export const photos = {
       480
     ],
     "blur": "data:image/webp;base64,UklGRrAAAABXRUJQVlA4IKQAAABwBACdASoYAA4APu1iqU2ppaOiMAgBMB2JbAC2yYwmpgb8SEMY81oIYwVWAAD+mLYxrEryYIkQHzsyn87twKvMWFmuBnVNEm/gEWrE9JSop6xa2uY0/aBfun5mfLoP5aSw3OCMQGqsdSn0hFwGhNsAgPL16/30u9a0Zs9FXXmxfN6zOvW98lnAJvoip6h4J8JH/fSwi0sIcCtCj/yQm8v4gsgAAA=="
+  },
+  "opening-guests": {
+    "id": "opening-guests",
+    "alt": "Guests outside Shiv Kripa Motors on opening day, under the TVS dealer sign.",
+    "width": 1280,
+    "height": 853,
+    "widths": [
+      1280,
+      1200,
+      800,
+      480
+    ],
+    "blur": "data:image/webp;base64,UklGRrgAAABXRUJQVlA4IKwAAAAQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JZgCdAB+F3NW/iqRaxoeqmAD84x6MDe7e6UV+i+f6oSXLImstWDSxOpt0RIbves8ej7rpAZ25pNk3B77zKIcqRIe0/KD0VZwWmcfc7w9yVnfm9DcPDpv/zMG9+1PPhG/fPkN9BB2KJxMeaMln78ckcy1RiuUWrbMjbmAty7zxyRsTrH3Osd1WsZCYkel/3q+5DAAA"
+  },
+  "opening-hall": {
+    "id": "opening-hall",
+    "alt": "The showroom floor full of guests on opening day.",
+    "width": 1280,
+    "height": 853,
+    "widths": [
+      1280,
+      1200,
+      800,
+      480
+    ],
+    "blur": "data:image/webp;base64,UklGRsIAAABXRUJQVlA4ILYAAADwAwCdASoYABAAPu1iqU2ppaOiMAgBMB2JaACdMoACAiNosqIXiqW4AP5xXsnr4ewAxsuqxITBZUGn0XbgxT9lyMrWZJFKD9dH7YqP8YzjNUPsXWVjq+lptVB2VIromXuNZkatqvLLaNVqEbIJVXOEhQKidfoTTQxoOoXV/wsBng1vxrYS34D+Zn6FFj+M4NNipxYN3adqEnFIkvMMR06cN0IYXvxDjfCWkK5UThlnoqwcZYAAAA=="
+  },
+  "opening-crowd": {
+    "id": "opening-crowd",
+    "alt": "Family, friends and neighbours gathered for the opening of the showroom.",
+    "width": 1080,
+    "height": 564,
+    "widths": [
+      1080,
+      800,
+      480
+    ],
+    "blur": "data:image/webp;base64,UklGRqIAAABXRUJQVlA4IJYAAADwAwCdASoYAAwAPu1iqU2ppaQiMAgBMB2JYgCdABs1LnWGbPUpYyBAAPJ2DBO8PetdT76I24+h0Y3XzR0rRH69T72dGvssJ2pfYFaPTpWD+LsE3dZ2rr6EF2RcujpyygVq+tM3MJV/mvZaP+B2K+OXzSuO07HaTYXNFHpcI25DxuOifEn5o16XEtH2c5hA3orii7v5UAA="
   }
 } as const satisfies Record<string, Photo>;
 

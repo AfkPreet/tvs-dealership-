@@ -70,7 +70,31 @@ const PHOTOS = [
     src: 'WhatsApp Image 2026-09-09 at 2.42.05 AM (2).jpeg',
     alt: 'Two TVS scooters parked side by side inside the showroom.',
   },
+  {
+    id: 'opening-guests',
+    src: 'WhatsApp Image 2026-09-09 at 2.42.06 AM.jpeg',
+    alt: 'Guests outside Shiv Kripa Motors on opening day, under the TVS dealer sign.',
+  },
+  {
+    id: 'opening-hall',
+    src: 'WhatsApp Image 2026-09-09 at 2.42.07 AM.jpeg',
+    alt: 'The showroom floor full of guests on opening day.',
+  },
+  {
+    id: 'opening-crowd',
+    src: 'WhatsApp Image 2026-09-09 at 2.42.06 AM (1).jpeg',
+    alt: 'Family, friends and neighbours gathered for the opening of the showroom.',
+  },
 ];
+
+/*
+ * Two photographs are deliberately left out: the close-up bouquet
+ * presentations. They are portraits of identifiable private individuals rather
+ * than pictures of the business, and a wide group shot on opening day is a
+ * different thing from putting someone's face on a commercial page. If the
+ * owner wants them in, they are still in media/photos/ and it is a one-line
+ * addition here.
+ */
 
 /** The one clip worth loading: a steady pan across the bikes on the floor. */
 const CLIP = {

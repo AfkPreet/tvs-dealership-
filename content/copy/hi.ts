@@ -291,7 +291,7 @@ export const hi: Copy = {
       paid: 'Paid periodic service',
       repair: 'रिपेयर या ब्रेकडाउन',
     },
-    slotNote: 'हफ़्ते में एक भी दिन बंद नहीं रहते — बस रविवार को समय थोड़ा कम है। उसी दिन का slot भीड़ पर निर्भर करता है।',
+    slotNote: 'बुकिंग भेज दीजिए, हम WhatsApp पर समय बता देंगे। उसी दिन का slot इस पर निर्भर है कि वर्कशॉप में कितनी भीड़ है।',
   },
 
   about: {
@@ -299,6 +299,7 @@ export const hi: Copy = {
     lede: 'हम कौन हैं, और अंदर आने पर आपको क्या मिलेगा।',
     storyHeading: 'शुरुआत कैसे हुई',
     galleryHeading: 'उद्घाटन का दिन',
+    galleryBody: 'शोरूम खुला तो फ़्लोर पूरा भरा हुआ था और दरवाज़े पर आधा कोटा खड़ा था।',
     teamHeading: 'यहाँ के लोग',
     visitHeading: 'आकर देखिए',
     visitBody:
