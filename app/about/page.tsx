@@ -8,7 +8,7 @@ import {
 } from '@/components/about/AboutSections';
 
 export const metadata: Metadata = {
-  title: `About ${dealer.name}`,
+  title: 'About the showroom',
   description: `${dealerFullName}. A TVS showroom on ${dealer.address.line2} in ${placeLine}, selling, registering and servicing two-wheelers in the same building.`,
   alternates: { canonical: '/about/' },
 };

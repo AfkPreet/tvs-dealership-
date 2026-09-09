@@ -2,10 +2,11 @@ import type { Metadata } from 'next';
 import { PageIntro } from '@/components/vehicles/PageIntro';
 import { VehicleBrowser } from '@/components/vehicles/VehicleBrowser';
 import { byRank } from '@/content/vehicles';
+import { placeLine } from '@/content/dealer';
 
 export const metadata: Metadata = {
   title: 'TVS scooters, bikes, mopeds and electric',
-  description: `Every TVS model we stock in Bilaspur — ${byRank
+  description: `Every TVS model we stock in ${placeLine} — ${byRank
     .map((v) => v.name.replace('TVS ', ''))
     .join(', ')} — with ex-showroom and full on-road prices.`,
 };

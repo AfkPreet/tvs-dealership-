@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { vehicles, getVehicle, priceFrom } from '@/content/vehicles';
 import { formatINR } from '@/lib/format';
+import { dealer } from '@/content/dealer';
 import { VehicleDetail } from '@/components/vehicles/VehicleDetail';
 
 type Params = { params: Promise<{ slug: string }> };
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     title: `${vehicle.name} price, specs and on-road cost`,
     description: `${vehicle.name} from ${formatINR(priceFrom(vehicle))} ex-showroom, ${formatINR(
       vehicle.onRoad.total,
-    )} on-road in Bilaspur. Full breakdown, variants, specifications and indicative EMI. ${vehicle.tagline.en}`,
+    )} on-road in ${dealer.city}. Full breakdown, variants, specifications and indicative EMI. ${vehicle.tagline.en}`,
   };
 }
 
