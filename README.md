@@ -109,23 +109,32 @@ glyph in Devanagari made the browser fetch our 121KB webfont instead of the phon
 
 ### Motion
 
-`useMotionTier()` returns `'none' | 'light' | 'full'` and gates everything.
+One rule: **motion answers something the visitor did, and never announces a page
+that has finished loading.** An entrance that plays every time you open a page is
+a delay dressed up as craft, and on a site someone checks three times a week it
+becomes the thing they notice.
 
-- **`none`** — the server, the first client render, `prefers-reduced-motion`, Data Saver, and 2G/3G.
-  The exported HTML is the finished page: with JavaScript disabled the site is complete, not
-  mid-animation.
-- **`light`** (under 1280px) — section reveals, the price-sheet build, colour crossfades, the tap
-  lift. One composited animation each, fired once, then unbound.
-- **`full`** (1280px and up) — adds what stays bound to the scroller or the pointer: hero parallax,
-  the cursor light, page wipes, and the muted showroom clip behind the hero.
+So there are no arrival animations at all. No opening title card, no section
+reveals, no hero rise, no page transition wipe, no price sheet that builds as you
+scroll to it. The exported HTML is the finished page and the first frame is the
+last frame.
 
-Everything is transform and opacity only. Section reveals rise without fading, because copy held at
-`opacity: 0` below the fold is copy that fails an automated contrast check for as long as the
-animation lasts.
+What is left, each of it a response to an action:
 
-The opening title card mounts after hydration, so it is absent from the exported HTML and from
-anything a crawler sees. It is a flat fixed panel with no image, so it cannot be measured as
-Largest Contentful Paint, and it ends on the first tap, key or scroll. Shown once per session.
+- the colour crossfade when you tap a swatch on a model page
+- the lift on hover and the press on tap on cards and buttons
+- the primary button leaning very slightly toward the pointer
+- the smooth scroll when you click an arrow on the range rail
+- the EMI figure rolling as you drag a slider
+- the phone action bar getting out of the way while you read, and coming back
+  the moment you scroll up
+
+`useMotionTier()` still returns `'none' | 'light' | 'full'`, gating those by
+viewport, `prefers-reduced-motion`, Data Saver and connection speed. `'full'`
+also allows the muted showroom clip behind the hero on a wide screen.
+
+The audit asserts the absence: no title card, and the headline at full opacity
+with no transform and no animation on the very first frame.
 
 ### Photography
 
@@ -167,9 +176,9 @@ photograph at all renders a typeset plate, which is a design rather than a broke
 - horizontal overflow at 360 / 768 / 1280 / 1600
 - any tap target under 44px, or any input under 16px (which makes iOS Safari zoom on focus)
 - the hero headline or primary CTA not visible with JavaScript disabled
-- reveal or hero motion still running under `prefers-reduced-motion`
+- anything animating on arrival: a title card, or a headline that is not at
+  full opacity and untransformed on the first frame
 - a colour swatch not swapping the photograph, or not answering arrow keys
-- the opening card still on screen after 1.6s, or replaying on a second page in the same session
 - the whole-range rail not scrolling on a phone, or missing models
 - the EMI calculator disagreeing with the reducing-balance formula
 - any WhatsApp CTA without prefilled text, or a model page CTA that does not name the model
@@ -185,7 +194,7 @@ Measured against the built export, served with Brotli, on every page in both for
 
 | | Performance | Accessibility | Best Practices | SEO |
 | --- | --- | --- | --- | --- |
-| Mobile, simulated throttling (Lighthouse default) | **93–97** | 100 | 100 | 100 |
+| Mobile, simulated throttling (Lighthouse default) | **91–97** | 100 | 100 | 100 |
 | Mobile, applied throttling | **93–98** | 100 | 100 | 100 |
 | Desktop, simulated throttling | **100** | 100 | 100 | 100 |
 | Desktop, applied throttling | **81–87** | 100 | 100 | 100 |

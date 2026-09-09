@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useLocale } from '@/lib/locale';
 import { featuredVehicles, byRank } from '@/content/vehicles';
 import { dealer, addressOneLine } from '@/content/dealer';
+import { photos, src, srcSet } from '@/content/photos';
 import { EMI_DEFAULTS, indicativeEmi } from '@/lib/emi';
 import { formatINR, formatTime } from '@/lib/format';
 import { telLink } from '@/lib/whatsapp';
@@ -137,12 +138,27 @@ export function WhyBuyHere() {
 
         {/* The price sheet appears in miniature here, using a real model. */}
         <div>
-          <div className="mt-10 grid gap-6 xl:grid-cols-[1fr_420px] xl:items-center">
+          {/* Top-aligned, and the left column now carries what each line of the
+              breakdown actually is. It used to hold a heading and one sentence
+              vertically centred against a tall card, which left most of the
+              section as blank paper. */}
+          <div className="mt-10 grid gap-8 xl:grid-cols-[1fr_420px] xl:items-start xl:gap-12">
             <div className="max-w-xl">
               <h3 className="font-display text-2xl font-bold tracking-tightest xl:text-3xl">
                 {copy.model.onRoadHeading}
               </h3>
               <p className="mt-3 text-[color:var(--ink-muted)]">{copy.model.onRoadSub}</p>
+
+              <dl className="mt-7 space-y-4 border-t border-rule pt-6">
+                {copy.model.onRoadWhy.map((item) => (
+                  <div key={item.term} className="grid gap-1 md:grid-cols-[9rem_1fr] md:gap-4">
+                    <dt className="font-semibold">{item.term}</dt>
+                    <dd className="text-[15px] leading-relaxed text-[color:var(--ink-muted)]">
+                      {item.detail}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
             </div>
             <PriceSheet
               onRoad={byRank[0].onRoad}
@@ -217,17 +233,44 @@ export function LocationSection() {
             </dl>
           </div>
 
-          <div>
-            <div className="h-full min-h-[320px] overflow-hidden rounded-sm border border-rule">
-              <iframe
-                src={dealer.mapEmbed}
-                title={copy.location.mapTitle}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="h-full min-h-[320px] w-full border-0"
-              />
-            </div>
-          </div>
+          {/*
+            A photograph of the building, not a map.
+
+            The dealership has no Google Business listing yet, so the embed was a
+            search for a name Maps does not know — which renders as a blank white
+            rectangle, and would at best drop a pin in the wrong place. Someone
+            looking for a new showroom on a road in a small town is better served
+            by knowing what the front of it looks like, which is exactly what the
+            copy beside it says: ask for us by name, the TVS board is on the
+            front. The directions button is still one tap away.
+
+            When the listing exists, this becomes the map again in one edit.
+          */}
+          <figure className="relative m-0 overflow-hidden rounded-sm border border-rule">
+            <img
+              src={src('storefront')}
+              srcSet={srcSet('storefront')}
+              sizes="(min-width: 1280px) 38rem, 92vw"
+              alt={photos.storefront.alt}
+              width={photos.storefront.width}
+              height={photos.storefront.height}
+              loading="lazy"
+              decoding="async"
+              className="h-full min-h-[320px] w-full object-cover"
+              style={{ backgroundImage: `url("${photos.storefront.blur}")`, backgroundSize: 'cover' }}
+            />
+            <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/85 to-transparent px-5 pb-4 pt-10">
+              <a
+                href={dealer.mapDirections}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="tap inline-flex items-center gap-2 text-sm font-semibold text-white underline underline-offset-4"
+              >
+                {copy.actions.directions}
+                <span aria-hidden>→</span>
+              </a>
+            </figcaption>
+          </figure>
         </div>
       </div>
     </section>

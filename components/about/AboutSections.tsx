@@ -89,12 +89,17 @@ export function AboutStory() {
             ))}
           </div>
 
-          <dl className="mt-10 border-t border-rule pt-6">
-            <div className="flex items-baseline justify-between gap-4">
-              <dt className="text-sm text-[color:var(--ink-muted)]">{copy.about.sinceLabel}</dt>
-              <dd className="tnum font-display text-2xl font-bold tracking-tightest">{dealer.since}</dd>
-            </div>
-          </dl>
+          {/* "Selling TVS since 2026" in 2026 is not a credential, it is a
+              sentence that answers a question nobody asked. It appears once the
+              year is actually in the past. */}
+          {dealer.since < new Date().getFullYear() ? (
+            <dl className="mt-10 border-t border-rule pt-6">
+              <div className="flex items-baseline justify-between gap-4">
+                <dt className="text-sm text-[color:var(--ink-muted)]">{copy.about.sinceLabel}</dt>
+                <dd className="tnum font-display text-2xl font-bold tracking-tightest">{dealer.since}</dd>
+              </div>
+            </dl>
+          ) : null}
         </div>
 
         <div>
@@ -204,13 +209,14 @@ export function AboutVisit() {
           </div>
         </div>
 
+        {/* The floor rather than a map, for the same reason as the home page:
+            there is no Maps listing to embed yet, and the blank rectangle it
+            produced was worse than no picture at all. */}
         <div className="overflow-hidden rounded-sm border border-white/12">
-          <iframe
-            src={dealer.mapEmbed}
-            title={copy.location.mapTitle}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            className="h-72 w-full border-0 xl:h-full xl:min-h-[22rem]"
+          <Photo
+            id="opening-floor"
+            sizes="(min-width: 1280px) 34rem, 92vw"
+            className="h-72 xl:h-full xl:min-h-[22rem]"
           />
         </div>
       </div>

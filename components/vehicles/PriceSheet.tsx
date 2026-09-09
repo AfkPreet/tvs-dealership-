@@ -13,9 +13,10 @@ import type { OnRoadBreakdown } from '@/content/vehicles';
  * the page for an Indian two-wheeler buyer, and it embodies the positioning —
  * this dealer tells you the real number.
  *
- * On desktop the rows reveal top to bottom and the total counts up, which ties
- * the motion language to the site's most important object instead of decorating
- * empty space.
+ * It does not move. The rows used to build in top to bottom and the total used
+ * to count up as you scrolled to it; on the page where someone is checking a
+ * number against what they were told, a figure that animates into place is a
+ * figure they have to wait for.
  */
 export function PriceSheet({
   onRoad,

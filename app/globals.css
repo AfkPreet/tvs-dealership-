@@ -346,6 +346,20 @@
     display: none;
   }
 
+  /*
+   * The ground a vehicle photograph sits on.
+   *
+   * TVS shoots every model on white, so a flat white block is what you get for
+   * free — and on the dark sections it punches a hole in the page. This is a
+   * studio sweep instead: white at the top falling to a pale neutral at the
+   * bottom, so the bike reads as standing on something. It costs nothing, it
+   * keeps the vehicle's own colours true, and it avoids cutting 75 photographs
+   * out around their spokes and mirror stalks.
+   */
+  .photo-ground {
+    background-image: linear-gradient(180deg, #ffffff 0%, #ffffff 42%, #eceef1 100%);
+  }
+
   .safe-bottom {
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }

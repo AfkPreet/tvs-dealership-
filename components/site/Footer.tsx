@@ -76,9 +76,13 @@ export function Footer({ address }: { address: string }) {
               </a>
             </li>
           </ul>
-          <p className="mt-4 text-xs text-[color:var(--on-ink-muted)]">
-            {copy.location.gstinLabel}: <span className="tnum">{dealer.gstin}</span>
-          </p>
+          {/* The number is unknown, and a label with nothing after it is worse
+              than no label. It appears the moment dealer.gstin is filled in. */}
+          {dealer.gstin ? (
+            <p className="mt-4 text-xs text-[color:var(--on-ink-muted)]">
+              {copy.location.gstinLabel}: <span className="tnum">{dealer.gstin}</span>
+            </p>
+          ) : null}
         </div>
 
         <div>

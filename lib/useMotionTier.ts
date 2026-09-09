@@ -8,7 +8,7 @@ const FULL_MOTION_MIN_WIDTH = 1280;
 export type MotionTier =
   /** Render the finished, static page. Server, first paint, reduced-motion, slow links. */
   | 'none'
-  /** Everything that costs one composited animation each: reveals, count-ups, crossfades. */
+  /** Things that answer a tap: the colour crossfade, the EMI figure updating. */
   | 'light'
   /** Adds the scroll-bound and pointer-bound layer: parallax, cursor light, page wipes. */
   | 'full';
