@@ -175,6 +175,7 @@ export const hi: Copy = {
     backToAll: 'सारी गाड़ियाँ',
     colourLabel: 'रंग',
     colourHint: 'रंग पर टैप करके देखिए',
+    coloursAvailable: 'उपलब्ध रंग',
     galleryHeading: 'और तस्वीरें',
     specsHeading: 'स्पेसिफिकेशन',
     variantsHeading: 'Variants और ex-showroom दाम',

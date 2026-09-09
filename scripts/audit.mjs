@@ -227,12 +227,12 @@ async function main() {
     const count = await swatches.count();
     if (count < 2) note('[colour] fewer than two swatches on the Raider page');
 
-    const stageImage = page.locator('figure img').first();
-    const before = await stageImage.getAttribute('src');
-
-    // A model with no photographs yet renders the plate instead, and there is
-    // no image to compare — that is a valid state, so only assert when there is one.
-    const hasPhoto = before !== null;
+    // A model with no photographs yet renders the typeset plate instead, so
+    // there is no image to compare. That is a valid state, not a failure, and
+    // the swatch behaviour below is checked either way.
+    const stageImage = page.locator('figure img');
+    const hasPhoto = (await stageImage.count()) > 0;
+    const before = hasPhoto ? await stageImage.first().getAttribute('src') : null;
 
     if (count >= 2) {
       await swatches.nth(1).click();
@@ -411,10 +411,19 @@ async function main() {
     const url = page.url();
     if (!url.includes('type=scooter')) note(`[filter] URL did not record the filter: ${url}`);
 
+    // The count comes from the chip's own label rather than a number written
+    // here, so adding a model to the range does not fail the audit.
+    const label = await page.getByRole('button', { name: /Scooters/ }).innerText();
+    const expected = Number(/(\d+)/.exec(label)?.[1] ?? '0');
+
     await page.goto(url, { waitUntil: 'networkidle' });
     await page.waitForTimeout(400);
     const cards = await page.locator('ul li article').count();
-    if (cards !== 3) note(`[filter] shared URL rendered ${cards} scooters, expected 3`);
+    if (expected === 0) {
+      note('[filter] the Scooters chip does not show a count');
+    } else if (cards !== expected) {
+      note(`[filter] shared URL rendered ${cards} scooters, the chip says ${expected}`);
+    }
     await context.close();
   }
 

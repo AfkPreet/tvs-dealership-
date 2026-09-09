@@ -169,6 +169,7 @@ export const en = {
     backToAll: 'All vehicles',
     colourLabel: 'Colour',
     colourHint: 'Tap a colour to see it',
+    coloursAvailable: 'Colours available',
     galleryHeading: 'More views',
     specsHeading: 'Specifications',
     variantsHeading: 'Variants and ex-showroom prices',

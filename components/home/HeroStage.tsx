@@ -19,7 +19,6 @@ import { useHeavyMediaAllowed, useOnLoadMotion } from '@/lib/useMotionTier';
  */
 export function HeroStage() {
   const wide = photos['hero-raider'];
-  const tall = photos['hero-floor'];
   const allowVideo = useHeavyMediaAllowed();
   const arrive = useOnLoadMotion();
 
@@ -62,12 +61,14 @@ export function HeroStage() {
           // The hero still is the LCP element on every viewport. Nothing defers it.
           fetchPriority="high"
           decoding="async"
-          className={`w-full object-cover md:aspect-[16/9] ${arrive ? 'hero-fade-rise' : ''}`}
+          // The two sources have different shapes, so the ratio is a class, not an
+          // inline style — an inline aspect-ratio would win against the md: rule
+          // and leave the desktop photograph cropped to a phone's proportions.
+          className={`aspect-[4/5] w-full object-cover md:aspect-[16/9] ${arrive ? 'hero-fade-rise' : ''}`}
           style={{
             backgroundImage: `url("${wide.blur}")`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            aspectRatio: `${tall.width} / ${tall.height}`,
           }}
         />
       </picture>

@@ -1,4 +1,4 @@
-import { cardImage, type Vehicle } from '@/content/vehicles';
+import { cardImage, imageSize, type Vehicle } from '@/content/vehicles';
 
 /**
  * A model's photograph, or a deliberate stand-in when there isn't one.
@@ -8,6 +8,11 @@ import { cardImage, type Vehicle } from '@/content/vehicles';
  * rather than a broken image or an empty box — it reads as a design choice, the
  * layout does not shift when the real photo lands, and nobody is shown a bike
  * that is not the one they clicked.
+ *
+ * TVS shoots on white. Putting those on the near-black card ground would show a
+ * white rectangle with a bike in it, so the photograph gets its own light plate
+ * and the dark surface frames it. The plate is the design, not a workaround: it
+ * is the same treatment a printed price list uses.
  */
 export function VehiclePhoto({
   vehicle,
@@ -42,18 +47,22 @@ export function VehiclePhoto({
     );
   }
 
+  const { width, height } = imageSize(image);
+
   return (
     <img
       src={image}
       alt=""
-      width={1600}
-      height={960}
+      width={width}
+      height={height}
       loading={eager ? 'eager' : 'lazy'}
       // The hero photo on a model page is the LCP element; everything else waits.
       fetchPriority={eager ? 'high' : undefined}
       decoding="async"
       sizes={sizes}
-      className={`${ratio} w-full bg-ink object-cover ${className}`}
+      // `contain`, not `cover`: these are studio shots of a whole vehicle and
+      // cropping one to fill a box cuts a wheel off.
+      className={`${ratio} w-full bg-white object-contain ${className}`}
     />
   );
 }

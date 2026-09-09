@@ -8,8 +8,9 @@
  *
  * Runs before every build, so the index cannot drift from the files.
  */
-import { readdir, writeFile, stat } from 'node:fs/promises';
+import { readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import sharp from 'sharp';
 
 const ROOT = process.cwd();
 const DIR = path.join(ROOT, 'public', 'vehicles');
@@ -30,10 +31,16 @@ for (const slug of slugs) {
   const files = (await readdir(path.join(DIR, slug))).filter((f) => f.endsWith('.webp')).sort();
   if (files.length === 0) continue;
 
-  const entry = { card: null, colours: {}, gallery: [] };
+  const entry = { card: null, colours: {}, gallery: [], sizes: {} };
   for (const file of files) {
     const name = file.replace(/\.webp$/, '');
     const url = `/vehicles/${slug}/${file}`;
+
+    // Real intrinsic sizes, so width/height attributes reserve the right box and
+    // so the highest-resolution photograph can be picked for a card.
+    const meta = await sharp(path.join(DIR, slug, file)).metadata();
+    entry.sizes[url] = { width: meta.width ?? 0, height: meta.height ?? 0 };
+
     if (name === 'card') entry.card = url;
     else if (/^view-\d+$/.test(name)) entry.gallery.push(url);
     else entry.colours[name] = url;

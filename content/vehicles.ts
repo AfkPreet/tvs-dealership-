@@ -27,6 +27,7 @@ type ModelImages = {
   card: string | null;
   colours: Record<string, string>;
   gallery: string[];
+  sizes: Record<string, { width: number; height: number }>;
 };
 
 export type VehicleCategory = 'scooter' | 'motorcycle' | 'moped' | 'electric';
@@ -296,11 +297,13 @@ export const vehicles: Vehicle[] = [
     ],
     colours: [
       c('Pearl White', 'pearl-white', WHITE, '#9AA0A8'),
-      c('Turquoise Blue', 'turquoise-blue', '#1E7F92', WHITE),
-      c('Matte Red', 'matte-red', '#9C2028', '#2A2B30'),
+      c('Turquoise Blue', 'turquoise-blue', '#2F93AF', WHITE),
+      c('Matte Blue', 'matte-blue', '#0F5191', SILVER),
       c('Purple', 'purple', '#5B3A78', WHITE),
       c('Matte Black', 'matte-black', '#2A2B30', '#8C9095'),
+      c('Bold Black', 'bold-black', INK, SILVER),
       c('Graphite Grey', 'graphite-grey', '#4E5157', '#B8BCC4'),
+      c('Titanium Grey', 'titanium-grey', GREY, '#B8BCC4'),
     ],
     specs: {
       displacementCc: 109.7,
@@ -340,11 +343,20 @@ export const vehicles: Vehicle[] = [
       { name: 'TFT iGO Assist', exShowroom: 99_620 },
     ],
     colours: [
+      // Names and photographs from TVS's own colour picker. The Marvel special
+      // editions are real trim names, not nicknames we invented.
       c('Striking Red', 'striking-red', '#C4142B', INK),
       c('Wicked Black', 'wicked-black', INK, '#EC1B2E'),
       c('Nardo Grey', 'nardo-grey', '#8C9095', '#C4142B'),
-      c('Forza Blue', 'forza-blue', '#1F4FA8', INK),
-      c('Fiery Yellow', 'fiery-yellow', '#D9A21B', INK),
+      c('Metallic Blue', 'metallic-blue', '#2F4B6E', SILVER),
+      c('Nitro Green', 'nitro-green', '#7C8A3E', INK),
+      c('Blazing Blue', 'blazing-blue', '#352E6C', SILVER),
+      c('Mercury Grey', 'mercury-grey', '#6A7280', INK),
+      c('Doomsday', 'doomsday', '#354D4C', SILVER),
+      c('Deadpool', 'deadpool', '#8E1B22', INK),
+      c('Wolverine', 'wolverine', '#1F6E6F', '#D9A21B'),
+      c('Black Panther', 'black-panther', '#3E3350', SILVER),
+      c('Iron Man', 'iron-man', '#8E0915', '#D9A21B'),
     ],
     specs: {
       displacementCc: 124.8,
@@ -467,11 +479,13 @@ export const vehicles: Vehicle[] = [
       { name: 'Digital — Disc', exShowroom: 83_304 },
     ],
     colours: [
-      c('Pearl White', 'pearl-white', WHITE, '#9AA0A8'),
       c('Metal Black', 'metal-black', INK, SILVER),
-      c('Golden Beige', 'golden-beige', '#B79A6B', INK),
+      c('All Black', 'all-black', '#25262B', '#4E5157'),
+      c('Black', 'black', '#2C2B2C', SILVER),
+      c('DT Blue Black', 'dt-blue-black', '#2D48B3', INK),
+      c('DT Red Black', 'dt-red-black', '#B3302E', INK),
+      c('Starlight Blue', 'starlight-blue', '#064756', SILVER),
       c('Royal Purple', 'royal-purple', '#4A2F63', SILVER),
-      c('Volcano Red', 'volcano-red', '#A8202C', INK),
       c('Titanium Grey', 'titanium-grey', GREY, '#B8BCC4'),
     ],
     specs: {
@@ -511,10 +525,10 @@ export const vehicles: Vehicle[] = [
       { name: 'Heavy Duty i-Touchstart', exShowroom: 56_120 },
     ],
     colours: [
-      c('Fiery Yellow', 'fiery-yellow', '#D9A21B', '#25262B'),
-      c('Blazing Red', 'blazing-red', RED, '#25262B'),
-      c('Deep Green', 'deep-green', '#1E6B4A', '#25262B'),
-      c('Sky Blue', 'sky-blue', '#3B7EA8', '#25262B'),
+      // TVS lists these by plain colour rather than a trim name.
+      c('Blue', 'blue', '#3B7EA8', '#25262B'),
+      c('Green', 'green', '#1E6B4A', '#25262B'),
+      c('Black', 'black', '#25262B', SILVER),
     ],
     specs: {
       displacementCc: 99.7,
@@ -974,8 +988,10 @@ export const vehicles: Vehicle[] = [
  * not on all of them; an unmatched colour keeps its swatch and falls back to the
  * model's own photograph, which is honest and is what the stage already does.
  */
+const imagesBySlug = vehicleImages.models as Record<string, ModelImages | undefined>;
+
 for (const vehicle of vehicles) {
-  const found = (vehicleImages.models as Record<string, ModelImages | undefined>)[vehicle.slug];
+  const found = imagesBySlug[vehicle.slug];
   if (!found) continue;
 
   if (found.card) vehicle.images.hero = found.card;
@@ -985,6 +1001,12 @@ for (const vehicle of vehicles) {
     const image = found.colours[colour.slug];
     if (image) colour.image = image;
   }
+}
+
+/** Intrinsic size of a downloaded photograph, so nothing reflows while it loads. */
+export function imageSize(url: string): { width: number; height: number } {
+  const slug = url.split('/')[2];
+  return imagesBySlug[slug]?.sizes[url] ?? { width: 1400, height: 840 };
 }
 
 export const categories: VehicleCategory[] = ['scooter', 'motorcycle', 'moped', 'electric'];
@@ -1002,19 +1024,31 @@ export function priceFrom(v: Vehicle): number {
 }
 
 /**
- * Cards sit on --ink, so a Stealth Black NTORQ on a near-black ground
- * disappears. Pick the model's most legible official colour for the card;
- * the model page still opens on the first colour in the list.
+ * The colour a card and the model stage should open on.
+ *
+ * A colour with a photograph wins, because the alternative is the typeset plate.
+ * Among those, the lightest reads best: the studio shots are on white, and a
+ * Wicked Black next to a Striking Red is the less informative of the two at
+ * card size. The colour list order is otherwise preserved.
  */
 export function cardColour(v: Vehicle): ColourOption {
   const luminance = (hex: string) => {
     const n = parseInt(hex.slice(1), 16);
     return 0.2126 * ((n >> 16) & 255) + 0.7152 * ((n >> 8) & 255) + 0.0722 * (n & 255);
   };
-  return v.colours.reduce((best, x) => (luminance(x.hex) > luminance(best.hex) ? x : best));
+  const withPhoto = v.colours.filter((x) => x.image);
+  const pool = withPhoto.length > 0 ? withPhoto : v.colours;
+  return pool.reduce((best, x) => (luminance(x.hex) > luminance(best.hex) ? x : best));
 }
 
-/** The image a card should show: the model hero, else the best colour's photo. */
+/**
+ * The photograph a card should show.
+ *
+ * The per-colour studio shots run 700–800px wide; the navigation's product image
+ * is only 372. So a colour photo wins when there is one — it is the same bike in
+ * the same treatment, just sharp enough for a card on a retina screen — and the
+ * navigation image is the fallback for models that have no colour shots yet.
+ */
 export function cardImage(v: Vehicle): string | undefined {
-  return v.images.hero ?? cardColour(v).image ?? v.colours.find((x) => x.image)?.image;
+  return cardColour(v).image ?? v.colours.find((x) => x.image)?.image ?? v.images.hero;
 }
