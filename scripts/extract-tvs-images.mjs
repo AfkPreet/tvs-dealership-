@@ -19,6 +19,7 @@
  * it is a separate step that needs no browser at all.
  */
 import { readFile, writeFile, readdir } from 'node:fs/promises';
+import { gunzipSync } from 'node:zlib';
 import path from 'node:path';
 
 const PAGES = path.join(process.cwd(), 'media', 'tvs-pages');
@@ -154,13 +155,23 @@ function galleryImages(html) {
   return [...seen.values()].slice(0, 4);
 }
 
-const files = (await readdir(PAGES)).filter((f) => f.endsWith('.html'));
+/**
+ * The saved pages are stored gzipped: 11MB of rendered HTML becomes about 1MB,
+ * and they are kept as the provenance record for every image on the site rather
+ * than because anything reads them at build time.
+ */
+async function readPage(file) {
+  const buffer = await readFile(path.join(PAGES, file));
+  return (file.endsWith('.gz') ? gunzipSync(buffer) : buffer).toString('utf8');
+}
+
+const files = (await readdir(PAGES)).filter((f) => f.endsWith('.html') || f.endsWith('.html.gz'));
 const cards = new Map();
 const models = {};
 
 for (const file of files.sort()) {
-  const slug = file.replace(/\.html$/, '');
-  const html = await readFile(path.join(PAGES, file), 'utf8');
+  const slug = file.replace(/\.html(\.gz)?$/, '');
+  const html = await readPage(file);
   cardImages(html, cards);
   const colours = colourImages(html);
   const gallery = colours.length > 0 ? [] : galleryImages(html);
