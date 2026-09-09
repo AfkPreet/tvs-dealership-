@@ -1,0 +1,60 @@
+name: Download TVS images
+
+# The development sandbox's proxy blocks tvsmotor.com, so the URLs are found
+# offline from the saved pages and only the fetching happens here.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm ci
+
+      - name: Download
+        run: node scripts/download-tvs-images.mjs
+
+      - name: Publish to assets/tvs-images
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B assets/tvs-images
+          git add -A public/vehicles content/tvs-images-result.json
+          git commit -m "Downloaded TVS model images" || echo "nothing new"
+          git push --force origin assets/tvs-images
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "### TVS image download"
+            echo ""
+            if [ -f content/tvs-images-result.json ]; then
+              node -e '
+                const r = require("./content/tvs-images-result.json");
+                console.log(`**${r.ok.length} downloaded, ${r.failed.length} failed**`);
+                console.log("");
+                if (r.failed.length) {
+                  console.log("| model | image | error |");
+                  console.log("| --- | --- | --- |");
+                  for (const f of r.failed) console.log(`| ${f.slug} | ${f.name} | ${f.error} |`);
+                }
+              '
+            else
+              echo "No result file — the download step did not run."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
