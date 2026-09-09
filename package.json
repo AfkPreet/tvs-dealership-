@@ -15,7 +15,9 @@
     "fetch:tvs": "node scripts/fetch-tvs.mjs",
     "media": "node scripts/curate-media.mjs",
     "extract:tvs": "node scripts/extract-tvs-images.mjs",
-    "download:tvs": "node scripts/download-tvs-images.mjs"
+    "download:tvs": "node scripts/download-tvs-images.mjs",
+    "index:images": "node scripts/index-vehicle-images.mjs",
+    "prebuild": "node scripts/index-vehicle-images.mjs"
   },
   "dependencies": {
     "next": "^16.3.1",

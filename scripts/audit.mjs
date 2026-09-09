@@ -93,6 +93,7 @@ const PAGES = [
   { name: 'model', path: '/vehicles/jupiter-125/' },
   { name: 'finance', path: '/finance/' },
   { name: 'service', path: '/service/' },
+  { name: 'about', path: '/about/' },
 ];
 
 async function main() {
@@ -214,73 +215,113 @@ async function main() {
     await context.close();
   }
 
-  /* --- 5. The spinner: drag with a mouse, drag with a finger, swap colour --- */
+  /* --- 5. The colour stage: swatches swap the photograph, arrows move between them --- */
   {
     const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
     const page = await context.newPage();
-    await page.goto(base + '/vehicles/jupiter-125/', { waitUntil: 'networkidle' });
-    await page.waitForTimeout(1200);
+    await page.goto(base + '/vehicles/raider-125/', { waitUntil: 'networkidle' });
+    await page.waitForTimeout(600);
 
-    const stage = page.locator('[role="img"][tabindex="0"]').first();
-    const box = await stage.boundingBox();
-    const srcOf = () => stage.locator('img').getAttribute('src');
+    const group = page.locator('[role="radiogroup"]').first();
+    const swatches = group.locator('[role="radio"]');
+    const count = await swatches.count();
+    if (count < 2) note('[colour] fewer than two swatches on the Raider page');
 
-    const before = await srcOf();
-    await page.mouse.move(box.x + box.width * 0.7, box.y + box.height / 2);
-    await page.mouse.down();
-    for (let i = 1; i <= 8; i += 1) {
-      await page.mouse.move(box.x + box.width * 0.7 - i * 22, box.y + box.height / 2);
+    const stageImage = page.locator('figure img').first();
+    const before = await stageImage.getAttribute('src');
+
+    // A model with no photographs yet renders the plate instead, and there is
+    // no image to compare — that is a valid state, so only assert when there is one.
+    const hasPhoto = before !== null;
+
+    if (count >= 2) {
+      await swatches.nth(1).click();
+      await page.waitForTimeout(400);
+      const checked = await swatches.nth(1).getAttribute('aria-checked');
+      if (checked !== 'true') note('[colour] clicking a swatch did not check it');
+
+      if (hasPhoto) {
+        const after = await page.locator('figure img').first().getAttribute('src');
+        const colourPhotos = await page.evaluate(
+          () => document.querySelectorAll('[data-photo-placeholder]').length === 0,
+        );
+        if (colourPhotos && after === before) {
+          note('[colour] swatch click did not change the photograph');
+        }
+      }
+
+      // Arrow keys move the selection, which is the whole point of a radiogroup.
+      await swatches.nth(1).focus();
+      await page.keyboard.press('ArrowRight');
+      await page.waitForTimeout(200);
+      const moved = await swatches.nth(2 % count).getAttribute('aria-checked');
+      if (moved !== 'true') note('[colour] arrow key did not move the selection');
     }
-    await page.mouse.up();
-    const afterMouse = await srcOf();
-    if (before === afterMouse) note('[spinner] mouse drag did not change the frame');
 
-    await stage.focus();
-    await page.keyboard.press('ArrowRight');
-    if ((await srcOf()) === afterMouse) note('[spinner] arrow key did not change the frame');
-
-    const swatch = page.getByRole('button', { name: /Titanium Grey/i }).first();
-    await swatch.click();
-    await page.waitForTimeout(300);
-    if (!(await srcOf()).includes('titanium-grey')) note('[spinner] colour swap did not change the sequence');
-    await page.screenshot({ path: join(SHOTS, 'spinner-after-drag.png') });
+    await page.screenshot({ path: join(SHOTS, 'model-colour-stage.png') });
     await context.close();
   }
 
-  /* --- 5b. Touch drag on a real iPhone profile --- */
+  /* --- 5b. The model page on a real iPhone profile --- */
   {
     const context = await browser.newContext({ ...devices['iPhone 13'] });
     const page = await context.newPage();
-    await page.goto(base + '/vehicles/jupiter-125/', { waitUntil: 'networkidle' });
-    await page.waitForTimeout(1500);
+    await page.goto(base + '/vehicles/raider-125/', { waitUntil: 'networkidle' });
+    await page.waitForTimeout(800);
 
-    const stage = page.locator('[role="img"]').first();
-    const box = await stage.boundingBox();
-    const before = await stage.locator('img').getAttribute('src');
-    await page.locator('body').evaluate(() => {});
-    await stage.dispatchEvent('pointerdown', {
-      pointerId: 1,
-      pointerType: 'touch',
-      isPrimary: true,
-      clientX: box.x + box.width * 0.8,
-      clientY: box.y + box.height / 2,
-      buttons: 1,
-    });
-    for (let i = 1; i <= 10; i += 1) {
-      await stage.dispatchEvent('pointermove', {
-        pointerId: 1,
-        pointerType: 'touch',
-        isPrimary: true,
-        clientX: box.x + box.width * 0.8 - i * 14,
-        clientY: box.y + box.height / 2,
-        buttons: 1,
-      });
-    }
-    await stage.dispatchEvent('pointerup', { pointerId: 1, pointerType: 'touch', isPrimary: true });
-    if ((await stage.locator('img').getAttribute('src')) === before) {
-      note('[spinner] touch drag did not change the frame');
+    const swatches = page.locator('[role="radio"]');
+    if ((await swatches.count()) > 1) {
+      await swatches.nth(1).tap();
+      await page.waitForTimeout(400);
+      if ((await swatches.nth(1).getAttribute('aria-checked')) !== 'true') {
+        note('[colour] tapping a swatch on a phone did not select it');
+      }
     }
     await page.screenshot({ path: join(SHOTS, 'model-iphone.png') });
+    await context.close();
+  }
+
+  /* --- 5c. The intro card gets out of the way, and never blocks the page --- */
+  {
+    const context = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+    const page = await context.newPage();
+    await page.goto(base + '/', { waitUntil: 'domcontentloaded' });
+
+    // It must be gone within a second and a half, without any interaction.
+    await page.waitForTimeout(1600);
+    if ((await page.locator('[data-intro]').count()) > 0) {
+      note('[intro] the opening card was still on screen after 1.6s');
+    }
+
+    // The headline underneath must have been readable the whole time.
+    const headline = page.locator('h1').first();
+    if (!(await headline.isVisible())) note('[intro] the hero headline is not visible after the intro');
+
+    // Second visit in the same session must not show it again.
+    await page.goto(base + '/vehicles/', { waitUntil: 'domcontentloaded' });
+    await page.waitForTimeout(200);
+    if ((await page.locator('[data-intro]').count()) > 0) {
+      note('[intro] the opening card played again on the second page of a session');
+    }
+    await context.close();
+  }
+
+  /* --- 5d. The whole-range rail scrolls and every card links somewhere --- */
+  {
+    const context = await browser.newContext({ ...devices['iPhone 13'] });
+    const page = await context.newPage();
+    await page.goto(base + '/', { waitUntil: 'networkidle' });
+
+    const rail = page.locator('.model-rail');
+    if ((await rail.count()) === 0) {
+      note('[range] the model rail is missing from the home page');
+    } else {
+      const overflows = await rail.first().evaluate((el) => el.scrollWidth > el.clientWidth + 8);
+      if (!overflows) note('[range] the model rail does not scroll on a phone');
+
+      const links = rail.first().locator('a[href^="/vehicles/"]');
+      if ((await links.count()) < 10) note('[range] the model rail is missing models');
+    }
     await context.close();
   }
 

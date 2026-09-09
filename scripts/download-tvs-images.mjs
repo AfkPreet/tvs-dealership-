@@ -33,10 +33,14 @@ const QUALITY = 80;
 const TIMEOUT_MS = 30_000;
 
 /**
- * Runs in the page. Returns base64 rather than bytes because that is all that
- * survives the bridge out of the browser.
+ * Runs in the page. Takes one destructured argument because that is all
+ * page.evaluate passes across the bridge — two parameters silently leaves the
+ * second undefined, which is how an abort controller ends up firing instantly.
+ *
+ * Returns base64 rather than bytes because that is all that survives the bridge
+ * on the way back out.
  */
-async function fetchInPage(url, timeoutMs) {
+async function fetchInPage({ url, timeoutMs }) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
@@ -108,9 +112,9 @@ const results = { ok: [], failed: [] };
 for (const job of jobs) {
   const dir = path.join(OUT, job.slug);
   try {
-    const got = await page.evaluate(fetchInPage, [job.url, TIMEOUT_MS]).catch((e) => ({
-      error: String(e?.message ?? e),
-    }));
+    const got = await page
+      .evaluate(fetchInPage, { url: job.url, timeoutMs: TIMEOUT_MS })
+      .catch((e) => ({ error: String(e?.message ?? e) }));
     if (got.error) throw new Error(got.error);
 
     const raw = Buffer.from(got.base64, 'base64');

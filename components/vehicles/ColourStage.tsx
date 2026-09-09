@@ -113,6 +113,30 @@ export function ColourStage({ vehicle }: { vehicle: Vehicle }) {
           ))}
         </div>
       </figcaption>
+
+      {/* Extra views, where TVS publishes them. These are unnamed on purpose —
+          the filenames that carry them do not reliably name a colour. */}
+      {vehicle.images.gallery.length > 0 ? (
+        <div className="mt-6">
+          <p className="eyebrow text-[color:var(--on-ink-muted)]">{copy.model.galleryHeading}</p>
+          <ul className="mt-3 grid grid-cols-4 gap-2">
+            {vehicle.images.gallery.map((image) => (
+              <li key={image} className="overflow-hidden rounded-sm bg-graphite">
+                <img
+                  src={image}
+                  alt=""
+                  width={1400}
+                  height={840}
+                  loading="lazy"
+                  decoding="async"
+                  sizes="(min-width: 1280px) 10rem, 22vw"
+                  className="aspect-[5/3] w-full object-cover"
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
     </figure>
   );
 }

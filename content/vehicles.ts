@@ -20,6 +20,15 @@
  * OMITTED — Scooty Pep+ (TVS ended production in late 2024).
  */
 
+import vehicleImages from './vehicle-images.json';
+
+/** The shape scripts/index-vehicle-images.mjs writes for each model. */
+type ModelImages = {
+  card: string | null;
+  colours: Record<string, string>;
+  gallery: string[];
+};
+
 export type VehicleCategory = 'scooter' | 'motorcycle' | 'moped' | 'electric';
 
 export type BrakeType = 'disc' | 'drum';
@@ -952,6 +961,31 @@ export const vehicles: Vehicle[] = [
 /* ------------------------------------------------------------------ */
 /* Derived helpers                                                     */
 /* ------------------------------------------------------------------ */
+
+/**
+ * Attach the official photographs to the models.
+ *
+ * content/vehicle-images.json is generated from the files that are actually in
+ * public/vehicles/, so a path here is a file that exists. Nothing is claimed on
+ * the strength of a download that might have failed, and a model with no picture
+ * yet renders the typeset plate instead — which is a design, not a broken image.
+ *
+ * Colours are matched by slug. TVS and our curated list agree on most names and
+ * not on all of them; an unmatched colour keeps its swatch and falls back to the
+ * model's own photograph, which is honest and is what the stage already does.
+ */
+for (const vehicle of vehicles) {
+  const found = (vehicleImages.models as Record<string, ModelImages | undefined>)[vehicle.slug];
+  if (!found) continue;
+
+  if (found.card) vehicle.images.hero = found.card;
+  vehicle.images.gallery = found.gallery;
+
+  for (const colour of vehicle.colours) {
+    const image = found.colours[colour.slug];
+    if (image) colour.image = image;
+  }
+}
 
 export const categories: VehicleCategory[] = ['scooter', 'motorcycle', 'moped', 'electric'];
 
