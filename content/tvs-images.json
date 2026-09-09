@@ -1,0 +1,310 @@
+{
+  "origin": "https://www.tvsmotor.com",
+  "extractedAt": "2026-09-09T06:04:19.117Z",
+  "note": "Derived offline from media/tvs-pages/*.html. Regenerate with `npm run extract:tvs`.",
+  "models": {
+    "apache-rr-310": {
+      "colours": [],
+      "gallery": [],
+      "card": "https://www.tvsmotor.com/-/media/Feature/Navbar/New-Product-images/09-03-26/RR-310.webp"
+    },
+    "apache-rtr-160-4v": {
+      "colours": [],
+      "gallery": [
+        "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/RTR-160-4V/Desktop/Color/Marine-Blue-New.webp",
+        "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/RTR-160-4V/Desktop/Color/Racing-Red-New.webp",
+        "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/RTR-160-4V/Desktop/Color/Matte-Black-New.webp",
+        "https://www.tvsmotor.com/-/media/apache_160_2v_new_addition/oct24/160_4v_Granite_Grey_Tank.webp"
+      ],
+      "card": "https://www.tvsmotor.com/-/media/Feature/Navbar/New-Product-images/19-09-25/Apache-RTR-160-4V.webp"
+    },
+    "apache-rtr-160": {
+      "colours": [],
+      "gallery": [
+        "https://www.tvsmotor.com/-/media/apache_160_2v_new_addition/colors_desktop_new.webp",
+        "https://www.tvsmotor.com/-/media/Brand-Pages/Apache/Apache-RTR/Apache-RTR-160/webp/color/Gloss-Black/Row-13-Wep_Image_700w-x-500h-px_a.webp",
+        "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/RTR-160-4V/Desktop/Color/White-red.webp",
+        "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/RTR-160-4V/Desktop/Color/Black-red.webp"
+      ],
+      "card": "https://www.tvsmotor.com/-/media/Feature/Navbar/New-Product-images/15-05-25/Apache-RTR-160-2V.webp"
+    },
+    "apache-rtr-180": {
+      "colours": [],
+      "gallery": [
+        "https://www.tvsmotor.com/-/media/Brand-Pages/Apache/Apache-RTR/Apache-RTR-180/28-11-22/Tank-Scoops/Black/webp-images/180---682-x-397-Pix-Tank-Black.webp",
+        "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/RTR-160-4V/Desktop/Color/White-red.webp",
+        "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/RTR-160-4V/Desktop/Color/Black-red.webp",
+        "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/RTR-160-4V/Desktop/Color/Black-neon.webp"
+      ],
+      "card": "https://www.tvsmotor.com/-/media/Feature/Navbar/New-Product-images/15-05-25/Apache-RTR-180.webp"
+    },
+    "apache-rtr-200-4v": {
+      "colours": [],
+      "gallery": [
+        "https://www.tvsmotor.com/-/media/U552/04062025/TANK-RTR-2004V-700X500_GLOSSY-BLACK.webp",
+        "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/RTR-160-4V/Desktop/Color/White-red.webp",
+        "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/RTR-160-4V/Desktop/Color/Black-red.webp",
+        "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/RTR-160-4V/Desktop/Color/Black-neon.webp"
+      ],
+      "card": "https://www.tvsmotor.com/-/media/Feature/Navbar/New-Product-images/19-09-25/Apache-RTR-200-4V.webp"
+    },
+    "apache-rtr-310": {
+      "colours": [],
+      "gallery": [
+        "https://www.tvsmotor.com/-/media/u400-launch-webp/built-to-order/color/341x234-Sepang-blue.webp",
+        "https://www.tvsmotor.com/-/media/u400-launch/calculator.png",
+        "https://www.tvsmotor.com/-/media/u400-launch-webp/accessories-merchandise/1500x573-Accessories.webp",
+        "https://www.tvsmotor.com/-/media/u400-launch-webp/accessories-merchandise/1500x573-Merchandisesa.webp"
+      ],
+      "card": "https://www.tvsmotor.com/-/media/Feature/Navbar/New-Product-images/09-03-26/RTR-310.webp"
+    },
+    "iqube": {
+      "colours": [],
+      "gallery": [],
+      "card": "https://www.tvsmotor.com/-/media/Feature/Navbar/New-Product-images/15-05-25/Tvs-iqube.webp"
+    },
+    "jupiter-110": {
+      "colours": [],
+      "gallery": [
+        "https://www.tvsmotor.com/-/media/Jupitar110DualToneImages/Price/PRICE.webp",
+        "https://www.tvsmotor.com/-/media/Brand Pages Webp/TVS Jupiter/Dealer-locator/img_test_ride_popup_desktop.webp"
+      ],
+      "card": "https://www.tvsmotor.com/-/media/Feature/Navbar/New-Product-images/15-05-25/Jupiter.webp"
+    },
+    "jupiter-125": {
+      "colours": [],
+      "gallery": [],
+      "card": "https://www.tvsmotor.com/-/media/Feature/Navbar/New-Product-images/15-05-25/Jupiter-125.webp"
+    },
+    "ntorq-125": {
+      "colours": [],
+      "gallery": [],
+      "card": "https://www.tvsmotor.com/-/media/Feature/Navbar/New-Product-images/15-05-25/Ntorq.webp"
+    },
+    "orbiter": {
+      "colours": [],
+      "gallery": [],
+      "card": "https://www.tvsmotor.com/-/media/HomeOptimizedImages/TVS-Home-Page-WebP/Desktop/Vehicles/EV/TVS-Orbiter.webp"
+    },
+    "radeon": {
+      "colours": [
+        {
+          "name": "DT Blue Black",
+          "slug": "dt-blue-black",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/Radeon/web/360/DIGI-Cluster/DT-Blue-Black/1.webp"
+        },
+        {
+          "name": "DT Red Black",
+          "slug": "dt-red-black",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/Radeon/web/360/DIGI-Cluster/DT-Red-Black/1.webp"
+        },
+        {
+          "name": "Black",
+          "slug": "black",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/Radeon/web/360/DIGI-Cluster/Black/1.webp"
+        },
+        {
+          "name": "All Black",
+          "slug": "all-black",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/Radeon/All-Black-new/1.webp"
+        },
+        {
+          "name": "StarLight Blue",
+          "slug": "starlight-blue",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/Radeon/web/360/Base-Edition/Starlight-Blue/1.webp"
+        },
+        {
+          "name": "Metal Black",
+          "slug": "metal-black",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/Radeon/web/360/Base-Edition/Metal-Black/1.webp"
+        },
+        {
+          "name": "ROYAL PURPLE",
+          "slug": "royal-purple",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/Radeon/web/360/Base-Edition/Royal-Purple/1.webp"
+        },
+        {
+          "name": "TITANIUM GREY",
+          "slug": "titanium-grey",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/Radeon/web/360/Base-Edition/Titanium-Grey/1.webp"
+        }
+      ],
+      "gallery": [],
+      "card": "https://www.tvsmotor.com/-/media/Feature/Navbar/New-Product-images/15-05-25/TVS-Radeon.webp"
+    },
+    "raider-125": {
+      "colours": [
+        {
+          "name": "Doomsday",
+          "slug": "doomsday",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/Raider/Raider-360/360-raider/SSE/Doomsday/1.webp"
+        },
+        {
+          "name": "Deadpool",
+          "slug": "deadpool",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/Raider/Raider-360/360-raider/SSE/Deadpool/1.webp"
+        },
+        {
+          "name": "Wolverine",
+          "slug": "wolverine",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/Raider/Raider-360/360-raider/SSE/Wolverine/1.webp"
+        },
+        {
+          "name": "Black Panther",
+          "slug": "black-panther",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/Raider/Raider-360/360-raider/SSE/SSE-Webpp/Black-Panther/1.webp"
+        },
+        {
+          "name": "Iron Man",
+          "slug": "iron-man",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/Raider/Raider-360/360-raider/SSE/SSE-Webpp/Iron-Man/1.webp"
+        },
+        {
+          "name": "NITRO GREEN",
+          "slug": "nitro-green",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/Raider/Color-New-images/TFT/1.webp"
+        },
+        {
+          "name": "STRIKING RED",
+          "slug": "striking-red",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/Raider/04-09-25/360--ABS---WebP-769x480/1.webp"
+        },
+        {
+          "name": "METALLIC BLUE",
+          "slug": "metallic-blue",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/Raider/Color-New-images/TFT-DD-Metallic-Blue/1.webp"
+        },
+        {
+          "name": "Nardo Grey",
+          "slug": "nardo-grey",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/Raider/Raider-360/360-new/iGO-Raider/iGO-Raider/1.webp"
+        },
+        {
+          "name": "WICKED BLACK",
+          "slug": "wicked-black",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/Raider/Raider-360/360-new/IGO-black-Corrected/1.webp"
+        },
+        {
+          "name": "BLAZING BLUE",
+          "slug": "blazing-blue",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/Raider/Color-New-images/Split-Seat/OneDrive_1_21-3-2025/Blazing-blue/Blue/Webp/1.webp"
+        },
+        {
+          "name": "MERCURY GREY",
+          "slug": "mercury-grey",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/Raider/RevisedRaider360Images/DISC/MG-Disk/1.webp"
+        }
+      ],
+      "gallery": [],
+      "card": "https://www.tvsmotor.com/-/media/Feature/Navbar/New-Product-images/15-05-25/TVS-Raider.webp"
+    },
+    "ronin": {
+      "colours": [],
+      "gallery": [],
+      "card": "https://www.tvsmotor.com/-/media/Feature/Navbar/New-Product-images/15-05-25/TVS-Ronin.webp"
+    },
+    "sport": {
+      "colours": [],
+      "gallery": [],
+      "card": "https://www.tvsmotor.com/-/media/Feature/Navbar/New-Product-images/15-05-25/TVS-Sport.webp"
+    },
+    "star-city-plus": {
+      "colours": [
+        {
+          "name": "Black Red",
+          "slug": "black-red",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages/TVSStarCity/Colour/Disc/RED-DISC/Revised_Red/1.webp"
+        },
+        {
+          "name": "Black Green",
+          "slug": "black-green",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages/TVSStarCity/Colour/Disc/GREEN-DISC/700x500/1.webp"
+        },
+        {
+          "name": "GREY BLACK",
+          "slug": "grey-black",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages/TVSStarCity/Colour/Drum/GREY/700x500/1.webp"
+        },
+        {
+          "name": "Black Blue",
+          "slug": "black-blue",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages/TVSStarCity/Colour/Drum/BLUE/Revised_Blue/1.webp"
+        }
+      ],
+      "gallery": [],
+      "card": "https://www.tvsmotor.com/-/media/Feature/Navbar/New-Product-images/15-05-25/TVS-STAR-CIty.webp"
+    },
+    "tvs-x": {
+      "colours": [],
+      "gallery": [],
+      "card": "https://www.tvsmotor.com/-/media/Feature/Navbar/New-Product-images/15-05-25/TVS-X.webp"
+    },
+    "xl100": {
+      "colours": [
+        {
+          "name": "Blue",
+          "slug": "blue",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages/XL100/Colours/Heavy-Duty-KS/Blue/1.webp"
+        },
+        {
+          "name": "Green",
+          "slug": "green",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages/XL100/Colours/Heavy-Duty-KS/green/new/1.webp"
+        },
+        {
+          "name": "Black",
+          "slug": "black",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages/XL100/Colours/Heavy-Duty-KS/black/New/1.webp"
+        }
+      ],
+      "gallery": [],
+      "card": "https://www.tvsmotor.com/-/media/Feature/Navbar/New-Product-images/15-05-25/TVS-xl100.webp"
+    },
+    "zest-110": {
+      "colours": [
+        {
+          "name": "Titanium Grey",
+          "slug": "titanium-grey",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/zest/Titanium-Grey/360-View/1.webp"
+        },
+        {
+          "name": "Matte Black",
+          "slug": "matte-black",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/zest/Zest-360-black-pillion-handle/Zest-360-black-pillion-handle/webp/Black/1.webp"
+        },
+        {
+          "name": "Matte Blue",
+          "slug": "matte-blue",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/zest/Zest-360-black-pillion-handle/Zest-360-black-pillion-handle/webp/Blue/1.webp"
+        },
+        {
+          "name": "Purple",
+          "slug": "purple",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/zest/Zest-360-black-pillion-handle/Zest-360-black-pillion-handle/webp/Purple/1.webp"
+        },
+        {
+          "name": "Graphite Grey",
+          "slug": "graphite-grey",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/zest/Sxc/Colors/GRAY/1.webp"
+        },
+        {
+          "name": "Bold Black",
+          "slug": "bold-black",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/zest/Sxc/Colors/Black/1.webp"
+        },
+        {
+          "name": "Pearl White",
+          "slug": "pearl-white",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/zest/Zest-360-black-pillion-handle/Zest-360-black-pillion-handle/webp/White-pearl/1.webp"
+        },
+        {
+          "name": "TURQUOISE  BLUE",
+          "slug": "turquoise-blue",
+          "url": "https://www.tvsmotor.com/-/media/Brand-Pages-Webp/zest/Zest-360-black-pillion-handle/Zest-360-black-pillion-handle/webp/tortoise-blue/1.webp"
+        }
+      ],
+      "gallery": [],
+      "card": "https://www.tvsmotor.com/-/media/Feature/Navbar/New-Product-images/15-05-25/zest.webp"
+    }
+  }
+}
