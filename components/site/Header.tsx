@@ -20,6 +20,7 @@ export function Header() {
     { href: '/vehicles', label: copy.nav.vehicles },
     { href: '/finance', label: copy.nav.finance },
     { href: '/service', label: copy.nav.service },
+    { href: '/about', label: copy.nav.about },
   ];
 
   const isActive = (href: string) =>
@@ -158,11 +159,23 @@ function LocaleToggle({
           type="button"
           onClick={() => setLocale(code)}
           aria-pressed={locale === code}
+          // A stable hook for the audit: the visible label changes between
+          // "HI" and "हिं" depending on the page's language, and an aria-label
+          // that differs from visible text fails an axe check.
+          data-locale={code}
           className={`flex min-h-[44px] min-w-[44px] items-center justify-center rounded-[2px] px-2.5 font-medium transition-colors ${
             locale === code ? 'bg-white text-ink' : 'text-[color:var(--on-ink-muted)] hover:text-white'
           }`}
         >
-          {code === 'en' ? 'EN' : <span className="glyph-devanagari">हिं</span>}
+          {/*
+            The Hindi button is labelled in Devanagari only once Hindi is the
+            page's language. Setting it in Devanagari on an English page costs an
+            English visitor a 121KB webfont for a single glyph, because the CSS
+            family name matches the one next/font registers and the browser
+            fetches ours rather than the phone's. On the Hindi page that font is
+            already paid for, so the glyph is free.
+          */}
+          {code === 'en' ? 'EN' : locale === 'hi' ? <span className="glyph-devanagari">हिं</span> : 'HI'}
         </button>
       ))}
     </div>

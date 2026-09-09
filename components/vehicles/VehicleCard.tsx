@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useLocale, useLocalised } from '@/lib/locale';
-import { cardColour, heroPath, priceFrom, type Vehicle } from '@/content/vehicles';
+import { priceFrom, type Vehicle } from '@/content/vehicles';
+import { VehiclePhoto } from './VehiclePhoto';
 import { formatINR } from '@/lib/format';
 import { whatsappLink } from '@/lib/whatsapp';
 
@@ -30,15 +31,12 @@ export function VehicleCard({
     <article className="group relative flex flex-col overflow-hidden rounded-sm border border-rule bg-white transition-[transform,box-shadow] duration-300 hover:xl:-translate-y-1">
       {/* Not a link: the title's full-bleed ::after overlay already makes the
           whole card clickable, and a second nameless link is a screen-reader tax. */}
-      <div className="block bg-ink">
-        <img
-          src={heroPath(vehicle.slug, cardColour(vehicle).slug)}
-          alt=""
-          width={2000}
-          height={1200}
-          loading={eager ? 'eager' : 'lazy'}
-          decoding="async"
-          className="aspect-[5/3] w-full object-cover transition-transform duration-500 group-hover:xl:scale-[1.03]"
+      <div className="block overflow-hidden bg-ink">
+        <VehiclePhoto
+          vehicle={vehicle}
+          eager={eager}
+          sizes="(min-width: 1024px) 22rem, (min-width: 640px) 45vw, 90vw"
+          className="transition-transform duration-500 group-hover:xl:scale-[1.03]"
         />
       </div>
 

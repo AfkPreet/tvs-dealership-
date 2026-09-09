@@ -10,6 +10,7 @@ import { telLink } from '@/lib/whatsapp';
 import { VehicleCard } from '@/components/vehicles/VehicleCard';
 import { PriceSheet } from '@/components/vehicles/PriceSheet';
 import { EnquiryForm } from '@/components/forms/EnquiryForm';
+import { OpeningHours } from '@/components/site/OpeningHours';
 import { Reveal } from '@/components/motion/Reveal';
 import { Magnetic } from '@/components/motion/Magnetic';
 
@@ -200,18 +201,7 @@ export function LocationSection() {
               <div className="border-b border-rule p-5">
                 <dt className="eyebrow text-[color:var(--ink-muted)]">{copy.location.hoursLabel}</dt>
                 <dd className="mt-2">
-                  <ul className="space-y-1 text-sm">
-                    {dealer.hours.map((h) => (
-                      <li key={h.day} className="flex justify-between gap-4">
-                        <span className="text-[color:var(--ink-muted)]">{copy.location.days[h.day]}</span>
-                        <span className="tnum font-medium">
-                          {h.open && h.close
-                            ? `${formatTime(h.open)} – ${formatTime(h.close)}`
-                            : copy.location.closed}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+                  <OpeningHours />
                 </dd>
               </div>
 

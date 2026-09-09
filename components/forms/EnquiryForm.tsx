@@ -3,7 +3,6 @@
 import { useId, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useLocale } from '@/lib/locale';
-import { dealer } from '@/content/dealer';
 import { byRank } from '@/content/vehicles';
 import { buildMessage, whatsappLink, type EnquiryKind } from '@/lib/whatsapp';
 
@@ -17,22 +16,23 @@ type Props = {
   onInk?: boolean;
 };
 
-type Status = 'idle' | 'sending' | 'sent';
+type Status = 'idle' | 'sent';
 
 const PHONE_RE = /^[6-9]\d{9}$/;
 
 /**
- * Every enquiry submits twice.
+ * Every enquiry goes to one place: the showroom's WhatsApp.
  *
- * 1. A POST to Web3Forms, so there is a permanent record the dealership can go
- *    back to even if a WhatsApp thread gets buried.
- * 2. A WhatsApp deep link with the enquiry already written out, so replying is
- *    one tap from the showroom floor.
+ * Submitting opens a WhatsApp deep link with the enquiry already written out,
+ * so replying is one tap from the showroom floor. The window is opened inside
+ * the click handler, before anything async, so it is still within the user
+ * gesture and never hits a popup blocker.
  *
- * The WhatsApp window is opened inside the click handler, before any await, so
- * it is still inside the user gesture and never hits a popup blocker. The POST
- * runs with `keepalive` so it completes even as the browser hands off to the
- * WhatsApp app.
+ * There is deliberately no second copy. An earlier draft also POSTed each lead
+ * to a form service so there would be a record independent of the WhatsApp
+ * thread; the owner asked for WhatsApp only, so that is gone. The tradeoff is
+ * real and worth restating when she is ready: a buried or deleted chat is a
+ * lost enquiry, with nothing to fall back on.
  *
  * No email field, and no OTP. This audience does not check email, and OTP adds
  * friction and cost for a dealership that has not yet had a lead-quality
@@ -75,43 +75,17 @@ export function EnquiryForm({ variant = 'lead', defaultModel, kind, onInk = fals
     return Object.keys(next).length === 0;
   }
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!validate()) return;
 
-    const data = payload();
-    const link = whatsappLink(data);
+    const link = whatsappLink(payload());
 
-    // Opened synchronously, inside the gesture, so the browser allows it.
+    // Opened synchronously, inside the gesture, so the browser allows it. There
+    // is no second submission: WhatsApp is the whole delivery mechanism, by the
+    // owner's choice, so the enquiry exists in exactly one place — her phone.
     window.open(link, '_blank', 'noopener,noreferrer');
     setSentLink(link);
-    setStatus('sending');
-
-    try {
-      await fetch(dealer.formEndpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        keepalive: true,
-        body: JSON.stringify({
-          access_key: dealer.formAccessKey,
-          subject: `Website enquiry — ${model || 'general'} — ${name}`,
-          from_name: `${dealer.name} website`,
-          name,
-          phone: `+91${phone.replace(/\D/g, '')}`,
-          model: model || '—',
-          enquiry_type: enquiryKind,
-          service_type: variant === 'service' ? serviceType : undefined,
-          preferred_date: variant === 'service' ? date : undefined,
-          page: pathname,
-          language: locale,
-          message: buildMessage(data),
-        }),
-      });
-    } catch {
-      // The WhatsApp message has already gone out — a failed POST costs the
-      // record, not the lead, so it must never block the confirmation.
-    }
-
     setStatus('sent');
   }
 
@@ -282,12 +256,8 @@ export function EnquiryForm({ variant = 'lead', defaultModel, kind, onInk = fals
         </>
       ) : null}
 
-      <button type="submit" className="btn btn-primary mt-2 w-full" disabled={status === 'sending'}>
-        {status === 'sending'
-          ? copy.actions.sending
-          : variant === 'service'
-            ? copy.actions.bookSlot
-            : copy.actions.submit}
+      <button type="submit" className="btn btn-primary mt-2 w-full">
+        {variant === 'service' ? copy.actions.bookSlot : copy.actions.submit}
       </button>
 
       <p className={`text-xs leading-relaxed ${labelClass}`}>{copy.form.privacy}</p>

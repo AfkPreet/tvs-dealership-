@@ -5,8 +5,9 @@ import { LocaleProvider } from '@/lib/locale';
 import { Header } from '@/components/site/Header';
 import { Footer } from '@/components/site/Footer';
 import { FloatingActions } from '@/components/site/FloatingActions';
+import { Intro } from '@/components/site/Intro';
 import { DesktopMotionLayer } from '@/components/site/DesktopMotionLayer';
-import { dealer, addressOneLine, dealerFullName } from '@/content/dealer';
+import { dealer, addressOneLine, dealerFullName, placeLine } from '@/content/dealer';
 
 /**
  * Fonts are self-hosted through next/font — no request ever leaves for a font
@@ -25,7 +26,9 @@ import { dealer, addressOneLine, dealerFullName } from '@/content/dealer';
  */
 const display = Bricolage_Grotesque({
   subsets: ['latin'],
-  weight: ['700', '800'],
+  // The variable file, not two static cuts. Asking for 700 and 800 separately
+  // shipped 48KB + 41KB; one variable face covers both for less, and headings
+  // are the only thing that uses it.
   variable: '--font-display-latin',
   display: 'swap',
 });
@@ -55,9 +58,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(dealer.siteUrl),
   title: {
     default: `${dealerFullName} — TVS scooters, bikes, finance and service`,
-    template: `%s — ${dealer.name}, Bilaspur`,
+    template: `%s — ${dealer.name}, ${dealer.city}`,
   },
-  description: `Authorised TVS dealer in Bilaspur. Full on-road prices, a working EMI calculator, test rides and 3S service on Vyapar Vihar Road. Call ${dealer.phoneDisplay}.`,
+  description: `Authorised TVS dealer in ${placeLine}. Full on-road prices, a working EMI calculator, test rides and 3S service on ${dealer.address.line2}. Call ${dealer.phoneDisplay}.`,
   openGraph: {
     type: 'website',
     locale: 'en_IN',
@@ -88,14 +91,16 @@ const structuredData = {
   telephone: `+${dealer.phone}`,
   address: {
     '@type': 'PostalAddress',
-    streetAddress: `${dealer.address.line1}, ${dealer.address.line2}`,
+    streetAddress: [dealer.address.line1, dealer.address.line2].filter(Boolean).join(', '),
     addressLocality: dealer.address.city,
     addressRegion: dealer.address.state,
     postalCode: dealer.address.pincode,
     addressCountry: 'IN',
   },
   geo: { '@type': 'GeoCoordinates', latitude: dealer.geo.lat, longitude: dealer.geo.lng },
-  openingHoursSpecification: dealer.hours.map((h) => ({
+  // Omitted entirely while the real times are unknown: asserting invented hours
+  // to a search engine is how a shut shutter ends up in a Maps card.
+  openingHoursSpecification: (dealer.hours ?? []).map((h) => ({
     '@type': 'OpeningHoursSpecification',
     dayOfWeek: `https://schema.org/${{ mon: 'Monday', tue: 'Tuesday', wed: 'Wednesday', thu: 'Thursday', fri: 'Friday', sat: 'Saturday', sun: 'Sunday' }[h.day]}`,
     opens: h.open,
@@ -112,11 +117,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${display.variable} ${body.variable} ${devanagari.variable}`}
       style={
         {
-          '--font-display': `var(--font-display-latin), var(--font-devanagari)`,
-          '--font-body': `var(--font-body-latin), var(--font-devanagari)`,
+          // 'Rupee ...' comes first and covers exactly one codepoint, so ₹ is
+          // served from a 1KB file and everything else falls through untouched.
+          '--font-display': `'Rupee Display', var(--font-display-latin), var(--font-devanagari)`,
+          '--font-body': `'Rupee Body', var(--font-body-latin), var(--font-devanagari)`,
         } as React.CSSProperties
       }
     >
+      <head>
+        {/* Both are ~1KB and a price is above the fold on every page, so the
+            currency symbol should never swap in late in a price column. */}
+        <link rel="preload" href="/fonts/rupee-inter.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/rupee-display.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      </head>
       <body className="antialiased">
         <script
           type="application/ld+json"
@@ -124,6 +137,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
         <LocaleProvider>
+          <Intro />
           <DesktopMotionLayer />
           <Header />
           <main id="main">{children}</main>

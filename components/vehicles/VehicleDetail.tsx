@@ -6,7 +6,7 @@ import { formatINR } from '@/lib/format';
 import { EMI_DEFAULTS, indicativeEmi } from '@/lib/emi';
 import { whatsappLink } from '@/lib/whatsapp';
 import type { Vehicle } from '@/content/vehicles';
-import { Spinner360 } from './Spinner360';
+import { ColourStage } from './ColourStage';
 import { PriceSheet } from './PriceSheet';
 import { EnquiryForm } from '@/components/forms/EnquiryForm';
 import { Reveal } from '@/components/motion/Reveal';
@@ -91,7 +91,7 @@ export function VehicleDetail({ vehicle }: { vehicle: Vehicle }) {
             </div>
 
             <div className="order-1 xl:order-2">
-              <Spinner360 slug={vehicle.slug} name={vehicle.name} colours={vehicle.colours} />
+              <ColourStage vehicle={vehicle} />
             </div>
           </div>
         </div>

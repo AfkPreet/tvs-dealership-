@@ -1,3 +1,5 @@
+import { dealer, placeLine } from '@/content/dealer';
+
 export const en = {
   meta: {
     localeTag: 'en',
@@ -10,6 +12,7 @@ export const en = {
     vehicles: 'Vehicles',
     finance: 'Finance & EMI',
     service: 'Service',
+    about: 'About us',
     contact: 'Visit us',
     skipToContent: 'Skip to main content',
     menu: 'Menu',
@@ -17,9 +20,10 @@ export const en = {
     openMenu: 'Open navigation menu',
   },
 
-  preview: {
-    ribbon: 'PREVIEW',
-    line: 'Sample build. Vehicle imagery and brand assets to be supplied from the official TVS dealer brand pack.',
+  intro: {
+    /** Read out to a screen reader while the opening animation runs. */
+    label: 'Loading',
+    skip: 'Skip',
   },
 
   actions: {
@@ -33,21 +37,26 @@ export const en = {
     directions: 'Get directions',
     calculateEmi: 'Open EMI calculator',
     submit: 'Send enquiry',
-    sending: 'Sending…',
     sendAgain: 'Send another enquiry',
     bookSlot: 'Book service slot',
   },
 
   hero: {
-    eyebrow: 'Now open in Bilaspur',
+    eyebrow: `Now open in ${placeLine}`,
     headline: 'Your TVS, sorted in one visit.',
-    sub: 'Sales, service and spares under one roof on Vyapar Vihar Road. On-road prices quoted in full, finance approved in the showroom, and every enquiry answered on WhatsApp.',
+    sub: `Sales, service and spares under one roof on ${dealer.address.line2}. On-road prices quoted in full, finance approved in the showroom, and every enquiry answered on WhatsApp.`,
     scrollHint: 'Scroll',
+  },
+
+  range: {
+    heading: 'The whole TVS range, on one floor',
+    sub: 'Scroll through everything we sell. Tap a model for its full on-road price.',
+    countLabel: (n: number) => `${n} models`,
   },
 
   models: {
     heading: 'Start with these',
-    sub: 'The models Bilaspur actually rides. Prices shown are ex-showroom, from.',
+    sub: `The models ${dealer.city} actually rides. Prices shown are ex-showroom, from.`,
     priceFrom: 'From',
     exShowroom: 'ex-showroom',
     onRoadFrom: 'On-road from',
@@ -94,13 +103,14 @@ export const en = {
 
   location: {
     heading: 'Come and see the vehicles',
-    sub: 'Vyapar Vihar Road, five minutes from Nehru Chowk. Parking in front.',
+    sub: `On ${dealer.address.line2} in ${dealer.city}. Ask for us by name — the TVS board is on the front of the building.`,
     addressLabel: 'Address',
+    hoursUnknown: 'Timings are not listed here yet — please call before you come.',
     hoursLabel: 'Opening hours',
     phoneLabel: 'Phone',
     gstinLabel: 'GSTIN',
     serviceAreaLabel: 'We deliver and register across',
-    mapTitle: 'Map showing the showroom location on Vyapar Vihar Road, Bilaspur',
+    mapTitle: `Map showing the showroom location on ${dealer.address.line2}, ${placeLine}`,
     closed: 'Closed',
     days: {
       mon: 'Monday',
@@ -131,12 +141,12 @@ export const en = {
       phone: 'Please enter a 10-digit Indian mobile number.',
       date: 'Please pick a date.',
     },
-    successHeading: 'Sent. WhatsApp is opening now.',
+    successHeading: 'WhatsApp is opening now.',
     successBody:
-      'If WhatsApp did not open, tap the button below — your enquiry is already saved with us either way.',
+      'Send the message that has been written for you and we will reply on this number. If WhatsApp did not open, tap the button below.',
     successFallback: 'Open WhatsApp',
     offlineNote:
-      'Your enquiry is recorded and sent to the showroom WhatsApp. We do not ask for an email address, because nobody checks it.',
+      'Enquiries go straight to the showroom WhatsApp. We do not ask for an email address, because nobody checks it.',
     privacy: 'We use your number to reply to this enquiry. Nothing else.',
   },
 
@@ -159,11 +169,9 @@ export const en = {
   model: {
     backToAll: 'All vehicles',
     colourLabel: 'Colour',
-    spinnerHint: 'Drag to rotate',
-    spinnerHintTouch: 'Swipe to rotate',
-    spinnerLoading: 'Loading views',
-    spinnerAlt: (name: string, colour: string, deg: number) =>
-      `${name} in ${colour}, rotated ${deg} degrees`,
+    colourHint: 'Tap a colour to see it',
+    coloursAvailable: 'Colours available',
+    galleryHeading: 'More views',
     specsHeading: 'Specifications',
     variantsHeading: 'Variants and ex-showroom prices',
     variantColumn: 'Variant',
@@ -175,7 +183,7 @@ export const en = {
       rto: 'RTO — road tax, registration, HSRP',
       insurance: 'Insurance — 1 year OD + 5 year third party',
       accessories: 'Essential kit — ISI helmet, mudflap, fitting',
-      total: 'On-road price, Bilaspur',
+      total: `On-road price, ${dealer.city}`,
     },
     onRoadNote:
       'Indicative. Road tax is charged at 4% of vehicle cost in Chhattisgarh; insurance varies by insurer and by rider age. Hypothecation charges of ₹1,500 apply on financed purchases. Confirm the final figure at the showroom.',
@@ -212,6 +220,7 @@ export const en = {
       none: '—',
       cvt: 'CVT automatic',
       gear5: '5-speed',
+      gear6: '6-speed',
       gear4: '4-speed',
       automatic: 'Automatic',
       disc: 'Disc',
@@ -279,14 +288,26 @@ export const en = {
     slotNote: 'We are closed on no day of the week — but Sunday runs shorter hours. Same-day slots depend on load.',
   },
 
+  about: {
+    title: 'The showroom',
+    lede: 'Who we are, and what you can expect when you walk in.',
+    storyHeading: 'How it started',
+    galleryHeading: 'Opening day',
+    teamHeading: 'The people here',
+    visitHeading: 'Come and see',
+    visitBody:
+      'The floor stock changes every week. Call before you come if you want a particular model and colour kept aside for you.',
+    sinceLabel: 'Selling TVS since',
+    photoCredit: 'Photographs from the showroom.',
+  },
+
   footer: {
-    tagline: 'Authorised TVS Dealer, Bilaspur',
+    tagline: `Authorised TVS Dealer, ${placeLine}`,
     navHeading: 'Pages',
     contactHeading: 'Reach us',
     hoursHeading: 'Open',
     legal: 'All prices and specifications on this site are indicative and subject to change. TVS, the TVS logo and all model names are trademarks of TVS Motor Company Limited.',
-    rights: (year: number) => `© ${year} Shakti Motors. All rights reserved.`,
-    builtBy: 'Sample build for client review.',
+    rights: (year: number, name: string) => `© ${year} ${name}. All rights reserved.`,
   },
 
   a11y: {

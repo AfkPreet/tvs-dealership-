@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useLocale } from '@/lib/locale';
+import { OpeningHours } from './OpeningHours';
 import { dealer } from '@/content/dealer';
 import { telLink, whatsappLink } from '@/lib/whatsapp';
 import { formatTime } from '@/lib/format';
@@ -82,33 +83,18 @@ export function Footer({ address }: { address: string }) {
 
         <div>
           <h2 className="eyebrow text-[color:var(--on-ink-muted)]">{copy.footer.hoursHeading}</h2>
-          <ul className="mt-4 space-y-1 text-sm">
-            {dealer.hours.map((h) => (
-              <li key={h.day} className="flex justify-between gap-4 text-[color:var(--on-ink-muted)]">
-                <span>{copy.location.days[h.day]}</span>
-                <span className="tnum text-white">
-                  {h.open && h.close ? `${formatTime(h.open)} – ${formatTime(h.close)}` : copy.location.closed}
-                </span>
-              </li>
-            ))}
-          </ul>
+          <div className="mt-4">
+            <OpeningHours onInk />
+          </div>
         </div>
       </div>
 
-      {/* The preview marker. It says we know how dealer branding works. */}
       <div className="border-t border-white/10">
-        <div className="shell flex flex-col gap-3 py-6 text-xs text-[color:var(--on-ink-muted)] md:flex-row md:items-start md:justify-between">
-          <p className="max-w-2xl">
-            <span className="mr-2 inline-block rounded-sm bg-tvsred-cta px-2 py-0.5 font-bold tracking-[0.14em] text-white">
-              {copy.preview.ribbon}
-            </span>
-            {copy.preview.line}
-          </p>
-          <p className="shrink-0">{copy.footer.builtBy}</p>
-        </div>
-        <div className="shell pb-10">
+        <div className="shell py-10">
           <p className="max-w-4xl text-xs leading-relaxed text-[color:var(--on-ink-muted)]">{copy.footer.legal}</p>
-          <p className="mt-3 text-xs text-[color:var(--on-ink-muted)]">{copy.footer.rights(2026)}</p>
+          <p className="mt-3 text-xs text-[color:var(--on-ink-muted)]">
+            {copy.footer.rights(new Date().getFullYear(), dealer.name)}
+          </p>
         </div>
       </div>
     </footer>

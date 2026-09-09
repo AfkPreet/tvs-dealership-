@@ -1,6 +1,7 @@
 'use client';
 
 import { useLocale } from '@/lib/locale';
+import { OpeningHours } from '@/components/site/OpeningHours';
 import { dealer } from '@/content/dealer';
 import { formatTime } from '@/lib/format';
 import { EnquiryForm } from '@/components/forms/EnquiryForm';
@@ -33,16 +34,9 @@ export function ServiceBooking() {
 
         <div className="mt-6 rounded-sm border border-rule p-6">
           <h3 className="eyebrow text-[color:var(--ink-muted)]">{copy.location.hoursLabel}</h3>
-          <ul className="mt-3 space-y-1 text-sm">
-            {dealer.hours.map((h) => (
-              <li key={h.day} className="flex justify-between gap-4">
-                <span className="text-[color:var(--ink-muted)]">{copy.location.days[h.day]}</span>
-                <span className="tnum font-medium">
-                  {h.open && h.close ? `${formatTime(h.open)} – ${formatTime(h.close)}` : copy.location.closed}
-                </span>
-              </li>
-            ))}
-          </ul>
+          <div className="mt-3">
+            <OpeningHours />
+          </div>
           <p className="mt-4 text-sm leading-relaxed text-[color:var(--ink-muted)]">{copy.service.slotNote}</p>
         </div>
       </div>

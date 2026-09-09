@@ -3,18 +3,18 @@
 import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useLocale } from '@/lib/locale';
-import { useReducedExperience } from '@/lib/useReducedExperience';
+import { useFullMotion } from '@/lib/useMotionTier';
 
 /**
  * The desktop-only motion layer: smooth scroll, the scroll progress rail, and
  * the page transition wipe.
  *
- * All three are gated behind `useReducedExperience()`, so they exist only above
+ * All three are gated behind `useFullMotion()`, so they exist only above
  * 1280px on a fast connection with motion allowed. Nothing here renders any
  * content — if the whole layer fails to mount, the site is unchanged.
  */
 export function DesktopMotionLayer() {
-  const reduced = useReducedExperience();
+  const reduced = !useFullMotion();
 
   if (reduced) return null;
 

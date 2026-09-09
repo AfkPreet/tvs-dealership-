@@ -1,5 +1,5 @@
 {
-  "name": "shakti-motors-tvs-bilaspur",
+  "name": "shiv-kripa-motors-tvs",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -7,13 +7,16 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "gen:assets": "node scripts/generate-vehicle-frames.mjs",
     "audit": "node scripts/audit.mjs",
     "lighthouse": "node scripts/lighthouse.mjs",
     "test:emi": "node lib/emi.test.mjs",
     "build:hi": "NEXT_PUBLIC_DEFAULT_LOCALE=hi next build && rm -rf out-hi && mv out out-hi",
-    "preview": "npm run build && npm run build:hi && npm run build && node scripts/build-preview.mjs",
-    "fetch:tvs": "node scripts/fetch-tvs.mjs"
+    "fetch:tvs": "node scripts/fetch-tvs.mjs",
+    "media": "node scripts/curate-media.mjs",
+    "extract:tvs": "node scripts/extract-tvs-images.mjs",
+    "download:tvs": "node scripts/download-tvs-images.mjs",
+    "prebuild": "node scripts/prepare-vehicle-images.mjs",
+    "prepare:images": "node scripts/prepare-vehicle-images.mjs"
   },
   "dependencies": {
     "next": "^16.3.1",

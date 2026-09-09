@@ -25,6 +25,9 @@ jobs:
       - name: Install
         run: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm ci
 
+      - name: Browser
+        run: npx playwright install --with-deps chromium
+
       - name: Download
         run: node scripts/download-tvs-images.mjs
 
@@ -33,7 +36,7 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -B assets/tvs-images
-          git add -A public/vehicles content/tvs-images-result.json
+          git add -A public/vehicles content/tvs-images-result.json || true
           git commit -m "Downloaded TVS model images" || echo "nothing new"
           git push --force origin assets/tvs-images
 
