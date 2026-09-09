@@ -21,10 +21,24 @@ export type EnquiryPayload = {
  * from, so whoever picks up the phone in the showroom has the context without
  * having to ask for it again.
  */
+/**
+ * The origin to put in the message.
+ *
+ * Taken from the browser, not from configuration: the link goes into a message
+ * the owner actually receives, and a `siteUrl` that is stale — a preview
+ * deployment, a domain that has since changed — hands her a dead link on every
+ * enquiry. `dealer.siteUrl` is the fallback for the server render only, where
+ * there is no location to read.
+ */
+function origin(): string {
+  if (typeof window !== 'undefined') return window.location.origin;
+  return dealer.siteUrl;
+}
+
 export function buildMessage(p: EnquiryPayload): string {
   const model = p.model?.trim();
   const name = p.name?.trim();
-  const page = `${dealer.siteUrl}${p.sourcePath}`;
+  const page = `${origin()}${p.sourcePath}`;
 
   if (p.locale === 'hi') {
     const lines: string[] = [];

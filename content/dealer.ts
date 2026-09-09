@@ -141,7 +141,13 @@ export const dealer = {
     team: [] as { name: string; role: string }[],
   },
 
-  /** Public site origin, used for canonical URLs, JSON-LD and WhatsApp links. */
+  /**
+   * UNVERIFIED — the deployment URL, used for canonical URLs and JSON-LD.
+   *
+   * WhatsApp messages do not use it: they read the origin from the browser, so
+   * the link the owner receives is always the site the visitor was actually on,
+   * whatever this says. Worth correcting anyway before the site is indexed.
+   */
   siteUrl: 'https://tvs-dealership-preved.vercel.app',
 } as const;
 
