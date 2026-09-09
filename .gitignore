@@ -6,4 +6,5 @@ out/
 next-env.d.ts
 .vercel
 .audit/
+.polish/
 out-hi/
