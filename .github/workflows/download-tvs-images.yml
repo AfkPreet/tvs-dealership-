@@ -4,6 +4,14 @@ name: Download TVS images
 # offline from the saved pages and only the fetching happens here.
 on:
   workflow_dispatch:
+    inputs:
+      second_pass:
+        description: Also revisit the models whose photography is still thin
+        type: boolean
+        default: false
+      slugs:
+        description: Comma-separated slugs for the second pass (blank = all thin models)
+        default: ''
 
 permissions:
   contents: write
@@ -31,12 +39,18 @@ jobs:
       - name: Download
         run: node scripts/download-tvs-images.mjs
 
+      - name: Second pass
+        if: inputs.second_pass
+        env:
+          SLUGS: ${{ inputs.slugs }}
+        run: node scripts/fetch-model-images.mjs
+
       - name: Publish to assets/tvs-images
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -B assets/tvs-images
-          git add -A public/vehicles content/tvs-images-result.json || true
+          git add -A public/vehicles content/tvs-images-result.json content/tvs-alt-images.json || true
           git commit -m "Downloaded TVS model images" || echo "nothing new"
           git push --force origin assets/tvs-images
 

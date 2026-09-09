@@ -1,5 +1,5 @@
 {
-  "$comment": "Scooty Pep+ is omitted: TVS ended production in late 2024. Seed pages on tvsmotor.com for scripts/fetch-tvs.mjs. The script also reads the site's sitemap and prefers a discovered URL whose path contains one of `match`, so these are starting points rather than a dependency. `category` and `rank` carry into content/vehicles.ts.",
+  "$comment": "Scooty Pep+ is omitted: TVS ended production in late 2024. Seed pages on tvsmotor.com for scripts/fetch-tvs.mjs. The script also reads the site's sitemap and prefers a discovered URL whose path contains one of `match`, so these are starting points rather than a dependency. `category` and `rank` carry into content/vehicles.ts. `resolved` is the URL the first fetch actually landed on, recorded so a later pass does not have to rediscover it.",
   "origin": "https://www.tvsmotor.com",
   "models": [
     {
@@ -10,7 +10,8 @@
       "seed": "/tvs-jupiter",
       "match": [
         "/tvs-jupiter"
-      ]
+      ],
+      "resolved": "https://www.tvsmotor.com/tvs-jupiter/jupiter-disc-smartxonnect"
     },
     {
       "slug": "jupiter-125",
@@ -20,7 +21,8 @@
       "seed": "/tvs-jupiter-125",
       "match": [
         "/tvs-jupiter-125"
-      ]
+      ],
+      "resolved": "https://www.tvsmotor.com/tvs-jupiter-125"
     },
     {
       "slug": "ntorq-125",
@@ -30,7 +32,8 @@
       "seed": "/tvs-ntorq",
       "match": [
         "/tvs-ntorq"
-      ]
+      ],
+      "resolved": "https://www.tvsmotor.com/commuter/tvs-ntorq"
     },
     {
       "slug": "zest-110",
@@ -41,7 +44,8 @@
       "match": [
         "/tvs-zest",
         "zest-110"
-      ]
+      ],
+      "resolved": "https://www.tvsmotor.com/tvs-zest"
     },
     {
       "slug": "raider-125",
@@ -51,7 +55,8 @@
       "seed": "/tvs-raider",
       "match": [
         "/tvs-raider"
-      ]
+      ],
+      "resolved": "https://www.tvsmotor.com/tvs-raider"
     },
     {
       "slug": "sport",
@@ -61,7 +66,8 @@
       "seed": "/tvs-sport",
       "match": [
         "/tvs-sport"
-      ]
+      ],
+      "resolved": "https://www.tvsmotor.com/commuter/tvs-sport"
     },
     {
       "slug": "star-city-plus",
@@ -71,7 +77,8 @@
       "seed": "/tvs-star-city-plus",
       "match": [
         "star-city"
-      ]
+      ],
+      "resolved": "https://www.tvsmotor.com/tvs-star-city-plus"
     },
     {
       "slug": "radeon",
@@ -81,7 +88,8 @@
       "seed": "/tvs-radeon",
       "match": [
         "/tvs-radeon"
-      ]
+      ],
+      "resolved": "https://www.tvsmotor.com/tvs-radeon"
     },
     {
       "slug": "xl100",
@@ -91,7 +99,8 @@
       "seed": "/tvs-xl100/tvs-xl100-heavy-duty",
       "match": [
         "xl100"
-      ]
+      ],
+      "resolved": "https://www.tvsmotor.com/tvs-xl100/tvs-xl100-heavy-duty"
     },
     {
       "slug": "iqube",
@@ -101,7 +110,8 @@
       "seed": "/electric-scooters/tvs-iqube",
       "match": [
         "tvs-iqube"
-      ]
+      ],
+      "resolved": "https://www.tvsmotor.com/electric-scooters/tvs-iqube"
     },
     {
       "slug": "orbiter",
@@ -111,7 +121,8 @@
       "seed": "/electric-scooters/tvs-orbiter",
       "match": [
         "tvs-orbiter"
-      ]
+      ],
+      "resolved": "https://www.tvsmotor.com/electric-scooters/tvs-orbiter"
     },
     {
       "slug": "tvs-x",
@@ -121,7 +132,8 @@
       "seed": "/electric-scooters/tvs-x",
       "match": [
         "electric-scooters/tvs-x"
-      ]
+      ],
+      "resolved": "https://www.tvsmotor.com/electric-scooters/tvs-x"
     },
     {
       "slug": "apache-rtr-160",
@@ -131,7 +143,8 @@
       "seed": "/tvs-apache/apache-rtr-160-2v",
       "match": [
         "apache-rtr-160-2v"
-      ]
+      ],
+      "resolved": "https://www.tvsmotor.com/tvs-apache/premium/apache-rtr-160-2v"
     },
     {
       "slug": "apache-rtr-160-4v",
@@ -141,7 +154,8 @@
       "seed": "/tvs-apache/apache-rtr-160-4v",
       "match": [
         "apache-rtr-160-4v"
-      ]
+      ],
+      "resolved": "https://www.tvsmotor.com/tvs-apache/premium/apache-rtr-160-4v"
     },
     {
       "slug": "apache-rtr-180",
@@ -151,7 +165,8 @@
       "seed": "/tvs-apache/apache-rtr-180",
       "match": [
         "apache-rtr-180"
-      ]
+      ],
+      "resolved": "https://www.tvsmotor.com/tvs-apache/premium/apache-rtr-180"
     },
     {
       "slug": "apache-rtr-200-4v",
@@ -161,7 +176,8 @@
       "seed": "/tvs-apache/apache-rtr-200-4v",
       "match": [
         "apache-rtr-200"
-      ]
+      ],
+      "resolved": "https://www.tvsmotor.com/tvs-apache/premium/apache-rtr-200-4v"
     },
     {
       "slug": "apache-rtr-310",
@@ -171,7 +187,8 @@
       "seed": "/tvs-apache/apache-rtr-310",
       "match": [
         "apache-rtr-310"
-      ]
+      ],
+      "resolved": "https://www.tvsmotor.com/tvs-apache/super-premium/apache-rtr-310"
     },
     {
       "slug": "apache-rr-310",
@@ -182,7 +199,8 @@
       "match": [
         "apache-rr-310",
         "apache-rr310"
-      ]
+      ],
+      "resolved": "https://www.tvsmotor.com/tvs-apache/apache-rr-310"
     },
     {
       "slug": "ronin",
@@ -192,7 +210,8 @@
       "seed": "/tvs-ronin",
       "match": [
         "/tvs-ronin"
-      ]
+      ],
+      "resolved": "https://www.tvsmotor.com/tvs-ronin"
     }
   ]
 }
