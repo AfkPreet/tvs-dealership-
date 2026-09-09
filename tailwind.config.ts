@@ -3,9 +3,18 @@ import type { Config } from 'tailwindcss';
 const config: Config = {
   content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './content/**/*.{ts,tsx}'],
   theme: {
-    // Breakpoints from the brief: 360 / 768 / 1280 / 1600.
+    /*
+     * Breakpoints from the brief: 360 / 768 / 1280 / 1600.
+     *
+     * `sm` is here because declaring `screens` replaces Tailwind's entire scale
+     * rather than extending it, and without it every `sm:` rule in the codebase
+     * compiled to nothing. That is why the hero's two buttons stacked instead of
+     * sitting side by side, and why the About page's photo grid ran as a single
+     * tall column.
+     */
     screens: {
       xs: '360px',
+      sm: '640px',
       md: '768px',
       xl: '1280px',
       '2xl': '1600px',

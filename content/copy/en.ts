@@ -20,12 +20,6 @@ export const en = {
     openMenu: 'Open navigation menu',
   },
 
-  intro: {
-    /** Read out to a screen reader while the opening animation runs. */
-    label: 'Loading',
-    skip: 'Skip',
-  },
-
   actions: {
     bookTestRide: 'Book a test ride',
     callNow: 'Call now',
@@ -193,6 +187,24 @@ export const en = {
     variantColumn: 'Variant',
     priceColumn: 'Ex-showroom',
     onRoadHeading: 'On-road price, in full',
+    onRoadWhy: [
+      {
+        term: 'Ex-showroom',
+        detail: 'The manufacturer\u2019s price for the vehicle, before anything is added.',
+      },
+      {
+        term: 'RTO',
+        detail: 'Chhattisgarh road tax at 4% of vehicle cost, plus registration, the HSRP number plate and the smart card.',
+      },
+      {
+        term: 'Insurance',
+        detail: 'One year own-damage and five years third-party, which is the legal minimum on a new two-wheeler.',
+      },
+      {
+        term: 'Essential kit',
+        detail: 'An ISI-marked helmet, a mudflap and fitting. Not optional in practice, so it is not hidden.',
+      },
+    ],
     onRoadSub: 'Calculated on the base variant. Every line below is a real cost, not a hidden one.',
     onRoadRows: {
       exShowroom: 'Ex-showroom price',

@@ -5,7 +5,6 @@ import { LocaleProvider } from '@/lib/locale';
 import { Header } from '@/components/site/Header';
 import { Footer } from '@/components/site/Footer';
 import { FloatingActions } from '@/components/site/FloatingActions';
-import { Intro } from '@/components/site/Intro';
 import { DesktopMotionLayer } from '@/components/site/DesktopMotionLayer';
 import { dealer, addressOneLine, dealerFullName, placeLine } from '@/content/dealer';
 
@@ -139,7 +138,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
         <LocaleProvider>
-          <Intro />
           <DesktopMotionLayer />
           <Header />
           <main id="main">{children}</main>

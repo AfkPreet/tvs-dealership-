@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { photos, showroomClip, src, srcSet } from '@/content/photos';
-import { useHeavyMediaAllowed, useOnLoadMotion } from '@/lib/useMotionTier';
+import { useHeavyMediaAllowed } from '@/lib/useMotionTier';
 
 /**
  * The hero's picture: the dealership's own showroom, not a stock render.
@@ -26,7 +26,6 @@ import { useHeavyMediaAllowed, useOnLoadMotion } from '@/lib/useMotionTier';
 export function HeroStage() {
   const tall = photos['hero-floor'];
   const allowVideo = useHeavyMediaAllowed();
-  const arrive = useOnLoadMotion();
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [videoReady, setVideoReady] = useState(false);
@@ -80,9 +79,7 @@ export function HeroStage() {
           // The two sources have different shapes, so the ratio is a class, not an
           // inline style — an inline aspect-ratio would win against the md: rule
           // and leave the desktop photograph cropped to a phone's proportions.
-          className={`aspect-[4/5] w-full object-cover md:aspect-[16/9] xl:aspect-auto xl:h-full ${
-            arrive ? 'hero-fade-rise' : ''
-          }`}
+          className="aspect-[4/5] w-full object-cover md:aspect-[16/9] xl:aspect-auto xl:h-full"
           style={{
             backgroundImage: `url("${tall.blur}")`,
             backgroundSize: 'cover',

@@ -1,11 +1,8 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useLocale } from '@/lib/locale';
-import { useAnyMotion } from '@/lib/useMotionTier';
 import { formatINR } from '@/lib/format';
-import { NumberRoll } from '@/components/ui/NumberRoll';
 import type { OnRoadBreakdown } from '@/content/vehicles';
 
 /**
@@ -16,9 +13,10 @@ import type { OnRoadBreakdown } from '@/content/vehicles';
  * the page for an Indian two-wheeler buyer, and it embodies the positioning —
  * this dealer tells you the real number.
  *
- * On desktop the rows reveal top to bottom and the total counts up, which ties
- * the motion language to the site's most important object instead of decorating
- * empty space.
+ * It does not move. The rows used to build in top to bottom and the total used
+ * to count up as you scrolled to it; on the page where someone is checking a
+ * number against what they were told, a figure that animates into place is a
+ * figure they have to wait for.
  */
 export function PriceSheet({
   onRoad,
@@ -32,29 +30,6 @@ export function PriceSheet({
   href?: string;
 }) {
   const { copy } = useLocale();
-  const reduced = !useAnyMotion();
-  const ref = useRef<HTMLDivElement>(null);
-  const [built, setBuilt] = useState(false);
-
-  useEffect(() => {
-    if (reduced) {
-      setBuilt(true);
-      return;
-    }
-    const node = ref.current;
-    if (!node) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          setBuilt(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.25 },
-    );
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, [reduced]);
 
   const rows = [
     { label: copy.model.onRoadRows.exShowroom, value: onRoad.exShowroom },
@@ -63,20 +38,10 @@ export function PriceSheet({
     { label: copy.model.onRoadRows.accessories, value: onRoad.accessories },
   ];
 
-  const rowStyle = (index: number): React.CSSProperties =>
-    reduced
-      ? {}
-      : {
-          opacity: built ? 1 : 0,
-          transform: built ? 'none' : 'translate3d(0, 10px, 0)',
-          transition: `opacity 320ms ease ${index * 60}ms, transform 320ms cubic-bezier(0.22,1,0.36,1) ${index * 60}ms`,
-        };
-
   const isMini = variant === 'mini';
 
   return (
     <div
-      ref={ref}
       // Square on purpose: this is the signature element and it should read
       // as a printed price list, not as another rounded card.
       className={`rounded-doc border border-rule bg-white ${isMini ? 'p-5' : 'p-6 xl:p-8'}`}
@@ -97,8 +62,8 @@ export function PriceSheet({
       ) : null}
 
       <dl className={isMini ? 'mt-4' : 'mt-6'}>
-        {rows.map((row, index) => (
-          <div key={row.label} className="sheet-row" style={rowStyle(index)}>
+        {rows.map((row) => (
+          <div key={row.label} className="sheet-row">
             <dt className={`${isMini ? 'text-sm' : 'text-[15px]'} text-[color:var(--ink-muted)]`}>{row.label}</dt>
             <dd className={`tnum shrink-0 font-medium ${isMini ? 'text-sm' : 'text-base'}`}>
               {formatINR(row.value)}
@@ -106,17 +71,14 @@ export function PriceSheet({
           </div>
         ))}
 
-        <div
-          className="flex items-baseline justify-between gap-4 border-t-2 border-ink pt-4"
-          style={rowStyle(rows.length)}
-        >
+        <div className="flex items-baseline justify-between gap-4 border-t-2 border-ink pt-4">
           <dt className={`font-semibold ${isMini ? 'text-sm' : 'text-base'}`}>{copy.model.onRoadRows.total}</dt>
           <dd
             className={`font-display font-extrabold tracking-tightest text-tvsred-onlight ${
               isMini ? 'text-2xl' : 'text-3xl xl:text-4xl'
             }`}
           >
-            {built ? <NumberRoll value={onRoad.total} /> : <span className="tnum">{formatINR(onRoad.total)}</span>}
+            <span className="tnum">{formatINR(onRoad.total)}</span>
           </dd>
         </div>
       </dl>

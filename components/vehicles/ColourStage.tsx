@@ -82,6 +82,7 @@ export function ColourStage({ vehicle }: { vehicle: Vehicle }) {
             src={imageFor(index)}
             ratio="aspect-[4/3]"
             eager
+            priority
             sizes="(min-width: 1280px) 44rem, 92vw"
           />
         </div>
@@ -102,12 +103,17 @@ export function ColourStage({ vehicle }: { vehicle: Vehicle }) {
         ) : null}
 
         {/* Radios, not buttons: this is a single choice from a named set, and
-            arrow keys move between them the way a visitor expects. */}
+            arrow keys move between them the way a visitor expects.
+
+            Not rendered at all when there is nothing to pick between. It used to
+            be `hidden`, which a Tailwind `display` class quietly overrides, so
+            the swatches showed anyway — hand-picked hexes sitting next to the
+            same colour names already written out in text above them. */}
+        {selectable ? (
         <div
           role="radiogroup"
           aria-label={`${copy.model.colourLabel} — ${vehicle.name}`}
           className="mt-3 flex flex-wrap gap-2.5"
-          hidden={!selectable}
         >
           {vehicle.colours.map((option, i) => (
             <button
@@ -163,6 +169,7 @@ export function ColourStage({ vehicle }: { vehicle: Vehicle }) {
             </button>
           ))}
         </div>
+        ) : null}
       </figcaption>
 
       {/* Extra views, where TVS publishes them. These are unnamed on purpose —

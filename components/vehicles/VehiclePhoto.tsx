@@ -18,6 +18,7 @@ export function VehiclePhoto({
   vehicle,
   src,
   eager = false,
+  priority = false,
   sizes,
   className = '',
   ratio = 'aspect-[5/3]',
@@ -25,7 +26,10 @@ export function VehiclePhoto({
   vehicle: Vehicle;
   /** Overrides the model's own image — used by the colour stage. */
   src?: string;
+  /** Load immediately rather than when scrolled to. */
   eager?: boolean;
+  /** Ask the browser to fetch this ahead of everything else. LCP only. */
+  priority?: boolean;
   sizes?: string;
   className?: string;
   ratio?: string;
@@ -57,8 +61,11 @@ export function VehiclePhoto({
       width={width}
       height={height}
       loading={eager ? 'eager' : 'lazy'}
-      // The hero photo on a model page is the LCP element; everything else waits.
-      fetchPriority={eager ? 'high' : undefined}
+      // Eager and high-priority are different questions. A rail card must not
+      // wait for a sideways scroll, but it is not the largest thing on the
+      // screen either, and marking five of them high would push the real
+      // candidate down the queue.
+      fetchPriority={priority ? 'high' : undefined}
       decoding="async"
       sizes={sizes}
       // `contain`, not `cover`: these are studio shots of a whole vehicle and

@@ -8,7 +8,7 @@ const FULL_MOTION_MIN_WIDTH = 1280;
 export type MotionTier =
   /** Render the finished, static page. Server, first paint, reduced-motion, slow links. */
   | 'none'
-  /** Everything that costs one composited animation each: reveals, count-ups, crossfades. */
+  /** Things that answer a tap: the colour crossfade, the EMI figure updating. */
   | 'light'
   /** Adds the scroll-bound and pointer-bound layer: parallax, cursor light, page wipes. */
   | 'full';
@@ -50,6 +50,11 @@ function computeTier(): MotionTier {
  * It returns `'none'` on the server and on the very first client render, so the
  * exported HTML is the finished page. If JavaScript never arrives the site is
  * complete rather than frozen mid-animation.
+ *
+ * Note that nothing on this site animates on arrival any more, so `light` and
+ * `full` now gate things that answer an action: the colour crossfade on a tap,
+ * the pointer-following buttons, the scroll progress rail, and the showroom
+ * clip behind the hero.
  */
 export function useMotionTier(): MotionTier {
   const [tier, setTier] = useState<MotionTier>('none');
@@ -84,25 +89,6 @@ export function useAnyMotion(): boolean {
 /** True only for the desktop layer: parallax, cursor light, page wipes, scroll binding. */
 export function useFullMotion(): boolean {
   return useMotionTier() === 'full';
-}
-
-/**
- * The gate for things that happen once, on arrival, before any tier is known.
- *
- * The hero's entrance runs on every device: it costs one composited animation at
- * load and is not bound to the scroller, which is the thing that actually hurts
- * on a phone. Still `false` on the server and on first paint, so the exported
- * HTML shows the finished hero.
- */
-export function useOnLoadMotion(): boolean {
-  const [enabled, setEnabled] = useState(false);
-
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    setEnabled(true);
-  }, []);
-
-  return enabled;
 }
 
 /**

@@ -27,11 +27,6 @@ export const hi: Copy = {
     openMenu: 'मेन्यू खोलें',
   },
 
-  intro: {
-    label: 'खुल रहा है',
-    skip: 'छोड़ें',
-  },
-
   actions: {
     bookTestRide: 'Test ride बुक करें',
     callNow: 'अभी कॉल करें',
@@ -187,7 +182,25 @@ export const hi: Copy = {
     variantsHeading: 'Variants और ex-showroom दाम',
     variantColumn: 'Variant',
     priceColumn: 'Ex-showroom',
-    onRoadHeading: 'पूरा on-road price',
+    onRoadHeading: 'पूरा on-road दाम',
+    onRoadWhy: [
+      {
+        term: 'Ex-showroom',
+        detail: 'गाड़ी का कंपनी वाला दाम, इसमें और कुछ जुड़ा नहीं है।',
+      },
+      {
+        term: 'RTO',
+        detail: 'छत्तीसगढ़ में गाड़ी की कीमत का 4% रोड टैक्स, साथ में registration, HSRP नंबर प्लेट और स्मार्ट कार्ड।',
+      },
+      {
+        term: 'Insurance',
+        detail: 'एक साल own-damage और पाँच साल third-party — नई गाड़ी पर यही कानूनी न्यूनतम है।',
+      },
+      {
+        term: 'ज़रूरी सामान',
+        detail: 'ISI मार्क वाला हेलमेट, मडफ़्लैप और फ़िटिंग। असल में यह छोड़ा नहीं जाता, इसलिए छिपाया भी नहीं।',
+      },
+    ],
     onRoadSub: 'बेस variant पर निकाला गया। नीचे हर लाइन असली खर्च है, कोई छिपा हुआ नहीं।',
     onRoadRows: {
       exShowroom: 'Ex-showroom दाम',

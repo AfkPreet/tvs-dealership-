@@ -6,7 +6,6 @@ import { useLocale } from '@/lib/locale';
 import { byRank, priceFrom } from '@/content/vehicles';
 import { formatINR } from '@/lib/format';
 import { VehiclePhoto } from '@/components/vehicles/VehiclePhoto';
-import { Reveal } from '@/components/motion/Reveal';
 
 /**
  * Every model the showroom sells, in one pass.
@@ -60,7 +59,7 @@ export function ModelStrip() {
     <section id="range" data-section={copy.range.heading} className="section-ink">
       <div className="py-14 xl:py-20">
         <div className="shell">
-          <Reveal>
+          <div>
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div className="max-w-2xl">
                 <h2 className="rail-heading text-3xl font-extrabold md:text-4xl xl:text-5xl">
@@ -90,7 +89,7 @@ export function ModelStrip() {
                 </div>
               </div>
             </div>
-          </Reveal>
+          </div>
         </div>
 
         {/* Full-bleed on a phone so the rail runs to both edges and reads as
@@ -101,18 +100,19 @@ export function ModelStrip() {
           ref={railRef}
           className="model-rail mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-[max(1.25rem,calc((100vw-80rem)/2))] pb-4"
         >
-          {byRank.map((vehicle, index) => (
-            <li
-              key={vehicle.slug}
-              className="w-[15.5rem] shrink-0 snap-start md:w-[17rem]"
-              style={{ '--reveal-delay': `${Math.min(index, 8) * 40}ms` } as React.CSSProperties}
-            >
+          {byRank.map((vehicle) => (
+            <li key={vehicle.slug} className="w-[15.5rem] shrink-0 snap-start md:w-[17rem]">
               <Link
                 href={`/vehicles/${vehicle.slug}`}
                 className="tap group flex h-full flex-col overflow-hidden rounded-sm border border-white/12 bg-graphite transition-[transform,border-color] duration-300 hover:border-white/30 active:scale-[0.985] xl:hover:-translate-y-1"
               >
                 <VehiclePhoto
                   vehicle={vehicle}
+                  // Lazy, all nineteen. Loading the first few eagerly looked
+                  // right in a screenshot and cost two points of mobile
+                  // Performance for images that sit far below the fold on a
+                  // phone. The blank card that prompted it was the screenshot
+                  // firing before the image arrived, not a bug.
                   ratio="aspect-[4/3]"
                   sizes="(min-width: 1280px) 18rem, (min-width: 768px) 30vw, 15.5rem"
                   className="transition-transform duration-500 xl:group-hover:scale-[1.04]"
