@@ -105,6 +105,7 @@ export const en = {
     heading: 'Come and see the vehicles',
     sub: `On ${dealer.address.line2} in ${dealer.city}. Ask for us by name — the TVS board is on the front of the building.`,
     addressLabel: 'Address',
+    hoursUnknown: 'Timings are not listed here yet — please call before you come.',
     hoursLabel: 'Opening hours',
     phoneLabel: 'Phone',
     gstinLabel: 'GSTIN',

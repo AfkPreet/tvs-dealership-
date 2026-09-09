@@ -89,16 +89,19 @@ export const dealer = {
   /** UNVERIFIED — the centre of Kota town, not the showroom door. */
   geo: { lat: 22.2907, lng: 82.0334 },
 
-  /** PLACEHOLDER — every time below is invented. */
-  hours: [
-    { day: 'mon', open: '09:30', close: '20:00' },
-    { day: 'tue', open: '09:30', close: '20:00' },
-    { day: 'wed', open: '09:30', close: '20:00' },
-    { day: 'thu', open: '09:30', close: '20:00' },
-    { day: 'fri', open: '09:30', close: '20:00' },
-    { day: 'sat', open: '09:30', close: '20:00' },
-    { day: 'sun', open: '10:00', close: '17:00' },
-  ] as OpeningHour[],
+  /**
+   * Opening times, or `null` while they are unknown.
+   *
+   * They are unknown. Nobody has told us when the showroom opens, and a website
+   * that says 9:30 when the shutter goes up at 10:30 sends a real person on a
+   * wasted trip — the one kind of error on this site that costs a customer
+   * something. So the site says "call to check" and gives the number, which is
+   * useful and true, instead of a table that is neither.
+   *
+   * Fill this in and the table appears everywhere it belongs, including the
+   * opening hours in the structured data. Nothing else needs touching.
+   */
+  hours: null as OpeningHour[] | null,
 
   /**
    * The dealership's own logo, dropped into public/brand/. Leave as null and
@@ -160,7 +163,9 @@ export const addressOneLine = [
 
 /** Weekday hours collapse to one line wherever the full table is too much. */
 export const hoursSummary = (() => {
+  if (!dealer.hours) return null;
   const week = dealer.hours.filter((h) => h.day !== 'sun');
+  if (week.length === 0) return null;
   const same = week.every((h) => h.open === week[0].open && h.close === week[0].close);
   return same ? { open: week[0].open, close: week[0].close } : null;
 })();

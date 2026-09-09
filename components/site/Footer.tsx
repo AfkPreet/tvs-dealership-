@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useLocale } from '@/lib/locale';
+import { OpeningHours } from './OpeningHours';
 import { dealer } from '@/content/dealer';
 import { telLink, whatsappLink } from '@/lib/whatsapp';
 import { formatTime } from '@/lib/format';
@@ -82,16 +83,9 @@ export function Footer({ address }: { address: string }) {
 
         <div>
           <h2 className="eyebrow text-[color:var(--on-ink-muted)]">{copy.footer.hoursHeading}</h2>
-          <ul className="mt-4 space-y-1 text-sm">
-            {dealer.hours.map((h) => (
-              <li key={h.day} className="flex justify-between gap-4 text-[color:var(--on-ink-muted)]">
-                <span>{copy.location.days[h.day]}</span>
-                <span className="tnum text-white">
-                  {h.open && h.close ? `${formatTime(h.open)} – ${formatTime(h.close)}` : copy.location.closed}
-                </span>
-              </li>
-            ))}
-          </ul>
+          <div className="mt-4">
+            <OpeningHours onInk />
+          </div>
         </div>
       </div>
 

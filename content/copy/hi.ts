@@ -111,6 +111,7 @@ export const hi: Copy = {
     heading: 'आकर गाड़ी देख लीजिए',
     sub: `${dealer.city} में ${dealer.address.line2} पर। नाम लेकर पूछ लीजिए — इमारत के सामने TVS का बोर्ड लगा है।`,
     addressLabel: 'पता',
+    hoursUnknown: 'समय अभी यहाँ नहीं लिखा है — आने से पहले एक बार फ़ोन कर लीजिए।',
     hoursLabel: 'खुलने का समय',
     phoneLabel: 'फ़ोन',
     gstinLabel: 'GSTIN',

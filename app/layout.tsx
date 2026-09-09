@@ -98,7 +98,9 @@ const structuredData = {
     addressCountry: 'IN',
   },
   geo: { '@type': 'GeoCoordinates', latitude: dealer.geo.lat, longitude: dealer.geo.lng },
-  openingHoursSpecification: dealer.hours.map((h) => ({
+  // Omitted entirely while the real times are unknown: asserting invented hours
+  // to a search engine is how a shut shutter ends up in a Maps card.
+  openingHoursSpecification: (dealer.hours ?? []).map((h) => ({
     '@type': 'OpeningHoursSpecification',
     dayOfWeek: `https://schema.org/${{ mon: 'Monday', tue: 'Tuesday', wed: 'Wednesday', thu: 'Thursday', fri: 'Friday', sat: 'Saturday', sun: 'Sunday' }[h.day]}`,
     opens: h.open,
