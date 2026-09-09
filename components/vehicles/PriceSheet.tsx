@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useLocale } from '@/lib/locale';
-import { useReducedExperience } from '@/lib/useReducedExperience';
+import { useAnyMotion } from '@/lib/useMotionTier';
 import { formatINR } from '@/lib/format';
 import { NumberRoll } from '@/components/ui/NumberRoll';
 import type { OnRoadBreakdown } from '@/content/vehicles';
@@ -32,7 +32,7 @@ export function PriceSheet({
   href?: string;
 }) {
   const { copy } = useLocale();
-  const reduced = useReducedExperience();
+  const reduced = !useAnyMotion();
   const ref = useRef<HTMLDivElement>(null);
   const [built, setBuilt] = useState(false);
 

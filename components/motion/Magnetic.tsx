@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { useReducedExperience } from '@/lib/useReducedExperience';
+import { useFullMotion } from '@/lib/useMotionTier';
 
 const RADIUS = 90;
 const PULL = 0.22;
@@ -15,7 +15,7 @@ const PULL = 0.22;
  */
 export function Magnetic({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const reduced = useReducedExperience();
+  const reduced = !useFullMotion();
 
   useEffect(() => {
     if (reduced) return;

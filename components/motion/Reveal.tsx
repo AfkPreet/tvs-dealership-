@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { useReducedExperience } from '@/lib/useReducedExperience';
+import { useAnyMotion } from '@/lib/useMotionTier';
 
 type Props = {
   children: React.ReactNode;
@@ -12,18 +12,19 @@ type Props = {
 };
 
 /**
- * Section entrance for the desktop motion layer.
+ * Section entrance, on every device.
  *
- * The static, finished state is what renders first — on the server, on mobile,
- * under `prefers-reduced-motion`, and if JavaScript never arrives. Motion is
- * layered on top only when `useReducedExperience()` says it is welcome, and the
+ * The static, finished state is what renders first — on the server, under
+ * `prefers-reduced-motion`, on a metered connection, and if JavaScript never
+ * arrives. Motion is layered on top when `useAnyMotion()` says it is welcome,
+ * which now includes phones: one composited transform per section, and the
  * observer disconnects the moment an element has revealed, so nothing stays
  * bound to the scroller.
  */
 export function Reveal({ children, delay = 0, as = 'div', className = '' }: Props) {
   const Tag = as;
   const ref = useRef<HTMLElement | null>(null);
-  const reduced = useReducedExperience();
+  const reduced = !useAnyMotion();
   const [shown, setShown] = useState(false);
 
   useEffect(() => {

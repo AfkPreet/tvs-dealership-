@@ -1,4 +1,5 @@
 import type { Copy } from './en';
+import { dealer, placeLine } from '@/content/dealer';
 
 /**
  * Hindi copy is written natively, not translated line-by-line from English.
@@ -18,6 +19,7 @@ export const hi: Copy = {
     vehicles: 'गाड़ियाँ',
     finance: 'Finance और EMI',
     service: 'Service',
+    about: 'हमारे बारे में',
     contact: 'शोरूम आइए',
     skipToContent: 'सीधे मुख्य हिस्से पर जाएँ',
     menu: 'मेन्यू',
@@ -25,9 +27,9 @@ export const hi: Copy = {
     openMenu: 'मेन्यू खोलें',
   },
 
-  preview: {
-    ribbon: 'PREVIEW',
-    line: 'यह सैंपल साइट है। गाड़ियों की असली फोटो और brand assets official TVS dealer brand pack से आएँगे।',
+  intro: {
+    label: 'खुल रहा है',
+    skip: 'छोड़ें',
   },
 
   actions: {
@@ -41,21 +43,20 @@ export const hi: Copy = {
     directions: 'रास्ता देखें',
     calculateEmi: 'EMI calculator खोलें',
     submit: 'पूछताछ भेजें',
-    sending: 'भेजा जा रहा है…',
     sendAgain: 'एक और पूछताछ भेजें',
     bookSlot: 'Service slot बुक करें',
   },
 
   hero: {
-    eyebrow: 'बिलासपुर में अब खुल गया',
+    eyebrow: `${placeLine} में अब खुल गया`,
     headline: 'एक ही जगह, आपकी TVS तैयार।',
-    sub: 'Vyapar Vihar Road पर sales, service और spares — तीनों एक ही छत के नीचे। पूरा on-road price खुलकर बताया जाता है, finance शोरूम में ही मंज़ूर होता है, और हर पूछताछ का जवाब WhatsApp पर मिलता है।',
+    sub: `${dealer.address.line2} पर sales, service और spares — तीनों एक ही छत के नीचे। पूरा on-road price खुलकर बताया जाता है, finance शोरूम में ही मंज़ूर होता है, और हर पूछताछ का जवाब WhatsApp पर मिलता है।`,
     scrollHint: 'नीचे देखें',
   },
 
   models: {
     heading: 'यहाँ से शुरू करें',
-    sub: 'वही मॉडल जो बिलासपुर में सबसे ज़्यादा चलते हैं। नीचे दिए दाम ex-showroom, शुरुआती हैं।',
+    sub: `वही मॉडल जो ${dealer.city} में सबसे ज़्यादा चलते हैं। नीचे दिए दाम ex-showroom, शुरुआती हैं।`,
     priceFrom: 'शुरू',
     exShowroom: 'ex-showroom',
     onRoadFrom: 'On-road शुरू',
@@ -102,13 +103,13 @@ export const hi: Copy = {
 
   location: {
     heading: 'आकर गाड़ी देख लीजिए',
-    sub: 'Vyapar Vihar Road, नेहरू चौक से पाँच मिनट। सामने पार्किंग है।',
+    sub: `${dealer.city} में ${dealer.address.line2} पर। नाम लेकर पूछ लीजिए — इमारत के सामने TVS का बोर्ड लगा है।`,
     addressLabel: 'पता',
     hoursLabel: 'खुलने का समय',
     phoneLabel: 'फ़ोन',
     gstinLabel: 'GSTIN',
     serviceAreaLabel: 'डिलीवरी और registration इन इलाकों में',
-    mapTitle: 'Vyapar Vihar Road, बिलासपुर पर शोरूम की जगह दिखाता नक्शा',
+    mapTitle: `${dealer.address.line2}, ${placeLine} पर शोरूम की जगह दिखाता नक्शा`,
     closed: 'बंद',
     days: {
       mon: 'सोमवार',
@@ -139,12 +140,12 @@ export const hi: Copy = {
       phone: 'कृपया 10 अंकों का मोबाइल नंबर लिखें।',
       date: 'कृपया तारीख़ चुनें।',
     },
-    successHeading: 'भेज दिया। WhatsApp खुल रहा है।',
+    successHeading: 'WhatsApp खुल रहा है।',
     successBody:
-      'अगर WhatsApp नहीं खुला तो नीचे वाला बटन दबाइए — आपकी पूछताछ हमारे पास दोनों ही हाल में पहुँच चुकी है।',
+      'आपके लिए मैसेज तैयार है — बस भेज दीजिए, हम इसी नंबर पर जवाब देंगे। अगर WhatsApp नहीं खुला तो नीचे वाला बटन दबाइए।',
     successFallback: 'WhatsApp खोलें',
     offlineNote:
-      'आपकी पूछताछ दर्ज होकर शोरूम के WhatsApp पर पहुँचती है। हम email नहीं माँगते, क्योंकि उसे कोई देखता ही नहीं।',
+      'हर पूछताछ सीधे शोरूम के WhatsApp पर जाती है। हम email नहीं माँगते, क्योंकि उसे कोई देखता ही नहीं।',
     privacy: 'आपका नंबर सिर्फ़ इसी पूछताछ का जवाब देने के लिए इस्तेमाल होगा। और कुछ नहीं।',
   },
 
@@ -167,11 +168,8 @@ export const hi: Copy = {
   model: {
     backToAll: 'सारी गाड़ियाँ',
     colourLabel: 'रंग',
-    spinnerHint: 'घुमाने के लिए खींचिए',
-    spinnerHintTouch: 'घुमाने के लिए उँगली फिराइए',
-    spinnerLoading: 'तस्वीरें आ रही हैं',
-    spinnerAlt: (name: string, colour: string, deg: number) =>
-      `${name}, ${colour} रंग में, ${deg} डिग्री घुमी हुई`,
+    colourHint: 'रंग पर टैप करके देखिए',
+    galleryHeading: 'और तस्वीरें',
     specsHeading: 'स्पेसिफिकेशन',
     variantsHeading: 'Variants और ex-showroom दाम',
     variantColumn: 'Variant',
@@ -183,7 +181,7 @@ export const hi: Copy = {
       rto: 'RTO — road tax, registration, HSRP',
       insurance: 'Insurance — 1 साल OD + 5 साल third party',
       accessories: 'ज़रूरी सामान — ISI हेलमेट, मडफ्लैप, फिटिंग',
-      total: 'On-road price, बिलासपुर',
+      total: `On-road price, ${dealer.city}`,
     },
     onRoadNote:
       'यह अनुमानित है। छत्तीसगढ़ में road tax गाड़ी की कीमत का 4% लगता है; insurance कंपनी और उम्र के हिसाब से बदलता है। Finance पर लेने पर ₹1,500 hypothecation चार्ज अलग से लगता है। आख़िरी रकम शोरूम में पक्की कर लीजिए।',
@@ -220,6 +218,7 @@ export const hi: Copy = {
       none: '—',
       cvt: 'CVT ऑटोमैटिक',
       gear5: '5 गियर',
+      gear6: '6 गियर',
       gear4: '4 गियर',
       automatic: 'ऑटोमैटिक',
       disc: 'Disc',
@@ -287,14 +286,26 @@ export const hi: Copy = {
     slotNote: 'हफ़्ते में एक भी दिन बंद नहीं रहते — बस रविवार को समय थोड़ा कम है। उसी दिन का slot भीड़ पर निर्भर करता है।',
   },
 
+  about: {
+    title: 'शोरूम',
+    lede: 'हम कौन हैं, और अंदर आने पर आपको क्या मिलेगा।',
+    storyHeading: 'शुरुआत कैसे हुई',
+    galleryHeading: 'उद्घाटन का दिन',
+    teamHeading: 'यहाँ के लोग',
+    visitHeading: 'आकर देखिए',
+    visitBody:
+      'फ़्लोर पर गाड़ियाँ हर हफ़्ते बदलती रहती हैं। कोई ख़ास मॉडल और रंग देखना है तो आने से पहले फ़ोन कर लीजिए, हम निकालकर रख देंगे।',
+    sinceLabel: 'TVS बेच रहे हैं',
+    photoCredit: 'तस्वीरें शोरूम की हैं।',
+  },
+
   footer: {
-    tagline: 'Authorised TVS Dealer, बिलासपुर',
+    tagline: `Authorised TVS Dealer, ${placeLine}`,
     navHeading: 'पेज',
     contactHeading: 'संपर्क',
     hoursHeading: 'खुला',
     legal: 'इस साइट के सारे दाम और स्पेसिफिकेशन अनुमानित हैं और बदल सकते हैं। TVS, TVS का लोगो और सभी मॉडल नाम TVS Motor Company Limited के ट्रेडमार्क हैं।',
-    rights: (year: number) => `© ${year} Shakti Motors. सर्वाधिकार सुरक्षित।`,
-    builtBy: 'क्लाइंट को दिखाने के लिए बनाया गया सैंपल।',
+    rights: (year: number, name: string) => `© ${year} ${name}. सर्वाधिकार सुरक्षित।`,
   },
 
   a11y: {

@@ -95,20 +95,12 @@ export function Footer({ address }: { address: string }) {
         </div>
       </div>
 
-      {/* The preview marker. It says we know how dealer branding works. */}
       <div className="border-t border-white/10">
-        <div className="shell flex flex-col gap-3 py-6 text-xs text-[color:var(--on-ink-muted)] md:flex-row md:items-start md:justify-between">
-          <p className="max-w-2xl">
-            <span className="mr-2 inline-block rounded-sm bg-tvsred-cta px-2 py-0.5 font-bold tracking-[0.14em] text-white">
-              {copy.preview.ribbon}
-            </span>
-            {copy.preview.line}
-          </p>
-          <p className="shrink-0">{copy.footer.builtBy}</p>
-        </div>
-        <div className="shell pb-10">
+        <div className="shell py-10">
           <p className="max-w-4xl text-xs leading-relaxed text-[color:var(--on-ink-muted)]">{copy.footer.legal}</p>
-          <p className="mt-3 text-xs text-[color:var(--on-ink-muted)]">{copy.footer.rights(2026)}</p>
+          <p className="mt-3 text-xs text-[color:var(--on-ink-muted)]">
+            {copy.footer.rights(new Date().getFullYear(), dealer.name)}
+          </p>
         </div>
       </div>
     </footer>

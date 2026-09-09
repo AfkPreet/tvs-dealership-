@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocale } from '@/lib/locale';
-import { useOnLoadMotion, useReducedExperience } from '@/lib/useReducedExperience';
+import { useFullMotion, useOnLoadMotion } from '@/lib/useMotionTier';
 import { dealer } from '@/content/dealer';
 import { telLink } from '@/lib/whatsapp';
 import { Magnetic } from '@/components/motion/Magnetic';
@@ -20,13 +20,13 @@ import { HeroVehicle, type HeroLayer } from './HeroVehicle';
  * scroll-jacking on a phone is a conversion killer and does not ship here.
  *
  * Hard requirement, honoured: the headline and the primary CTA are in the DOM
- * and visible before any animation runs. `useReducedExperience()` returns true
+ * and visible before any animation runs. `useFullMotion()` returns false
  * on the server and on first paint, so the exported HTML is the finished hero.
  * If JavaScript never arrives, the hero is complete and every button works.
  */
 export function Hero() {
   const { copy } = useLocale();
-  const reduced = useReducedExperience();
+  const reduced = !useFullMotion();
   const arrive = useOnLoadMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const [progress, setProgress] = useState(reduced ? 1 : 0);
@@ -227,7 +227,6 @@ export function Hero() {
           <div className={arrive ? 'hero-fade-rise' : ''} style={riseDelay(120)}>
             <HeroVehicle layerStyle={layerStyle} />
           </div>
-          <p className="mt-2 text-center text-[11px] text-[color:var(--on-ink-muted)]">{copy.preview.line}</p>
         </div>
       </div>
     </section>
