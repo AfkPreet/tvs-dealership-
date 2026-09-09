@@ -6,95 +6,25 @@ import { useLocale } from '@/lib/locale';
 import { useFullMotion } from '@/lib/useMotionTier';
 
 /**
- * The desktop-only motion layer: smooth scroll, the scroll progress rail, and
- * the page transition wipe.
+ * The scroll progress rail, and nothing else any more.
  *
- * All three are gated behind `useFullMotion()`, so they exist only above
- * 1280px on a fast connection with motion allowed. Nothing here renders any
- * content — if the whole layer fails to mount, the site is unchanged.
+ * This used to also ease the mouse wheel and wipe a red panel across the screen
+ * on every navigation. Both are gone: the wipe played on arrival, which is the
+ * one thing motion on this site is not for, and easing the wheel takes the
+ * scroll away from the person doing the scrolling.
+ *
+ * What is left is a position indicator, not an animation. It is gated behind
+ * `useFullMotion()`, so it exists only above 1280px with motion allowed, and it
+ * renders no content — if it fails to mount, the site is unchanged.
  */
 export function DesktopMotionLayer() {
   const reduced = !useFullMotion();
 
   if (reduced) return null;
 
-  return (
-    <>
-      <SmoothScroll />
-      <ScrollRail />
-      <PageWipe />
-    </>
-  );
+  return <ScrollRail />;
 }
 
-/* ------------------------------------------------------------------ */
-
-const LERP = 0.14;
-
-/**
- * Lenis-style smooth scroll with a short easing.
- *
- * The rAF loop starts on a wheel event and stops the moment the distance closes,
- * so nothing runs while the page is idle. Keyboard, touch and anchor scrolling
- * are left entirely alone — only the wheel is eased.
- */
-function SmoothScroll() {
-  useEffect(() => {
-    let target = window.scrollY;
-    let current = window.scrollY;
-    let frame: number | null = null;
-    let running = false;
-
-    const maxScroll = () =>
-      Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-
-    const tick = () => {
-      current += (target - current) * LERP;
-      if (Math.abs(target - current) < 0.4) {
-        current = target;
-        window.scrollTo(0, current);
-        running = false;
-        frame = null;
-        return;
-      }
-      window.scrollTo(0, current);
-      frame = requestAnimationFrame(tick);
-    };
-
-    const onWheel = (event: WheelEvent) => {
-      // Leave pinch-zoom, trackpad horizontal swipes and modified scrolls alone.
-      if (event.ctrlKey || event.deltaMode !== 0) return;
-      if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
-      event.preventDefault();
-      if (!running) current = window.scrollY;
-      target = Math.min(maxScroll(), Math.max(0, target + event.deltaY));
-      if (!running) {
-        running = true;
-        frame = requestAnimationFrame(tick);
-      }
-    };
-
-    // Any scroll we did not drive — keyboard, scrollbar drag, anchor jump —
-    // resets the target so the next wheel event continues from the real position.
-    const onScroll = () => {
-      if (!running) {
-        target = window.scrollY;
-        current = window.scrollY;
-      }
-    };
-
-    window.addEventListener('wheel', onWheel, { passive: false });
-    window.addEventListener('scroll', onScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener('wheel', onWheel);
-      window.removeEventListener('scroll', onScroll);
-      if (frame !== null) cancelAnimationFrame(frame);
-    };
-  }, []);
-
-  return null;
-}
 
 /* ------------------------------------------------------------------ */
 
@@ -197,30 +127,3 @@ function ScrollRail() {
   );
 }
 
-/* ------------------------------------------------------------------ */
-
-/**
- * A brief red wipe between routes. Well under 400ms — long enough to register
- * as a transition, short enough that it never reads as waiting.
- */
-function PageWipe() {
-  const pathname = usePathname();
-  const [run, setRun] = useState(0);
-  const first = useRef(true);
-
-  useEffect(() => {
-    if (first.current) {
-      first.current = false;
-      return;
-    }
-    setRun((n) => n + 1);
-  }, [pathname]);
-
-  if (run === 0) return null;
-
-  return (
-    // Keyed so each navigation restarts the sweep from the beginning. The panel
-    // crosses the viewport in 360ms and covers it fully only in passing.
-    <div key={run} aria-hidden className="page-wipe pointer-events-none fixed inset-0 z-50 bg-tvsred" />
-  );
-}

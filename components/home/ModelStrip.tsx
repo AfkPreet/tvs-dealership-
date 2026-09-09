@@ -6,7 +6,6 @@ import { useLocale } from '@/lib/locale';
 import { byRank, priceFrom } from '@/content/vehicles';
 import { formatINR } from '@/lib/format';
 import { VehiclePhoto } from '@/components/vehicles/VehiclePhoto';
-import { Reveal } from '@/components/motion/Reveal';
 
 /**
  * Every model the showroom sells, in one pass.
@@ -60,7 +59,7 @@ export function ModelStrip() {
     <section id="range" data-section={copy.range.heading} className="section-ink">
       <div className="py-14 xl:py-20">
         <div className="shell">
-          <Reveal>
+          <div>
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div className="max-w-2xl">
                 <h2 className="rail-heading text-3xl font-extrabold md:text-4xl xl:text-5xl">
@@ -90,7 +89,7 @@ export function ModelStrip() {
                 </div>
               </div>
             </div>
-          </Reveal>
+          </div>
         </div>
 
         {/* Full-bleed on a phone so the rail runs to both edges and reads as

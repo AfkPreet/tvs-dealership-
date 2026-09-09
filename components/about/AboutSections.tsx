@@ -4,7 +4,6 @@ import { useLocale } from '@/lib/locale';
 import { dealer, addressOneLine, placeLine } from '@/content/dealer';
 import { photos, src, srcSet } from '@/content/photos';
 import { telLink, whatsappLink } from '@/lib/whatsapp';
-import { Reveal } from '@/components/motion/Reveal';
 import { Magnetic } from '@/components/motion/Magnetic';
 
 /** The showroom photographs, in the order they tell the story. */
@@ -80,7 +79,7 @@ export function AboutStory() {
   return (
     <section data-section={copy.about.storyHeading} className="section-light">
       <div className="shell grid gap-10 py-16 xl:grid-cols-[minmax(0,34rem)_minmax(0,1fr)] xl:gap-16 xl:py-20">
-        <Reveal>
+        <div>
           <h2 className="rail-heading-light text-3xl font-extrabold md:text-4xl">
             {copy.about.storyHeading}
           </h2>
@@ -96,9 +95,9 @@ export function AboutStory() {
               <dd className="tnum font-display text-2xl font-bold tracking-tightest">{dealer.since}</dd>
             </div>
           </dl>
-        </Reveal>
+        </div>
 
-        <Reveal delay={80}>
+        <div>
           <div className="grid gap-4 sm:grid-cols-2">
             {STORY_PHOTOS.map((id) => (
               <Photo
@@ -110,7 +109,7 @@ export function AboutStory() {
             ))}
           </div>
           <p className="mt-3 text-xs text-[color:var(--ink-muted)]">{copy.about.photoCredit}</p>
-        </Reveal>
+        </div>
       </div>
     </section>
   );
@@ -122,22 +121,22 @@ export function AboutOpening() {
   return (
     <section data-section={copy.about.galleryHeading} className="section-ink">
       <div className="shell py-14 xl:py-20">
-        <Reveal>
+        <div>
           <h2 className="rail-heading text-3xl font-extrabold md:text-4xl">
             {copy.about.galleryHeading}
           </h2>
           <p className="mt-3 max-w-xl text-[color:var(--on-ink-muted)]">{copy.about.galleryBody}</p>
-        </Reveal>
+        </div>
 
         <ul className="mt-8 grid gap-4 md:grid-cols-3">
           {OPENING_PHOTOS.map((id, index) => (
-            <Reveal as="li" key={id} delay={index * 70}>
+            <li key={id}>
               <Photo
                 id={id}
                 sizes="(min-width: 1280px) 26rem, (min-width: 768px) 30vw, 92vw"
                 className="aspect-[4/3]"
               />
-            </Reveal>
+            </li>
           ))}
         </ul>
       </div>
@@ -154,19 +153,19 @@ export function AboutTeam() {
   return (
     <section data-section={copy.about.teamHeading} className="section-mist">
       <div className="shell py-14 xl:py-20">
-        <Reveal>
+        <div>
           <h2 className="rail-heading-light text-3xl font-extrabold md:text-4xl">
             {copy.about.teamHeading}
           </h2>
-        </Reveal>
+        </div>
         <ul className="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
           {dealer.about.team.map((person, index) => (
-            <Reveal as="li" key={person.name} delay={index * 60}>
+            <li key={person.name}>
               <div className="h-full rounded-sm border border-rule bg-white p-5">
                 <p className="font-display text-lg font-bold tracking-tightest">{person.name}</p>
                 <p className="mt-1 text-sm text-[color:var(--ink-muted)]">{person.role}</p>
               </div>
-            </Reveal>
+            </li>
           ))}
         </ul>
       </div>

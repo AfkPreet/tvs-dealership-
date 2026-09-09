@@ -27,11 +27,6 @@ export const hi: Copy = {
     openMenu: 'मेन्यू खोलें',
   },
 
-  intro: {
-    label: 'खुल रहा है',
-    skip: 'छोड़ें',
-  },
-
   actions: {
     bookTestRide: 'Test ride बुक करें',
     callNow: 'अभी कॉल करें',

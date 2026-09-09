@@ -20,12 +20,6 @@ export const en = {
     openMenu: 'Open navigation menu',
   },
 
-  intro: {
-    /** Read out to a screen reader while the opening animation runs. */
-    label: 'Loading',
-    skip: 'Skip',
-  },
-
   actions: {
     bookTestRide: 'Book a test ride',
     callNow: 'Call now',

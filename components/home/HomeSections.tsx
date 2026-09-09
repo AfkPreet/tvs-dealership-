@@ -11,7 +11,6 @@ import { VehicleCard } from '@/components/vehicles/VehicleCard';
 import { PriceSheet } from '@/components/vehicles/PriceSheet';
 import { EnquiryForm } from '@/components/forms/EnquiryForm';
 import { OpeningHours } from '@/components/site/OpeningHours';
-import { Reveal } from '@/components/motion/Reveal';
 import { Magnetic } from '@/components/motion/Magnetic';
 
 /* ------------------------------------------------------------------ */
@@ -22,7 +21,7 @@ export function ModelShortlist() {
   return (
     <section id="models" data-section={copy.models.heading} className="section-light">
       <div className="shell py-14 xl:py-20">
-        <Reveal>
+        <div>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div className="max-w-2xl">
               <h2 className="text-3xl font-extrabold md:text-4xl xl:text-5xl">{copy.models.heading}</h2>
@@ -32,13 +31,13 @@ export function ModelShortlist() {
               {copy.actions.viewAll}
             </Link>
           </div>
-        </Reveal>
+        </div>
 
         <ul className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {featuredVehicles.map((vehicle, index) => (
-            <Reveal as="li" key={vehicle.slug} delay={index * 60}>
+            <li key={vehicle.slug}>
               <VehicleCard vehicle={vehicle} />
-            </Reveal>
+            </li>
           ))}
         </ul>
       </div>
@@ -64,7 +63,7 @@ export function EmiTeaser() {
   return (
     <section id="emi" data-section={copy.emiTeaser.heading} className="section-ink">
       <div className="shell grid gap-10 py-16 xl:grid-cols-2 xl:items-center xl:py-20">
-        <Reveal>
+        <div>
           <p className="eyebrow text-tvsred-onink">
             {copy.emiTeaser.chipLabel} {formatINR(cheapest)}
             {copy.emiTeaser.perMonth}
@@ -78,9 +77,9 @@ export function EmiTeaser() {
               {copy.emiTeaser.cta}
             </Link>
           </Magnetic>
-        </Reveal>
+        </div>
 
-        <Reveal delay={80}>
+        <div>
           <ul className="grid gap-3">
             {chips.map((chip) => (
               <li key={chip.slug}>
@@ -103,7 +102,7 @@ export function EmiTeaser() {
             {EMI_DEFAULTS.months} {copy.finance.months} · {EMI_DEFAULTS.annualRate}% · 20%{' '}
             {copy.finance.downPayment}
           </p>
-        </Reveal>
+        </div>
       </div>
     </section>
   );
@@ -117,14 +116,14 @@ export function WhyBuyHere() {
   return (
     <section id="why" data-section={copy.why.heading} className="section-mist">
       <div className="shell py-14 xl:py-20">
-        <Reveal>
+        <div>
           <h2 className="max-w-3xl text-3xl font-extrabold md:text-4xl xl:text-5xl">{copy.why.heading}</h2>
           <p className="mt-3 max-w-xl text-[color:var(--ink-muted)]">{copy.why.sub}</p>
-        </Reveal>
+        </div>
 
         <ul className="mt-10 grid gap-px overflow-hidden rounded-sm border border-rule bg-rule md:grid-cols-2 xl:grid-cols-3">
           {copy.why.items.map((item, index) => (
-            <Reveal as="li" key={item.title} delay={index * 50} className="bg-white p-6 xl:p-8">
+            <li key={item.title} className="bg-white p-6 xl:p-8">
               <p className="flex items-center gap-2 font-semibold">
                 <span aria-hidden className="text-verified">
                   ✓
@@ -132,12 +131,12 @@ export function WhyBuyHere() {
                 {item.title}
               </p>
               <p className="mt-2 text-sm leading-relaxed text-[color:var(--ink-muted)]">{item.body}</p>
-            </Reveal>
+            </li>
           ))}
         </ul>
 
         {/* The price sheet appears in miniature here, using a real model. */}
-        <Reveal delay={80}>
+        <div>
           <div className="mt-10 grid gap-6 xl:grid-cols-[1fr_420px] xl:items-center">
             <div className="max-w-xl">
               <h3 className="font-display text-2xl font-bold tracking-tightest xl:text-3xl">
@@ -152,7 +151,7 @@ export function WhyBuyHere() {
               href={`/vehicles/${byRank[0].slug}`}
             />
           </div>
-        </Reveal>
+        </div>
       </div>
     </section>
   );
@@ -166,13 +165,13 @@ export function LocationSection() {
   return (
     <section id="location" data-section={copy.location.heading} className="section-light">
       <div className="shell py-14 xl:py-20">
-        <Reveal>
+        <div>
           <h2 className="max-w-2xl text-3xl font-extrabold md:text-4xl xl:text-5xl">{copy.location.heading}</h2>
           <p className="mt-3 max-w-xl text-[color:var(--ink-muted)]">{copy.location.sub}</p>
-        </Reveal>
+        </div>
 
         <div className="mt-10 grid gap-8 xl:grid-cols-[1fr_1.15fr]">
-          <Reveal>
+          <div>
             <dl className="rounded-sm border border-rule">
               <div className="border-b border-rule p-5">
                 <dt className="eyebrow text-[color:var(--ink-muted)]">{copy.location.addressLabel}</dt>
@@ -216,9 +215,9 @@ export function LocationSection() {
                 </dd>
               </div>
             </dl>
-          </Reveal>
+          </div>
 
-          <Reveal delay={60}>
+          <div>
             <div className="h-full min-h-[320px] overflow-hidden rounded-sm border border-rule">
               <iframe
                 src={dealer.mapEmbed}
@@ -228,7 +227,7 @@ export function LocationSection() {
                 className="h-full min-h-[320px] w-full border-0"
               />
             </div>
-          </Reveal>
+          </div>
         </div>
       </div>
     </section>

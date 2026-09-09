@@ -256,95 +256,21 @@
     color: var(--ink);
   }
 
-  /* Motion primitives. Every one of these is transform/opacity only — nothing
-     here can trigger layout, on any tier. */
   /*
-   * Section entrance is a rise, not a fade.
+   * What is left of the motion layer.
    *
-   * Fading in from `opacity: 0` means every not-yet-revealed section below the
-   * fold is transparent text sitting on the page — which an automated contrast
-   * check reads, correctly, as text that fails contrast. A transform-only
-   * reveal keeps the copy at full opacity the whole time, reads just as well,
-   * and is cheaper to composite.
-   */
-  .reveal {
-    transform: translate3d(0, 22px, 0);
-    transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
-    transition-delay: var(--reveal-delay, 0ms);
-  }
-
-  .reveal-in {
-    transform: translate3d(0, 0, 0);
-  }
-
-  /* The static state: what the server renders, what a reduced-motion or mobile
-     visitor gets, and what shows if JavaScript never arrives. */
-  .reveal-static {
-    transform: none;
-    transition: none;
-  }
-
-  /* Route transition: a single red panel crossing the viewport. */
-  .page-wipe {
-    animation: page-wipe 360ms cubic-bezier(0.76, 0, 0.24, 1) both;
-  }
-
-  @keyframes page-wipe {
-    0% {
-      transform: translate3d(-100%, 0, 0);
-    }
-    48% {
-      transform: translate3d(0, 0, 0);
-    }
-    100% {
-      transform: translate3d(100%, 0, 0);
-    }
-  }
-
-  /*
-   * Hero arrival, on every device: one rise on load, never bound to scroll.
+   * Everything that played on arrival is gone: the section reveals, the hero
+   * rise, the page wipe, the opening title card, the price sheet's build. The
+   * rule now is that motion answers something the visitor did. What remains
+   * below is the colour crossfade on a tap and the rail's scroll behaviour.
    *
-   * Text rises without fading, for the same reason the section reveals do — copy
-   * held at `opacity: 0` is copy that fails a contrast check for as long as the
-   * animation lasts. The fade is kept for the vehicle stage, which is artwork
-   * rather than text and has nothing to read.
+   * All of it is transform and opacity only, so nothing here can trigger layout.
    */
-  .hero-rise {
-    animation: hero-rise 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
-    animation-delay: var(--rise-delay, 0ms);
-  }
-
-  .hero-fade-rise {
-    animation: hero-fade-rise 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
-    animation-delay: var(--rise-delay, 0ms);
-  }
-
-  @keyframes hero-rise {
-    from {
-      transform: translate3d(0, 16px, 0);
-    }
-    to {
-      transform: none;
-    }
-  }
-
-  @keyframes hero-fade-rise {
-    from {
-      opacity: 0;
-      transform: translate3d(0, 20px, 0);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
   /*
    * The red rail that draws under a section heading as it enters.
    *
-   * A ::after scaled from zero on the X axis, so it is one composited transform
-   * and it costs nothing when it is not running. It is the same red hairline
-   * that sits under the hero photograph, which is what ties the two together.
+   * The same red hairline that sits down the edge of the hero photograph, which
+   * is what ties the two together.
    */
   .rail-heading,
   .rail-heading-light {
@@ -361,17 +287,16 @@
     height: 3px;
     width: 3.5rem;
     background: var(--tvs-red);
-    transform: scaleX(0);
     transform-origin: left center;
-    transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1) 120ms;
   }
 
-  /* Drawn when the Reveal wrapper above it has entered, and in the static state
-     — so a visitor with no JavaScript sees the finished rule, not a missing one. */
-  .reveal-in .rail-heading::after,
-  .reveal-in .rail-heading-light::after,
-  .reveal-static .rail-heading::after,
-  .reveal-static .rail-heading-light::after {
+  /*
+   * Drawn, full stop. It used to scale in when the section entered the
+   * viewport; a rule that draws itself every time you scroll past is exactly
+   * the kind of repetition this site no longer does.
+   */
+  .rail-heading::after,
+  .rail-heading-light::after {
     transform: scaleX(1);
   }
 
@@ -421,112 +346,6 @@
     display: none;
   }
 
-  /*
-   * The opening title card. Fixed and flat: no image, no gradient, nothing that
-   * could be measured as Largest Contentful Paint. It is removed from the DOM
-   * the moment it finishes.
-   */
-  .intro {
-    position: fixed;
-    inset: 0;
-    z-index: 100;
-    display: grid;
-    place-items: center;
-    background: var(--ink);
-    pointer-events: none;
-    animation: intro-in 240ms ease-out both;
-  }
-
-  .intro-out {
-    animation: intro-out 340ms ease-in both;
-  }
-
-  .intro-mark {
-    display: grid;
-    justify-items: center;
-    gap: 0.75rem;
-    padding: 0 1.5rem;
-    text-align: center;
-  }
-
-  .intro-name {
-    font-size: clamp(1.75rem, 7vw, 3.5rem);
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    line-height: 1;
-    color: #fff;
-    animation: intro-name 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
-  .intro-rule {
-    display: block;
-    height: 3px;
-    width: min(12rem, 42vw);
-    background: var(--tvs-red);
-    transform-origin: left center;
-    animation: intro-rule 560ms cubic-bezier(0.76, 0, 0.24, 1) 80ms both;
-  }
-
-  .intro-sub {
-    font-size: 0.75rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.62);
-    animation: intro-name 520ms cubic-bezier(0.22, 1, 0.36, 1) 160ms both;
-  }
-
-  @keyframes intro-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes intro-out {
-    from {
-      opacity: 1;
-    }
-    to {
-      opacity: 0;
-    }
-  }
-
-  @keyframes intro-name {
-    from {
-      opacity: 0;
-      transform: translate3d(0, 12px, 0);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
-  @keyframes intro-rule {
-    from {
-      transform: scaleX(0);
-    }
-    to {
-      transform: scaleX(1);
-    }
-  }
-
-  /*
-   * The ground a vehicle photograph sits on.
-   *
-   * TVS shoots every model on white, so a flat white block is what you get for
-   * free — and on the dark sections it punches a hole in the page. This is a
-   * studio sweep instead: white at the top falling to a pale neutral at the
-   * bottom, so the bike reads as standing on something. It costs nothing, it
-   * keeps the vehicle's own colours true, and it avoids cutting 75 photographs
-   * out around their spokes and mirror stalks.
-   */
-  .photo-ground {
-    background-image: linear-gradient(180deg, #ffffff 0%, #ffffff 42%, #eceef1 100%);
-  }
-
   .safe-bottom {
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
@@ -547,20 +366,9 @@
     scroll-behavior: auto !important;
   }
 
-  .reveal,
-  .hero-rise,
-  .hero-fade-rise,
   .colour-layer-in,
   .colour-layer-out {
     transform: none !important;
     animation: none !important;
-  }
-
-  /* The rule is drawn, not animated into place — a reduced-motion visitor sees
-     the finished heading, never a heading missing its rule. */
-  .rail-heading::after,
-  .rail-heading-light::after {
-    transform: scaleX(1) !important;
-    transition: none !important;
   }
 }

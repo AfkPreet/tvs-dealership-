@@ -291,28 +291,43 @@ async function main() {
     await context.close();
   }
 
-  /* --- 5c. The intro card gets out of the way, and never blocks the page --- */
+  /* --- 5c. Nothing animates on arrival --- */
   {
     const context = await browser.newContext({ viewport: { width: 1280, height: 900 } });
     const page = await context.newPage();
     await page.goto(base + '/', { waitUntil: 'domcontentloaded' });
 
-    // It must be gone within a second and a half, without any interaction.
-    await page.waitForTimeout(1600);
+    // The opening title card is gone for good. If it comes back, so does the
+    // complaint that started this.
     if ((await page.locator('[data-intro]').count()) > 0) {
-      note('[intro] the opening card was still on screen after 1.6s');
+      note('[motion] the opening title card is back');
     }
 
-    // The headline underneath must have been readable the whole time.
-    const headline = page.locator('h1').first();
-    if (!(await headline.isVisible())) note('[intro] the hero headline is not visible after the intro');
-
-    // Second visit in the same session must not show it again.
-    await page.goto(base + '/vehicles/', { waitUntil: 'domcontentloaded' });
-    await page.waitForTimeout(200);
-    if ((await page.locator('[data-intro]').count()) > 0) {
-      note('[intro] the opening card played again on the second page of a session');
+    // The headline must be at full opacity and untransformed on the very first
+    // frame, not settling into place.
+    const settled = await page.evaluate(() => {
+      const h1 = document.querySelector('h1');
+      if (!h1) return null;
+      const style = getComputedStyle(h1);
+      return { opacity: style.opacity, transform: style.transform, animation: style.animationName };
+    });
+    if (!settled) note('[motion] no h1 on the home page');
+    else {
+      if (Number(settled.opacity) < 1) note(`[motion] the headline starts at opacity ${settled.opacity}`);
+      if (settled.transform !== 'none') note(`[motion] the headline starts transformed: ${settled.transform}`);
+      if (settled.animation !== 'none') note(`[motion] the headline runs an entrance: ${settled.animation}`);
     }
+
+    // No section may be sitting offset waiting to be scrolled into place.
+    const offset = await page.evaluate(
+      () =>
+        [...document.querySelectorAll('section, section *')].filter((el) => {
+          const t = getComputedStyle(el).transform;
+          return t && t !== 'none' && !el.closest('[data-photo-placeholder]');
+        }).length,
+    );
+    if (offset > 6) note(`[motion] ${offset} elements start with a transform applied`);
+
     await context.close();
   }
 

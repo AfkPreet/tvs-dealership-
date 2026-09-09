@@ -9,7 +9,6 @@ import type { Vehicle } from '@/content/vehicles';
 import { ColourStage } from './ColourStage';
 import { PriceSheet } from './PriceSheet';
 import { EnquiryForm } from '@/components/forms/EnquiryForm';
-import { Reveal } from '@/components/motion/Reveal';
 import { Magnetic } from '@/components/motion/Magnetic';
 
 export function VehicleDetail({ vehicle }: { vehicle: Vehicle }) {
@@ -100,7 +99,7 @@ export function VehicleDetail({ vehicle }: { vehicle: Vehicle }) {
       {/* Price sheet and specs sit side by side on desktop, stacked on a phone. */}
       <section id="price" data-section={copy.model.onRoadHeading} className="section-mist">
         <div className="shell grid gap-8 py-16 xl:grid-cols-[minmax(0,1fr)_minmax(0,480px)] xl:items-start xl:py-20">
-          <Reveal>
+          <div>
             <h2 className="text-3xl font-extrabold md:text-4xl">{copy.model.specsHeading}</h2>
             <table className="rounded-doc mt-6 w-full border-collapse bg-white text-left text-[15px]">
               <caption className="sr-only">
@@ -144,7 +143,7 @@ export function VehicleDetail({ vehicle }: { vehicle: Vehicle }) {
                 ))}
               </tbody>
             </table>
-          </Reveal>
+          </div>
 
           <div className="xl:sticky xl:top-28">
             <PriceSheet onRoad={vehicle.onRoad} vehicleName={vehicle.name} />
