@@ -11,7 +11,6 @@
     "lighthouse": "node scripts/lighthouse.mjs",
     "test:emi": "node lib/emi.test.mjs",
     "build:hi": "NEXT_PUBLIC_DEFAULT_LOCALE=hi next build && rm -rf out-hi && mv out out-hi",
-    "preview": "npm run build && npm run build:hi && npm run build && node scripts/build-preview.mjs",
     "fetch:tvs": "node scripts/fetch-tvs.mjs",
     "media": "node scripts/curate-media.mjs",
     "extract:tvs": "node scripts/extract-tvs-images.mjs",
