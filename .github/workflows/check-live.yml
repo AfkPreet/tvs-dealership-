@@ -1,0 +1,47 @@
+name: Check the live site
+
+# The development sandbox's proxy blocks vercel.app, so the live deployment can
+# only be checked from somewhere with open egress.
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: Site origin to check
+        default: https://tvs-dealership-preved.vercel.app
+        required: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm ci
+
+      - name: Browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Check
+        env:
+          SITE: ${{ inputs.url }}
+        run: node scripts/check-live.mjs
+
+      - name: Summary
+        if: always()
+        run: cat live-check.md >> "$GITHUB_STEP_SUMMARY" || echo "no report produced" >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: live-check
+          path: |
+            live-check.md
+            live-*.png
+            live-lh-*.json

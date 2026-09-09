@@ -142,11 +142,12 @@ export const dealer = {
   },
 
   /**
-   * UNVERIFIED — the deployment URL, used for canonical URLs and JSON-LD.
+   * CONFIRMED — the live deployment, used for canonical URLs and JSON-LD.
    *
-   * WhatsApp messages do not use it: they read the origin from the browser, so
-   * the link the owner receives is always the site the visitor was actually on,
-   * whatever this says. Worth correcting anyway before the site is indexed.
+   * WhatsApp messages do not read it: they take the origin from the browser, so
+   * the link the owner receives is always the site the visitor was actually on.
+   * That stays true if a custom domain is added later, and only this line needs
+   * updating for the canonical tags.
    */
   siteUrl: 'https://tvs-dealership-preved.vercel.app',
 } as const;
