@@ -111,6 +111,24 @@ export const dealer = {
   /** UNVERIFIED — the photographs are of an opening ceremony, so this is new. */
   since: 2026,
 
+  /**
+   * What the showroom actually has, as opposed to what an authorised dealership
+   * usually has. Both UNVERIFIED, and both load-bearing.
+   *
+   * `workshop` false removes three of the six claims on the home page, takes
+   * Service out of the navigation, and turns the booking page into an honest
+   * "we do not service here yet" with the phone number. `financeDesk` false
+   * removes the claim that bank representatives sit in the showroom.
+   *
+   * Her photographs show a sales floor and a desk. No workshop is visible in
+   * any of them. Ask, and flip these — it is one line each, and the whole site
+   * follows.
+   */
+  facilities: {
+    workshop: true,
+    financeDesk: true,
+  },
+
   /** No social presence supplied yet. Fill these in and the footer links appear. */
   social: {
     instagram: null as string | null,
@@ -173,6 +191,16 @@ export const hoursSummary = (() => {
   const same = week.every((h) => h.open === week[0].open && h.close === week[0].close);
   return same ? { open: week[0].open, close: week[0].close } : null;
 })();
+
+/**
+ * Whether a claim tagged with a facility may be shown.
+ *
+ * `null` means the claim does not depend on one — being an authorised dealer is
+ * true whether or not there is a workshop behind the showroom.
+ */
+export function hasFacility(requires: 'workshop' | 'financeDesk' | null): boolean {
+  return requires === null || dealer.facilities[requires];
+}
 
 /** Both numbers, for the places that list them rather than dial one. */
 export const phones = [

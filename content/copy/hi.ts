@@ -81,26 +81,32 @@ export const hi: Copy = {
     sub: 'अभी कोई रिव्यू नहीं है, इसलिए वही बता रहे हैं जो पहले दिन से सच है।',
     items: [
       {
+        requires: null,
         title: 'Authorised TVS dealer',
         body: 'TVS Motor Company से मान्यता प्राप्त। डिलीवरी वाले दिन ही warranty रजिस्टर होती है, जो पूरे भारत में किसी भी TVS workshop में चलती है।',
       },
       {
+        requires: 'workshop',
         title: '3S — एक ही छत के नीचे',
         body: 'Sales, Service और Spares एक ही बिल्डिंग में। कुछ बनवाना हो तो दूसरा पता ढूँढने की ज़रूरत नहीं।',
       },
       {
+        requires: 'workshop',
         title: 'Factory-trained मैकेनिक',
         body: 'हमारे workshop का स्टाफ TVS से ट्रेनिंग और सर्टिफिकेट लेकर आया है, बगल के गैरेज से नहीं।',
       },
       {
+        requires: null,
         title: 'सिर्फ़ genuine TVS parts',
         body: 'यहाँ लगने वाले हर पुर्ज़े पर TVS part number होता है और बिल मिलता है। नकली पुर्ज़े warranty खत्म कर देते हैं।',
       },
       {
+        requires: 'financeDesk',
         title: 'शोरूम में ही finance desk',
         body: 'बैंक और NBFC के लोग यहीं बैठते हैं। कागज़ साथ लाइए, ज़्यादातर मामलों में उसी दिन मंज़ूरी लेकर जाइए।',
       },
       {
+        requires: 'workshop',
         title: 'पहली free services शामिल',
         body: 'गाड़ी के साथ मिलने वाली free services यहीं होती हैं, और हर बार service book पर मुहर लगती है।',
       },
@@ -309,6 +315,8 @@ export const hi: Copy = {
       paid: 'Paid periodic service',
       repair: 'रिपेयर या ब्रेकडाउन',
     },
+    noWorkshopHeading: 'यहाँ अभी सर्विस नहीं होती',
+    noWorkshopBody: 'यह शोरूम गाड़ी बेचता और registration कराता है। आपकी free और paid services किसी authorised TVS workshop में होंगी — हमें फ़ोन कीजिए, हम सबसे नज़दीक वाला बता देंगे और slot भी करा देंगे।',
     slotNote: 'बुकिंग भेज दीजिए, हम WhatsApp पर समय बता देंगे। उसी दिन का slot इस पर निर्भर है कि वर्कशॉप में कितनी भीड़ है।',
   },
 

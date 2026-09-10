@@ -1,5 +1,8 @@
 import { dealer, placeLine } from '@/content/dealer';
 
+/** A facility a claim depends on, or null when it depends on none. */
+type Facility = 'workshop' | 'financeDesk' | null;
+
 export const en = {
   meta: {
     localeTag: 'en',
@@ -83,28 +86,39 @@ export const en = {
   why: {
     heading: 'A new showroom. Here is what that gets you.',
     sub: 'No reviews yet, so instead: the things that are true from the first day.',
+    /*
+     * `requires` names a facility from dealer.facilities. An item with one is
+     * dropped when that facility is false, so a sales-only outlet does not
+     * advertise a workshop it does not have.
+     */
     items: [
       {
+        requires: null as Facility,
         title: 'Authorised TVS dealer',
         body: 'Appointed by TVS Motor Company. Warranty registered on the day of delivery, honoured at any TVS workshop in India.',
       },
       {
+        requires: 'workshop' as Facility,
         title: '3S under one roof',
         body: 'Sales, Service and Spares in the same building. You do not chase a second address when something needs fixing.',
       },
       {
+        requires: 'workshop' as Facility,
         title: 'Factory-trained technicians',
         body: 'Our workshop staff are trained and certified by TVS, not picked up from the roadside garage next door.',
       },
       {
+        requires: null as Facility,
         title: 'Genuine TVS parts only',
         body: 'Every part fitted here carries a TVS part number and a bill. Counterfeit parts void your warranty.',
       },
       {
+        requires: 'financeDesk' as Facility,
         title: 'Finance desk in the showroom',
         body: 'Bank and NBFC representatives sit here. Bring your documents and walk out with an approval the same day in most cases.',
       },
       {
+        requires: 'workshop' as Facility,
         title: 'Free first services included',
         body: 'The scheduled free services that come with your vehicle are done here, with the service book stamped each time.',
       },
@@ -313,6 +327,8 @@ export const en = {
       paid: 'Paid periodic service',
       repair: 'Repair or breakdown',
     },
+    noWorkshopHeading: 'We do not service here yet',
+    noWorkshopBody: 'This showroom sells and registers vehicles. Your free and paid services are done at an authorised TVS workshop — call us and we will tell you the nearest one and book you in.',
     slotNote: 'Send the booking and we will confirm a time by WhatsApp. Same-day slots depend on how busy the workshop is.',
   },
 

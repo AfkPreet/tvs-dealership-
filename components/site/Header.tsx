@@ -19,7 +19,8 @@ export function Header() {
     { href: '/', label: copy.nav.home },
     { href: '/vehicles', label: copy.nav.vehicles },
     { href: '/finance', label: copy.nav.finance },
-    { href: '/service', label: copy.nav.service },
+    // Only where there is something to book.
+    ...(dealer.facilities.workshop ? [{ href: '/service', label: copy.nav.service }] : []),
     { href: '/about', label: copy.nav.about },
   ];
 
