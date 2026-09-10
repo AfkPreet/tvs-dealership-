@@ -3,6 +3,7 @@
 import { useLocale } from '@/lib/locale';
 import { OpeningHours } from '@/components/site/OpeningHours';
 import { dealer } from '@/content/dealer';
+import { telLink } from '@/lib/whatsapp';
 import { formatTime } from '@/lib/format';
 import { EnquiryForm } from '@/components/forms/EnquiryForm';
 import { photos, src, srcSet } from '@/content/photos';
@@ -15,6 +16,24 @@ import { photos, src, srcSet } from '@/content/photos';
  */
 export function ServiceBooking() {
   const { copy } = useLocale();
+
+  // No workshop means no slot to book. Saying so, with the number, beats a form
+  // that sends someone to a bay that does not exist.
+  if (!dealer.facilities.workshop) {
+    return (
+      <div className="mt-10 max-w-2xl rounded-sm border border-rule bg-white p-6 xl:p-8">
+        <h2 className="font-display text-2xl font-bold tracking-tightest">
+          {copy.service.noWorkshopHeading}
+        </h2>
+        <p className="mt-3 leading-relaxed text-[color:var(--ink-muted)]">
+          {copy.service.noWorkshopBody}
+        </p>
+        <a href={telLink} className="btn btn-primary mt-6">
+          {copy.actions.callNow} — <span className="tnum">{dealer.phoneDisplay}</span>
+        </a>
+      </div>
+    );
+  }
 
   return (
     <div className="mt-10 grid gap-10 xl:grid-cols-[minmax(0,460px)_minmax(0,1fr)] xl:gap-16">

@@ -33,7 +33,8 @@ export function Footer({ address }: { address: string }) {
               { href: '/', label: copy.nav.home },
               { href: '/vehicles', label: copy.nav.vehicles },
               { href: '/finance', label: copy.nav.finance },
-              { href: '/service', label: copy.nav.service },
+              // Only where there is something to book.
+    ...(dealer.facilities.workshop ? [{ href: '/service', label: copy.nav.service }] : []),
             ].map((link) => (
               <li key={link.href}>
                 <Link href={link.href} className="tap inline-flex items-center text-sm hover:text-tvsred-onink">

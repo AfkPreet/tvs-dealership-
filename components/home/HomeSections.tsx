@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useLocale } from '@/lib/locale';
 import { featuredVehicles, byRank } from '@/content/vehicles';
-import { dealer, addressOneLine } from '@/content/dealer';
+import { dealer, addressOneLine, hasFacility } from '@/content/dealer';
 import { photos, src, srcSet } from '@/content/photos';
 import { EMI_DEFAULTS, indicativeEmi } from '@/lib/emi';
 import { formatINR, formatTime } from '@/lib/format';
@@ -123,7 +123,7 @@ export function WhyBuyHere() {
         </div>
 
         <ul className="mt-10 grid gap-px overflow-hidden rounded-sm border border-rule bg-rule md:grid-cols-2 xl:grid-cols-3">
-          {copy.why.items.map((item, index) => (
+          {copy.why.items.filter((item) => hasFacility(item.requires)).map((item, index) => (
             <li key={item.title} className="bg-white p-6 xl:p-8">
               <p className="flex items-center gap-2 font-semibold">
                 <span aria-hidden className="text-verified">
